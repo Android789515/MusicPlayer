@@ -1,20 +1,16 @@
 <script lang='ts'>
-    import { onDestroy } from 'svelte'
-
     import { queuedSong } from '../../stores/library'
 
     import AudioPlayer from './AudioPlayer.svelte'
+    import SongInfo from './SongInfo.svelte'
 
-    let src
+    const { src, coverArt } = $queuedSong
     $: isSongQueued = src !== undefined
-
-    const unsubscribe = queuedSong.subscribe(queuedSong => src = queuedSong.src)
-
-    onDestroy(unsubscribe)
 </script>
 
 <section>
     {#if isSongQueued}
         <AudioPlayer {src} />
+        <SongInfo {coverArt} />
     {/if}
 </section>
