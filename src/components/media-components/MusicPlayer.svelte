@@ -6,6 +6,7 @@
     import AudioPlayer from './AudioPlayer.svelte'
 
     let src
+    $: isSongQueued = src !== undefined
 
     const unsubscribe = queuedSong.subscribe(queuedSong => src = queuedSong.src)
 
@@ -13,5 +14,7 @@
 </script>
 
 <section>
-    <AudioPlayer {src} />
+    {#if isSongQueued}
+        <AudioPlayer {src} />
+    {/if}
 </section>

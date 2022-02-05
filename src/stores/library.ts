@@ -1,7 +1,9 @@
 import { writable } from 'svelte/store'
 
+import type { QueuedSong } from '../objects/appObjects'
+
 const songs = writable([])
-const queuedSong = writable({
+const queuedSong = writable<QueuedSong>({
     id: undefined,
     src: undefined,
     coverArt: undefined,

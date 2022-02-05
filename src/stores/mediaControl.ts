@@ -1,14 +1,14 @@
 import { writable } from 'svelte/store'
 
+import type { MediaControl } from '../objects/appObjects'
+
 const createMediaControlOptions = () => {
-    const { subscribe, update, set } = writable({
+    const { subscribe, update } = writable<MediaControl>({
         volume: .5,
         muted: false,
         paused: true,
         loop: false,
-        shuffle: false,
-        time: 0,
-        maxTime: undefined
+        shuffle: false
     })
 
     return {

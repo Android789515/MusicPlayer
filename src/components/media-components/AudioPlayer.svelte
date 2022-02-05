@@ -1,20 +1,29 @@
 <script lang='ts'>
+    import { onDestroy, onMount } from 'svelte'
+
     import { mediaControlOptions } from '../../stores/mediaControl'
-    import { onDestroy } from 'svelte'
+    import type { MediaControl } from '../../objects/appObjects'
 
     export let src
 
-    let muted
-    const unsubscribe = mediaControlOptions.subscribe(controls => muted = controls.muted)
+    let controls: MediaControl
+    const unsubscribe = mediaControlOptions.subscribe((controlOptions: MediaControl) => {
+        controls = controlOptions
+    })
 
     let audio
+    const playAudio = () => {
+        audio.play()
+    }
 
+    onMount(playAudio)
     onDestroy(unsubscribe)
 </script>
 
 <audio
-    bind:this={audio}
     {src}
-    bind:muted
     autoplay
+    bind:this={audio}
+    bind:muted={controls.muted}
+    bind:paused={controls.paused}
 ></audio>
