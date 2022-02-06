@@ -1,18 +1,33 @@
 <script lang='ts'>
-    import { onMount } from 'svelte'
+    import { afterUpdate, onDestroy } from 'svelte'
 
     import { mediaControlOptions } from '../../stores/mediaControl'
 
     export let src
 
-    const { muted, paused } = $mediaControlOptions
+    $: $mediaControlOptions
+    let paused
+    let muted
+
+    const unsubscribe = mediaControlOptions.subscribe(controlOptions => {
+        paused = controlOptions.paused
+        muted = controlOptions.muted
+    })
 
     let audio
-    const playAudio = () => {
-        audio.play()
+    $: audio && {
+
+    }
+    const syncAudio = () => {
+        if (!paused) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
     }
 
-    onMount(playAudio)
+    afterUpdate(syncAudio)
+    onDestroy(unsubscribe)
 </script>
 
 <audio
@@ -20,5 +35,4 @@
     autoplay
     bind:this={audio}
     bind:muted={muted}
-    bind:paused={paused}
 ></audio>

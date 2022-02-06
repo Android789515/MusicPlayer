@@ -13,8 +13,9 @@ const createMediaControlOptions = () => {
 
     return {
         subscribe,
+        update,
         pause: () => update(controls => ({ ...controls, paused: true })),
-        unPause: () => update(controls => ({ ...controls, paused: false })),
+        play: () => update(controls => ({ ...controls, paused: false })),
 
         mute: () => update(controls => ({ ...controls, muted: true })),
         unMute: () => update(controls => ({ ...controls, muted: false }))

@@ -1,4 +1,4 @@
-export interface QueuedSong {
+export interface Song {
     id: string | undefined,
     src: string | undefined,
     coverArt: string | undefined,

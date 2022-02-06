@@ -9,6 +9,21 @@ body {
 	margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+}
+
+img {
+	display: block;
+
+	max-width: 100%;
+}
+
 label {
 	display: block;
 }
@@ -44,6 +59,9 @@ button:not(:disabled):active {
 	background-color: #ddd;
 }
 
-button:focus {
+button:focus,
+button:hover {
+	cursor: pointer;
+
 	border-color: #666;
 }
