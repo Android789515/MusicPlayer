@@ -3,16 +3,12 @@
 
     import { queuedSong } from '../../stores/library'
 
-    import MediaControlButton from './MediaControlButton.svelte'
     import AudioPlayer from './AudioPlayer.svelte'
+    import MediaControlButtons from './MediaControlButtons.svelte'
 
     let paused = true
-    const pause = () => paused = true
-    const play = () => paused = false
 
     let time = 0
-    const rewind = () => time -= 5
-    const fastForward = () => time += 5
 
     let volume = .5
     let muted = false
@@ -47,18 +43,5 @@
     bind:muted
 />
 
-<div class='media-control-buttons'>
-    <MediaControlButton buttonName='rewind' buttonAction={rewind} />
-    <MediaControlButton hidden={!paused} buttonName='play' buttonAction={play} />
-    <MediaControlButton hidden={paused} buttonName='pause' buttonAction={pause} />
-    <MediaControlButton buttonName='fast-forward' buttonAction={fastForward} />
-</div>
+<MediaControlButtons bind:paused bind:time />
 <button on:click={queueTestSong}>Queue test song</button>
-
-<style>
-    .media-control-buttons {
-        display: flex;
-
-        margin: auto;
-    }
-</style>
