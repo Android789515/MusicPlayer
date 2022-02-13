@@ -7,12 +7,11 @@
     import MediaControlButtons from './MediaControlButtons.svelte'
 
     let paused = true
-
     let time = 0
 
     let volume = .5
     let muted = false
-    let loop = false
+
     let shuffle = false
 
     let src
@@ -40,8 +39,18 @@
     {src}
     bind:paused
     bind:time
+
+    bind:volume
     bind:muted
 />
 
-<MediaControlButtons bind:paused bind:time />
+<MediaControlButtons
+    bind:paused
+    bind:time
+
+    bind:volume
+    bind:muted
+
+    bind:shuffle
+/>
 <button on:click={queueTestSong}>Queue test song</button>

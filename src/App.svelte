@@ -16,10 +16,6 @@
 </main>
 
 <style>
-    :global(.clickable) {
-        cursor: pointer;
-    }
-
     main {
         display: grid;
         grid-template-columns: minmax(1em, 1fr) 85% minmax(1em, 1fr);
@@ -30,5 +26,13 @@
 
     :global(main > *) {
         grid-column: 2 / -2;
+    }
+
+    :global(.clickable) {
+        cursor: pointer;
+    }
+
+    :global(.hidden) {
+        display: none;
     }
 </style>

@@ -1,11 +1,13 @@
-<script>
+<script lang='ts'>
     export let buttonName
     export let buttonAction
     export let hidden = false
+    export let smallerSize
 </script>
 
 <img
     class='media-control-button clickable'
+    class:smallerSize
     class:hidden={hidden}
     src='assets/icons/media-buttons/{buttonName}.svg'
     alt={buttonName}
@@ -14,10 +16,10 @@
 
 <style>
     .media-control-button {
-        width: 60px;
+        width: 3.75em;
     }
 
-    .hidden {
-        display: none;
+    .smallerSize {
+        width: 3.4375em;
     }
 </style>

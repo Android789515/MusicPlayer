@@ -38,7 +38,7 @@
     }
 
     img {
-        width: 168px;
+        width: 10.5em;
 
         margin: auto;
         border-radius: 25%;
