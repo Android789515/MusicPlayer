@@ -19,7 +19,9 @@
     main {
         display: grid;
         grid-template-columns: minmax(1em, 1fr) 85% minmax(1em, 1fr);
-        grid-row-gap: 1em;
+
+        min-height: 100vh;
+        max-height: 100vh;
 
         padding-top: 5em;
     }

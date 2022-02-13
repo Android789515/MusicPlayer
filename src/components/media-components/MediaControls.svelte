@@ -35,22 +35,34 @@
     onDestroy(unsubscribe)
 </script>
 
-<AudioPlayer
-    {src}
-    bind:paused
-    bind:time
+<div class='media-controls'>
+    <AudioPlayer
+            {src}
+            bind:paused
+            bind:time
 
-    bind:volume
-    bind:muted
-/>
+            bind:volume
+            bind:muted
+    />
 
-<MediaControlButtons
-    bind:paused
-    bind:time
+    <MediaControlButtons
+            bind:paused
+            bind:time
 
-    bind:volume
-    bind:muted
+            bind:volume
+            bind:muted
 
-    bind:shuffle
-/>
-<button on:click={queueTestSong}>Queue test song</button>
+            bind:shuffle
+    />
+    <button on:click={queueTestSong}>Queue test song</button>
+</div>
+
+<style>
+    button {
+        width: 100%;
+    }
+
+    .media-controls {
+        align-self: end;
+    }
+</style>
