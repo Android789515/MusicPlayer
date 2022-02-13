@@ -12,5 +12,6 @@ export interface MediaControl {
     muted: boolean,
     paused: boolean,
     loop: boolean,
-    shuffle: boolean
+    shuffle: boolean,
+    time: number
 }

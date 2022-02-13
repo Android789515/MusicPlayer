@@ -1,9 +1,9 @@
 <script lang='ts'>
+    import { onDestroy } from 'svelte'
+
     import { queuedSong } from '../../stores/library'
 
-    import AudioPlayer from './AudioPlayer.svelte'
     import SongInfo from './SongInfo.svelte'
-    import { onDestroy } from 'svelte'
 
     let src
     let coverArt
@@ -27,8 +27,6 @@
 <section>
     <img src={coverArt || fallbackCoverArt} alt='Song cover art'>
     {#if isSongQueued}
-        <AudioPlayer {src} />
-
         <SongInfo {title} {artist} {duration} />
     {/if}
 </section>

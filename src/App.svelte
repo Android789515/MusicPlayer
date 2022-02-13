@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import MusicPlayer from './components/media-components/MusicPlayer.svelte'
+    import MusicPlayer from './components/media-components/QueuedSong.svelte'
     import Library from './components/library-components/Library.svelte'
     import ModalContainer from './components/modal-components/ModalContainer.svelte'
     import MediaControls from './components/media-components/MediaControls.svelte'
