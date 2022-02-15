@@ -6,12 +6,3 @@ export interface Song {
     artist: string | undefined,
     duration: number | undefined
 }
-
-export interface MediaControl {
-    volume: number,
-    muted: boolean,
-    paused: boolean,
-    loop: boolean,
-    shuffle: boolean,
-    time: number
-}

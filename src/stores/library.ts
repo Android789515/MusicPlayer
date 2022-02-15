@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 
-import type { Song } from '../objects/appObjects'
+import type { Song } from '../types/song'
 
 const songs = writable([])
 

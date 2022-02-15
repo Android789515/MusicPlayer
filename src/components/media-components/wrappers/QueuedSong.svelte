@@ -1,13 +1,15 @@
 <script lang='ts'>
     import { onDestroy } from 'svelte'
 
-    import { queuedSong } from '../../stores/library'
+    import { queuedSong } from '../../../stores/library'
 
-    import SongInfo from './SongInfo.svelte'
+    import SongInfo from '../SongInfo.svelte'
+
+    export let customLayout
 
     let src
     let coverArt
-    let fallbackCoverArt = 'assets/img/cover-art-fallback.svg'
+    const fallbackArt = 'assets/img/cover-art-fallback.svg'
     let title
     let artist
     let duration
@@ -24,23 +26,38 @@
     onDestroy(unsubscribe)
 </script>
 
-<section>
-    <img src={coverArt || fallbackCoverArt} alt='Song cover art'>
+<section class:customLayout class='queued-song'>
+    <slot name='cover-art'>
+        <img
+            src={coverArt || fallbackArt}
+            alt='Song cover art'
+        >
+    </slot>
     {#if isSongQueued}
-        <SongInfo {title} {artist} {duration} />
+        <slot name='song-info'>
+            <SongInfo
+                {title}
+                {artist}
+                {duration}
+            />
+        </slot>
     {/if}
 </section>
 
 <style>
-    section {
+    .queued-song {
         display: flex;
         flex-direction: column;
+    }
+
+    .customLayout {
+        all: inherit;
     }
 
     img {
         width: 10.5em;
 
-        margin: auto;
+        margin: 2em auto;
         border-radius: 25%;
     }
 </style>

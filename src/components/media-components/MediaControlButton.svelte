@@ -20,6 +20,6 @@
     }
 
     .smallerSize {
-        width: 3.4375em;
+        width: 3.125em;
     }
 </style>
