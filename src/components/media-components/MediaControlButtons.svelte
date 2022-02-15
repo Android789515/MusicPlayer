@@ -39,9 +39,6 @@
 <style>
     .media-control-buttons {
         display: flex;
-        justify-content: center;
-
-        margin: auto;
     }
 
     .toggled {

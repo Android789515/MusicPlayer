@@ -13,6 +13,7 @@
     export let muted
 
     export let src
+    $: isSongQueued = src !== undefined
     let title
     let artist
     let coverArt
@@ -27,9 +28,28 @@
     onDestroy(unsubscribe)
 </script>
 
+<audio
+    src={src}
+    autoplay
+
+    bind:paused
+    bind:currentTime={time}
+
+    bind:volume
+    bind:muted
+></audio>
+
+<!-- I wrap this in a div and tell the inner Component that -->
+<!-- it will have a custom layout so it will inherit styles. -->
 <div class='queued-song'>
     <QueuedSong customLayout={true}>
-        <img slot='cover-art' class='cover-art' src={coverArt || fallbackArt} alt='Cover art' >
+        <img
+            slot='cover-art'
+            class='cover-art'
+            class:shown={isSongQueued}
+            src={coverArt || fallbackArt}
+            alt='Cover art'
+        >
 
         <div slot='song-info' class='song-info'>
             <h4>{title}</h4>
@@ -47,10 +67,16 @@
     }
 
     .cover-art {
+        display: none;
+
         width: 4em;
 
         margin: 2em 1em 2em 0;
         border-radius: 25%;
+    }
+
+    .cover-art.shown {
+        display: block;
     }
 
     .song-info {
@@ -61,14 +87,3 @@
         margin: 0;
     }
 </style>
-
-<audio
-    {src}
-    autoplay
-
-    bind:paused
-    bind:currentTime={time}
-
-    bind:volume
-    bind:muted
-></audio>

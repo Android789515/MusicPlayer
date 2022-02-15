@@ -20,24 +20,12 @@
     })
     $: isSongQueued = src !== undefined
 
-
-    const queueTestSong = () => {
-        queuedSong.queueSong({
-            id: '',
-            src: 'test-audio/Beethoven.mp3',
-            coverArt: '',
-            title: 'Fur Elise',
-            artist: 'Beethoven',
-            duration: 175
-        })
-    }
-
     onDestroy(unsubscribe)
 </script>
 
-<div class='media-controls'>
+<div class='media-controls' class:show={isSongQueued}>
     <AudioPlayer
-            {src}
+            src={isSongQueued && src}
             bind:paused
             bind:time
 
@@ -54,7 +42,6 @@
 
             bind:shuffle
     />
-    <button on:click={queueTestSong}>Queue test song</button>
 </div>
 
 <style>
@@ -64,5 +51,23 @@
 
     .media-controls {
         align-self: end;
+
+        display: flex;
+        flex-direction: column;
+
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: -100%;
+
+        width: max-content;
+
+        margin: 0 auto 2em auto;
+
+        transition: bottom 250ms;
+    }
+
+    .media-controls.show {
+        bottom: 0;
     }
 </style>
