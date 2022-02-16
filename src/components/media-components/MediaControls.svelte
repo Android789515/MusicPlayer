@@ -5,6 +5,7 @@
 
     import AudioPlayer from './AudioPlayer.svelte'
     import MediaControlButtons from './MediaControlButtons.svelte'
+    import SongBar from './SongBar.svelte'
 
     let paused = true
     let time = 0
@@ -15,8 +16,10 @@
     let shuffle = false
 
     let src
+    let duration
     const unsubscribe = queuedSong.subscribe(queuedSong => {
         src = queuedSong.src
+        duration = queuedSong.duration
     })
     $: isSongQueued = src !== undefined
 
@@ -42,6 +45,8 @@
 
             bind:shuffle
     />
+
+    <SongBar bind:time {duration} />
 </div>
 
 <style>
