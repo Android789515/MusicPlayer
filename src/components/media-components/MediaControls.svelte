@@ -58,6 +58,8 @@
     }
 
     .media-controls {
+        --bar-bg: #333;
+        --slider-bg: #ff00c3;
         --volume-bar-height: 2em;
 
         align-self: end;
