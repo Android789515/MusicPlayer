@@ -1,15 +1,14 @@
 <script lang='ts'>
+    import useDraggableBar from '../../utils/useDraggableBar'
+    import type { clickOrTouch } from '../../types/barInteraction'
+
     export let time
     export let duration
-
-    let dragging = false
-    const draggingOn = () => dragging = true
-    const draggingOff = () => dragging = false
 
     let songBar
     $: timePercentage = (time / duration) * 100
 
-    const getPositionClicked = (event: MouseEvent | TouchEvent) => {
+    const getPositionClicked = (event: clickOrTouch) => {
         const songBarLeftSide = songBar.getBoundingClientRect().left
         if (event instanceof MouseEvent) {
             return event.clientX - songBarLeftSide
@@ -17,7 +16,7 @@
             return event.touches[0].clientX - songBarLeftSide
         }
     }
-    const setSongTime = (event: MouseEvent | TouchEvent) => {
+    const setSongTime = (event: clickOrTouch) => {
         const songBarWidth = songBar.clientWidth
         const positionClicked = getPositionClicked(event)
 
@@ -27,16 +26,7 @@
         time = timeToSet
     }
 
-    const handleClick = (event: MouseEvent | TouchEvent) => {
-        draggingOn()
-        setSongTime(event)
-    }
-
-    const handleMove = (event: MouseEvent | TouchEvent) => {
-        if (dragging) {
-            setSongTime(event)
-        }
-    }
+    const { draggingOff, handleClick, handleMove } = useDraggableBar(setSongTime)
 </script>
 
 <svelte:window
