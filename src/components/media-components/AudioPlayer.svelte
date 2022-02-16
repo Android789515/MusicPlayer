@@ -61,6 +61,9 @@
 
 <style>
     .queued-song {
+        grid-row: 1 / span 2;
+        grid-column: 1;
+
         display: flex;
         flex-direction: row;
         align-items: center;

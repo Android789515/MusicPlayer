@@ -11,7 +11,7 @@
     let time = 0
 
     let volume = .5
-    let muted = false
+    $: muted = volume === 0
 
     let shuffle = false
 
@@ -26,7 +26,10 @@
     onDestroy(unsubscribe)
 </script>
 
-<div class='media-controls' class:show={isSongQueued}>
+<div
+    class='media-controls'
+    class:show={isSongQueued}
+>
     <AudioPlayer
             src={isSongQueued && src}
             bind:paused
@@ -55,10 +58,13 @@
     }
 
     .media-controls {
+        --volume-bar-height: 2em;
+
         align-self: end;
 
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: auto var(--volume-bar-height) auto;
+        grid-template-columns: 1fr;
 
         position: fixed;
         left: 0;

@@ -1,6 +1,6 @@
 <script>
     import MediaControlButton from './MediaControlButton.svelte'
-    import VolumeButton from './VolumeButton.svelte'
+    import VolumeControls from './VolumeControls.svelte'
 
     export let paused
     export let time
@@ -17,9 +17,14 @@
     const fastForward = () => time += 5
 
     const toggleShuffle = () => shuffle = !shuffle
+
+    let isVolumeBarShown = false
 </script>
 
-<div class='media-control-buttons'>
+<div
+    class='media-control-buttons'
+    class:volumeBarShown={isVolumeBarShown}
+>
     <MediaControlButton
         buttonName='shuffle'
         buttonAction={toggleShuffle}
@@ -33,12 +38,24 @@
 
     <MediaControlButton buttonName='fast-forward' buttonAction={fastForward} />
 
-    <VolumeButton bind:volume bind:muted />
+    <VolumeControls
+        bind:isVolumeBarShown
+        bind:volume
+        bind:muted
+    />
 </div>
 
 <style>
     .media-control-buttons {
+        grid-row: 3;
+        grid-column: 1;
+
         display: flex;
+        align-items: flex-end;
+    }
+
+    .media-control-buttons.volumeBarShown {
+        grid-row: 2 / span 2;
     }
 
     .toggled {

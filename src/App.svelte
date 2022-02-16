@@ -33,6 +33,12 @@
 </main>
 
 <style>
+    :root {
+        /* Colors */
+        --bar-bg: #333;
+        --slider-bg: #ff00c3;
+    }
+
     .temp {
         height: max-content;
     }

@@ -1,15 +1,14 @@
-import { derived, writable } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 
 import type { clickOrTouch } from '../types/barInteraction'
 
 type setBarValueFn = (event: clickOrTouch) => void
 
 const useDraggableBar = (setBarValue: setBarValueFn) => {
-    const draggingState = writable(false)
-    const dragging = derived(draggingState, $state => $state)
+    const dragging = writable(false)
 
-    const draggingOn = () => draggingState.set(true)
-    const draggingOff = () => draggingState.set(false)
+    const draggingOn = () => dragging.set(true)
+    const draggingOff = () => dragging.set(false)
 
     const handleClick = (event: clickOrTouch) => {
         draggingOn()
@@ -17,7 +16,7 @@ const useDraggableBar = (setBarValue: setBarValueFn) => {
     }
 
     const handleMove = (event: clickOrTouch) => {
-        if (dragging) {
+        if (get(dragging)) {
             setBarValue(event)
         }
     }

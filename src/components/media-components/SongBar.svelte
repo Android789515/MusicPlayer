@@ -1,26 +1,31 @@
 <script lang='ts'>
     import useDraggableBar from '../../utils/useDraggableBar'
+    import capPercentage from '../../utils/capPercentage'
     import type { clickOrTouch } from '../../types/barInteraction'
+
+    import DragEventRemover from '../generic-components/DragEventRemover.svelte'
 
     export let time
     export let duration
 
     let songBar
-    $: timePercentage = (time / duration) * 100
+    $: timePercentage = ((time / duration) * 100).toFixed(0)
 
-    const getPositionClicked = (event: clickOrTouch) => {
+    const getInteractPosition = (event: clickOrTouch) => {
         const songBarLeftSide = songBar.getBoundingClientRect().left
         if (event instanceof MouseEvent) {
-            return event.clientX - songBarLeftSide
+            const eventPosition = event.clientX
+            return eventPosition - songBarLeftSide
         } else {
-            return event.touches[0].clientX - songBarLeftSide
+            const eventPosition = event.touches[0].clientX
+            return eventPosition - songBarLeftSide
         }
     }
     const setSongTime = (event: clickOrTouch) => {
         const songBarWidth = songBar.clientWidth
-        const positionClicked = getPositionClicked(event)
+        const positionInteracted = getInteractPosition(event)
 
-        const percentageOfSong = positionClicked / songBarWidth
+        const percentageOfSong = capPercentage(positionInteracted / songBarWidth)
         const timeToSet = percentageOfSong * duration
 
         time = timeToSet
@@ -29,11 +34,7 @@
     const { draggingOff, handleClick, handleMove } = useDraggableBar(setSongTime)
 </script>
 
-<svelte:window
-    on:mouseup={draggingOff}
-    on:touchend={draggingOff}
-    on:touchcancel={draggingOff}
-/>
+<DragEventRemover {draggingOff} />
 
 <div
     class='song-bar clickable'
@@ -52,7 +53,7 @@
     .song-bar {
         height: .5em;
 
-        background: #333;
+        background: var(--bar-bg);
     }
 
     .slider {
@@ -60,6 +61,6 @@
 
         height: 100%;
 
-        background: #ff00c3;
+        background: var(--slider-bg);
     }
 </style>
