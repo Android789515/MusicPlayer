@@ -10,18 +10,13 @@
     let volumeControls
 </script>
 
-<div
-    class='volume-controls'
-    bind:this={volumeControls}
->
-    <VolumeButton
-        {volumeControls}
-        bind:isVolumeBarShown
-        bind:volume
-        bind:muted
-    />
-    <VolumeBar {isVolumeBarShown} bind:volume />
-</div>
+<VolumeButton
+    {volumeControls}
+    bind:isVolumeBarShown
+    bind:volume
+    bind:muted
+/>
+<VolumeBar {isVolumeBarShown} bind:volume />
 
 <style>
     .volume-controls {

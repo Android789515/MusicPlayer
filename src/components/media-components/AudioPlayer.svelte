@@ -61,11 +61,7 @@
 
 <style>
     .queued-song {
-        grid-row: 1 / span 2;
-        grid-column: 1;
-
         display: flex;
-        flex-direction: row;
         align-items: center;
     }
 
@@ -74,7 +70,7 @@
 
         width: 4em;
 
-        margin: 2em 1em 2em 0;
+        margin: 1em 1em 1em 0;
         border-radius: 25%;
     }
 

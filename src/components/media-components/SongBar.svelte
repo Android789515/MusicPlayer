@@ -51,6 +51,9 @@
 
 <style>
     .song-bar {
+        grid-row: 3;
+        grid-column: 1 / span 2;
+
         height: .5em;
 
         background: var(--bar-bg);

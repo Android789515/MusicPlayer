@@ -7,6 +7,7 @@
 
     export let volume
     export let isVolumeBarShown
+    const hideVolumeBar = () => isVolumeBarShown = false
 
     $: volumePercentage = volume * 100
 
@@ -34,9 +35,18 @@
     }
 
     const { draggingOff, handleClick, handleMove } = useDraggableBar(setVolume)
+
+    const handleInteraction = (event: clickOrTouch) => {
+        const didClickOnVolumeBar = volumeBar.contains(event.target)
+        if (isVolumeBarShown && !didClickOnVolumeBar) {
+            hideVolumeBar()
+        }
+    }
 </script>
 
 <DragEventRemover {draggingOff} />
+
+<svelte:window on:pointerup={handleInteraction} />
 
 <div
     class='volume-bar clickable'
@@ -57,8 +67,6 @@
 
 <style>
     .volume-bar {
-        order: -1;
-
         display: none;
 
         width: .5em;
@@ -70,9 +78,12 @@
     }
 
     .volume-bar.shown {
-        display: block;
+        grid-row: 1;
+        grid-column: 2;
+        justify-self: center;
+        align-self: end;
 
-        margin: auto;
+        display: block;
     }
 
     .slider {

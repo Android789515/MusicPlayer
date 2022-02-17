@@ -4,11 +4,8 @@
     export let volume
     export let muted
 
-    export let volumeControls
-
     export let isVolumeBarShown
     const showVolumeBar = () => isVolumeBarShown = true
-    const hideVolumeBar = () => isVolumeBarShown = false
 
     const mutedIcon = 'assets/icons/volume-buttons/muted.svg'
     let volumeIcon
@@ -19,16 +16,7 @@
     } else {
         volumeIcon = 'assets/icons/volume-buttons/medium-volume.svg'
     }
-
-    const handleInteractionRelease = (event: clickOrTouch) => {
-        const didInteractWithVolumeControls = volumeControls.contains(event.target)
-        if (!didInteractWithVolumeControls) {
-            hideVolumeBar()
-        }
-    }
 </script>
-
-<svelte:window on:mouseup={handleInteractionRelease} />
 
 <img
     class='volume-control-button'
@@ -39,7 +27,7 @@
 
 <style>
     .volume-control-button {
-        width: 3.125em;
+        width: var(--volume-button-width);
         height: 3.75em;
     }
 </style>

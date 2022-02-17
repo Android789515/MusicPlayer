@@ -6,6 +6,7 @@
     import AudioPlayer from './AudioPlayer.svelte'
     import MediaControlButtons from './MediaControlButtons.svelte'
     import SongBar from './SongBar.svelte'
+    import VolumeBar from './VolumeBar.svelte'
 
     let paused = true
     let time = 0
@@ -22,6 +23,8 @@
         duration = queuedSong.duration
     })
     $: isSongQueued = src !== undefined
+
+    let isVolumeBarShown = false
 
     onDestroy(unsubscribe)
 </script>
@@ -47,7 +50,11 @@
             bind:muted
 
             bind:shuffle
+
+            bind:isVolumeBarShown
     />
+
+    <VolumeBar bind:isVolumeBarShown bind:volume />
 
     <SongBar bind:time {duration} />
 </div>
@@ -60,13 +67,16 @@
     .media-controls {
         --bar-bg: #333;
         --slider-bg: #ff00c3;
+        --volume-button-width: 3.125em;
         --volume-bar-height: 2em;
 
         align-self: end;
 
         display: grid;
-        grid-template-rows: auto var(--volume-bar-height) auto;
-        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+                                   /* Space for the volume bar */
+        grid-template-columns: 1fr var(--volume-button-width);
+        grid-auto-flow: column;
 
         position: fixed;
         left: 0;
