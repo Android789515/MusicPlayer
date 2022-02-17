@@ -7,7 +7,7 @@
 
 <img
     class='media-control-button clickable'
-    class:smallerSize
+    class:smallerSize={smallerSize === true}
     class:hidden={hidden}
     src='assets/icons/media-buttons/{buttonName}.svg'
     alt={buttonName}

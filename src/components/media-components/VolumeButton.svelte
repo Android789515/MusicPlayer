@@ -1,6 +1,4 @@
 <script lang='ts'>
-    import type { clickOrTouch } from '../../types/barInteraction'
-
     export let volume
     export let muted
 

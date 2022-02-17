@@ -26,7 +26,10 @@
     onDestroy(unsubscribe)
 </script>
 
-<section class:customLayout class='queued-song'>
+<section
+    class:customLayout={customLayout !== undefined}
+    class='queued-song'
+>
     <slot name='cover-art'>
         <img
             src={coverArt || fallbackArt}

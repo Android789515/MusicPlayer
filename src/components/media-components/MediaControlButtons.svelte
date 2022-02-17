@@ -2,7 +2,6 @@
     import MediaControlButton from './MediaControlButton.svelte'
     import VolumeButton from './VolumeButton.svelte'
 
-
     export let paused
     export let time
 

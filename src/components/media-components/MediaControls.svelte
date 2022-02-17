@@ -34,29 +34,29 @@
     class:show={isSongQueued}
 >
     <AudioPlayer
-            src={isSongQueued && src}
-            bind:paused
-            bind:time
+        src={isSongQueued && src}
+        bind:paused
+        bind:time
 
-            bind:volume
-            bind:muted
+        bind:volume
+        bind:muted
     />
 
     <MediaControlButtons
-            bind:paused
-            bind:time
+        bind:paused
+        bind:time
 
-            bind:volume
-            bind:muted
+        bind:volume
+        bind:muted
 
-            bind:shuffle
+        bind:shuffle
 
-            bind:isVolumeBarShown
+        bind:isVolumeBarShown
     />
 
     <VolumeBar bind:isVolumeBarShown bind:volume />
 
-    <SongBar bind:time {duration} />
+    <SongBar {duration} bind:time />
 </div>
 
 <style>
@@ -83,8 +83,9 @@
         right: 0;
         bottom: -100%;
 
-        width: max-content;
+        width: 100%;
 
+        padding: 0 1em;
         margin: 0 auto 2em auto;
 
         transition: bottom 250ms;
