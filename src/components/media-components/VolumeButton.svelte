@@ -25,7 +25,7 @@
 
 <style>
     .volume-control-button {
-        width: var(--volume-button-width);
+        width: 3.125em;
         height: 3.75em;
     }
 </style>

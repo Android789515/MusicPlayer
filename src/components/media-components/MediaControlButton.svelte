@@ -16,7 +16,7 @@
 
 <style>
     .media-control-button {
-        width: 3.75em;
+        width: var(--media-button-width);
     }
 
     .smallerSize {

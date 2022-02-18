@@ -7,6 +7,7 @@
     import QueuedSong from '../../components/media-components/wrappers/QueuedSong.svelte'
     import Library from '../../components/library-components/Library.svelte'
     import DirectoryLink from '../../components/navigation-components/DirectoryLink.svelte'
+    import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
 
     let src
     const unsubscribeFromQueuedSong = queuedSong.subscribe(queuedSong => {
@@ -39,18 +40,18 @@
 </script>
 
 <div class='directory'>
-    <nav class='navigation'>
+    <nav>
         <ul
             class='links unstyled-ul'
             style='--number-of-directories: {numberOfDirectories}'
         >
             <DirectoryLink linkTo='library'>
-                <p class='directory-name'>Library</p>
+                <DirectoryName name='Library' />
             </DirectoryLink>
 
             {#if isSongQueued}
                 <DirectoryLink linkTo='currentlyPlaying'>
-                    <p class='directory-name'>Currently Playing</p>
+                    <DirectoryName name='Currently Playing' />
                 </DirectoryLink>
             {/if}
         </ul>
@@ -65,18 +66,9 @@
         padding-bottom: 5em;
     }
 
-    .navigation {
-
-    }
-
     .links {
         display: grid;
         grid-template-columns: repeat(var(--number-of-directories), 1fr);
-    }
-
-    .directory-name {
-        text-align: center;
-
-        margin-top: 0;
+        align-items: center;
     }
 </style>

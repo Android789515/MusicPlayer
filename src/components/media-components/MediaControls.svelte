@@ -67,7 +67,7 @@
     .media-controls {
         --bar-bg: #333;
         --slider-bg: #ff00c3;
-        --volume-button-width: 3.125em;
+        --media-button-width: 3.75em;
         --volume-bar-height: 2em;
 
         align-self: end;
@@ -75,7 +75,7 @@
         display: grid;
         grid-template-rows: auto auto;
                                    /* Space for the volume bar */
-        grid-template-columns: 1fr var(--volume-button-width);
+        grid-template-columns: max-content var(--media-button-width);
         grid-auto-flow: column;
 
         position: fixed;
