@@ -58,13 +58,15 @@
 
         padding: 1em;
         margin: auto;
+
+        border-bottom: solid;
     }
 
     .links {
         display: grid;
         grid-template-columns: repeat(var(--number-of-directories), max-content);
         grid-column-gap: 2em;
-        align-items: center;
+        align-items: baseline;
     }
 
     .component {

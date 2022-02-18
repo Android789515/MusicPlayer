@@ -13,6 +13,7 @@
         color: #fff;
 
         margin-top: 0;
+        margin-bottom: .25em;
     }
 
     .directory-name-inner {
