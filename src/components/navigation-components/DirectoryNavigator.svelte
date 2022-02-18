@@ -39,15 +39,25 @@
         </ul>
     </nav>
 
-    <svelte:component this={navigator.getComponentToRender()} />
+    <div class='component'>
+        <svelte:component this={navigator.getComponentToRender()} />
+    </div>
 </div>
 
 <style>
     .directory {
         display: grid;
+    }
 
-        padding-top: 2em;
-        padding-bottom: 5em;
+    .navigation {
+        position: fixed;
+        left: 0;
+        right: 0;
+
+        width: 100%;
+
+        padding: 1em;
+        margin: auto;
     }
 
     .links {
@@ -55,5 +65,9 @@
         grid-template-columns: repeat(var(--number-of-directories), max-content);
         grid-column-gap: 2em;
         align-items: center;
+    }
+
+    .component {
+        padding: 5em 0;
     }
 </style>
