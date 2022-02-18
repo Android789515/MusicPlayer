@@ -75,7 +75,7 @@
         display: grid;
         grid-template-rows: auto auto;
                                    /* Space for the volume bar */
-        grid-template-columns: max-content var(--media-button-width);
+        grid-template-columns: max-content var(--media-button-width) 1fr;
         grid-auto-flow: column;
 
         position: fixed;

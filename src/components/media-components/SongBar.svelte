@@ -52,7 +52,7 @@
 <style>
     .song-bar {
         grid-row: 3;
-        grid-column: 1 / span 2;
+        grid-column: 1 / span 3;
 
         height: .5em;
 

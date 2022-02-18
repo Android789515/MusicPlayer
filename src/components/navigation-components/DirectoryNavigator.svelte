@@ -22,7 +22,7 @@
 </script>
 
 <div class='directory'>
-    <nav>
+    <nav class='navigation'>
         <ul
             class='links unstyled-ul'
             style='--number-of-directories: {navigator.getNumberOfDirectories()}'
@@ -44,13 +44,16 @@
 
 <style>
     .directory {
+        display: grid;
+
         padding-top: 2em;
         padding-bottom: 5em;
     }
 
     .links {
         display: grid;
-        grid-template-columns: repeat(var(--number-of-directories), 1fr);
+        grid-template-columns: repeat(var(--number-of-directories), max-content);
+        grid-column-gap: 2em;
         align-items: center;
     }
 </style>

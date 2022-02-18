@@ -6,6 +6,12 @@
     const navigator = useDirectoryNavigator()
 </script>
 
-<li on:click={() => navigator.navigate(linkTo)}>
+<li class='link' on:click={() => navigator.navigate(linkTo)}>
     <slot></slot>
 </li>
+
+<style>
+    .link {
+        justify-self: start;
+    }
+</style>
