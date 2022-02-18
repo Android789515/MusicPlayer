@@ -5,7 +5,7 @@
 
     import SongInfo from '../SongInfo.svelte'
 
-    export let customLayout
+    export let customLayout = undefined
 
     let src
     let coverArt

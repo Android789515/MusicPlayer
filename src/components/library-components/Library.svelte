@@ -1,5 +1,6 @@
 <script lang='ts'>
     import { queuedSong } from '../../stores/library'
+    import { directoryNavigator } from '../../stores/directoryNavigator'
 
     const queueTestSong = () => {
         queuedSong.queueSong({
@@ -10,13 +11,16 @@
             artist: 'Beethoven',
             duration: 175
         })
+        directoryNavigator.navigate('currentlyPlaying')
     }
 
     const unqueueSong = () => queuedSong.unqueueSong()
 </script>
 
-<button class='temp' on:click={queueTestSong}>Queue test song</button>
-<button class='temp' on:click={unqueueSong}>Un-queue song</button>
+<section>
+    <button class='temp' on:click={queueTestSong}>Queue test song</button>
+    <button class='temp' on:click={unqueueSong}>Un-queue song</button>
+</section>
 
 <style>
     .temp {

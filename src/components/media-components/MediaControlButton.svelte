@@ -2,7 +2,7 @@
     export let buttonName
     export let buttonAction
     export let hidden = false
-    export let smallerSize
+    export let smallerSize = false
 </script>
 
 <img

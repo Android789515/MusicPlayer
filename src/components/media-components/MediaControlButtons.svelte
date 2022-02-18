@@ -50,8 +50,4 @@
         display: flex;
         align-items: flex-end;
     }
-
-    .toggled {
-        background: #333;
-    }
 </style>
