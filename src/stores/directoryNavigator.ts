@@ -1,26 +1,29 @@
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
-interface Directory {
-    directory: string
+import QueuedSong from '../components/media-components/wrappers/QueuedSong.svelte'
+import Library from '../components/library-components/Library.svelte'
+
+type Directory = string
+
+const currentDirectory = writable<Directory>('')
+
+const directories = {
+    currentlyPlaying: QueuedSong,
+    library: Library
 }
 
-const createDirectoryNavigator = () => {
-    const internalState = writable<Directory>({ directory: '' })
-    const { subscribe } = internalState
-
-    const initialize = (directory: string) => {
-        internalState.set({ directory })
-    }
-
-    const navigate = (directory: string) => {
-        internalState.set({ directory })
-    }
-
+const useDirectoryNavigator = () => {
     return {
-        subscribe,
-        initialize,
-        navigate
+        getComponentToRender() {
+            return directories[get(currentDirectory) as keyof typeof directories]
+        },
+        getNumberOfDirectories() {
+            return Object.keys(directories).length
+        },
+        navigate(directory: string) {
+            currentDirectory.set(directory)
+        }
     }
 }
 
-export const directoryNavigator = createDirectoryNavigator()
+export { currentDirectory, useDirectoryNavigator }

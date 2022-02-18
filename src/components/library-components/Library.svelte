@@ -1,6 +1,8 @@
 <script lang='ts'>
     import { queuedSong } from '../../stores/library'
-    import { directoryNavigator } from '../../stores/directoryNavigator'
+    import { useDirectoryNavigator } from '../../stores/directoryNavigator'
+
+    const navigator = useDirectoryNavigator()
 
     const queueTestSong = () => {
         queuedSong.queueSong({
@@ -11,7 +13,7 @@
             artist: 'Beethoven',
             duration: 175
         })
-        directoryNavigator.navigate('currentlyPlaying')
+        navigator.navigate('currentlyPlaying')
     }
 
     const unqueueSong = () => queuedSong.unqueueSong()

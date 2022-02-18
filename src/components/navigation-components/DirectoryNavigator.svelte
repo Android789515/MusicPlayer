@@ -2,48 +2,30 @@
     import { onDestroy, onMount } from 'svelte'
 
     import { queuedSong } from '../../stores/library'
-    import { directoryNavigator } from '../../stores/directoryNavigator'
+    import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
 
-    import QueuedSong from '../../components/media-components/wrappers/QueuedSong.svelte'
-    import Library from '../../components/library-components/Library.svelte'
     import DirectoryLink from '../../components/navigation-components/DirectoryLink.svelte'
     import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
 
     let src
-    const unsubscribeFromQueuedSong = queuedSong.subscribe(queuedSong => {
+    const unsubscribe = queuedSong.subscribe(queuedSong => {
         src = queuedSong.src
     })
     $: isSongQueued = src !== undefined
 
-    const directories = {
-        currentlyPlaying: QueuedSong,
-        library: Library
-    }
-    $: numberOfDirectories = Object.keys(directories).length
+    const initializeDirectory = () => $currentDirectory = 'library'
 
-    const initializeDirectoryNavigator = () => {
-        directoryNavigator.initialize('library')
-    }
+    const navigator = useDirectoryNavigator()
 
-    let currentDirectory
-    const unsubscribeFromDirectoryNavigator = directoryNavigator.subscribe(navigator => {
-        currentDirectory = navigator.directory
-    })
-
-    const unsubscribeAll = () => {
-        unsubscribeFromQueuedSong()
-        unsubscribeFromDirectoryNavigator()
-    }
-
-    onMount(initializeDirectoryNavigator)
-    onDestroy(unsubscribeAll)
+    onMount(initializeDirectory)
+    onDestroy(unsubscribe)
 </script>
 
 <div class='directory'>
     <nav>
         <ul
             class='links unstyled-ul'
-            style='--number-of-directories: {numberOfDirectories}'
+            style='--number-of-directories: {navigator.getNumberOfDirectories()}'
         >
             <DirectoryLink linkTo='library'>
                 <DirectoryName name='Library' />
@@ -57,7 +39,7 @@
         </ul>
     </nav>
 
-    <svelte:component this={directories[currentDirectory]} />
+    <svelte:component this={navigator.getComponentToRender()} />
 </div>
 
 <style>

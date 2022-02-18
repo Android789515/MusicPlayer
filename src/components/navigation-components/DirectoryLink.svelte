@@ -1,11 +1,11 @@
 <script lang='ts'>
-    import { directoryNavigator } from '../../stores/directoryNavigator'
+    import { useDirectoryNavigator } from '../../stores/directoryNavigator'
 
     export let linkTo
 
-    const { navigate } = directoryNavigator
+    const navigator = useDirectoryNavigator()
 </script>
 
-<li on:click={() => navigate(linkTo)}>
+<li on:click={() => navigator.navigate(linkTo)}>
     <slot></slot>
 </li>
