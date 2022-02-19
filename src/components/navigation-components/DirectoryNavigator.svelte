@@ -15,7 +15,7 @@
 
     const initializeDirectory = () => $currentDirectory = 'library'
 
-    let showPlaylists = true
+    let showPlaylists = false
 
     const navigator = useDirectoryNavigator()
 
