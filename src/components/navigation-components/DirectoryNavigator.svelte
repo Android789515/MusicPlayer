@@ -15,6 +15,8 @@
 
     const initializeDirectory = () => $currentDirectory = 'library'
 
+    let showPlaylists = true
+
     const navigator = useDirectoryNavigator()
 
     onMount(initializeDirectory)
@@ -30,6 +32,12 @@
             <DirectoryLink linkTo='library'>
                 <DirectoryName name='Library' />
             </DirectoryLink>
+
+            {#if showPlaylists}
+                <DirectoryLink linkTo='playlists'>
+                    <DirectoryName name='Playlists' />
+                </DirectoryLink>
+            {/if}
 
             {#if isSongQueued}
                 <DirectoryLink linkTo='currentlyPlaying'>
@@ -54,11 +62,10 @@
         left: 0;
         right: 0;
 
-        overflow-x: scroll;
+        overflow-x: auto;
 
         width: 100%;
 
-        padding: 0 1em 0 0;
         margin: auto;
         --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
         background: hsl(0, 0%, var(--shaded-nav-bg));
@@ -68,6 +75,8 @@
         display: grid;
         grid-template-columns: repeat(var(--number-of-directories), max-content);
         align-items: baseline;
+
+        width: 100%;
     }
 
     .component {
