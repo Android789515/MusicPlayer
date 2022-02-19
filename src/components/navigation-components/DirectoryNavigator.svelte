@@ -54,18 +54,19 @@
         left: 0;
         right: 0;
 
+        overflow-x: scroll;
+
         width: 100%;
 
-        padding: 1em;
+        padding: 0 1em 0 0;
         margin: auto;
-
-        border-bottom: solid;
+        --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
+        background: hsl(0, 0%, var(--shaded-nav-bg));
     }
 
     .links {
         display: grid;
         grid-template-columns: repeat(var(--number-of-directories), max-content);
-        grid-column-gap: 2em;
         align-items: baseline;
     }
 

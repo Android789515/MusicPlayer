@@ -9,11 +9,10 @@
 </script>
 
 <li
-    class='link'
+    class='link clickable'
     class:currentDirectory={isCurrentDirectory}
     on:click={() => navigator.navigate(linkTo)}>
     <slot></slot>
-    <span class='marker'></span>
 </li>
 
 <style>
@@ -23,20 +22,24 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        padding: .5em 1em;
+    }
+    .currentDirectory {
+        background: hsl(0, 0%, var(--app-bg-lightness));
     }
 
-    .marker {
-        display: none;
+    .link:not(.currentDirectory) {
+        transform: translateY(0);
+        transition: transform 250ms;
     }
 
-    .currentDirectory .marker {
-        display: block;
+    .link:not(.currentDirectory):focus,
+    .link:not(.currentDirectory):hover {
+        transform: translateY(-.125em);
+    }
 
-        width: 1em;
-        height: .5em;
-
-        background: #000;
-
-        border-radius: .5em;
+    .link:not(.currentDirectory):active {
+        transform: translateY(.0625em);
     }
 </style>

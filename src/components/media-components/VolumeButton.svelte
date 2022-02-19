@@ -17,7 +17,7 @@
 </script>
 
 <img
-    class='volume-control-button'
+    class='volume-control-button clickable'
     src={muted ? mutedIcon : volumeIcon}
     alt='Volume and mute button'
     on:click={showVolumeBar}
