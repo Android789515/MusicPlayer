@@ -25,10 +25,7 @@
 
 <div class='directory'>
     <nav class='navigation'>
-        <ul
-            class='links unstyled-ul'
-            style='--number-of-directories: {navigator.getNumberOfDirectories()}'
-        >
+        <ul class='links unstyled-ul'>
             <DirectoryLink linkTo='library'>
                 <DirectoryName name='Library' />
             </DirectoryLink>
@@ -73,7 +70,7 @@
 
     .links {
         display: grid;
-        grid-template-columns: repeat(var(--number-of-directories), max-content);
+        grid-auto-columns: max-content;
         align-items: baseline;
 
         width: 100%;
