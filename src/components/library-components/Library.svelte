@@ -2,6 +2,8 @@
     import { queuedSong } from '../../stores/library'
     import { useDirectoryNavigator } from '../../stores/directoryNavigator'
 
+    import SongUploader from './SongUploader.svelte'
+
     const navigator = useDirectoryNavigator()
 
     const queueTestSong = () => {
@@ -22,6 +24,7 @@
 <section>
     <button class='temp' on:click={queueTestSong}>Queue test song</button>
     <button class='temp' on:click={unqueueSong}>Un-queue song</button>
+    <SongUploader />
 </section>
 
 <style>
