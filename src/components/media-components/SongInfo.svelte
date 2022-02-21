@@ -6,7 +6,7 @@
     export let duration
 </script>
 
-<div class='song-info'>
+<div aria-label='Song information' class='song-info'>
     <h2>{title}</h2>
 
     <p>{artist}</p>

@@ -51,7 +51,11 @@
             alt='Cover art'
         >
 
-        <div slot='song-info' class='song-info'>
+        <div
+            aria-label='Song information'
+            slot='song-info'
+            class='song-info'
+        >
             <h4>{title}</h4>
             <p>{artist}</p>
             <p>{formatTime(time)}</p>

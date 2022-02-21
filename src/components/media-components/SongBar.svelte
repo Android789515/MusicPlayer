@@ -9,7 +9,7 @@
     export let duration
 
     let songBar
-    $: timePercentage = ((time / duration) * 100).toFixed(0)
+    $: timePercent = ((time / duration) * 100).toFixed(0)
 
     const getInteractPosition = (event: clickOrTouch) => {
         const songBarLeftSide = songBar.getBoundingClientRect().left
@@ -37,6 +37,8 @@
 <DragEventRemover {draggingOff} />
 
 <div
+    aria-label={`Song time bar, current song time is ${timePercent}%`}
+    role='progressbar'
     class='song-bar clickable'
     draggable='true'
     bind:this={songBar}
@@ -45,7 +47,7 @@
     on:touchstart={handleClick}
     on:touchmove={handleMove}
 >
-    <div class='slider' style='width: {timePercentage}%'>
+    <div class='slider' style='width: {timePercent}%'>
     </div>
 </div>
 

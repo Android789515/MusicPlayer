@@ -30,6 +30,7 @@
 </script>
 
 <div
+    aria-label='Media controls'
     class='media-controls'
     class:show={isSongQueued}
 >

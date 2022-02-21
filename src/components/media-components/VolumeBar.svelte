@@ -9,7 +9,7 @@
     export let isVolumeBarShown
     const hideVolumeBar = () => isVolumeBarShown = false
 
-    $: volumePercentage = volume * 100
+    $: volumePercent = volume * 100
 
     let volumeBar
 
@@ -49,6 +49,7 @@
 <svelte:window on:pointerup={handleInteraction} />
 
 <div
+    aria-label={`Volume bar, volume is ${volumePercent}%`}
     class='volume-bar clickable'
     class:shown={isVolumeBarShown}
     draggable='true'
@@ -60,7 +61,7 @@
 >
     <div
         class='slider'
-        style='height: {volumePercentage}%'
+        style='height: {volumePercent}%'
     >
     </div>
 </div>

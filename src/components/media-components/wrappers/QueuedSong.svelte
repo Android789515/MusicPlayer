@@ -27,8 +27,9 @@
 </script>
 
 <section
-    class:customLayout={customLayout !== undefined}
+    aria-label='Queued song'
     class='queued-song'
+    class:customLayout={customLayout !== undefined}
 >
     <slot name='cover-art'>
         <img
