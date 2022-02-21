@@ -3,7 +3,7 @@
 
     import { queuedSong } from '../../../stores/library'
 
-    import SongInfo from '../SongInfo.svelte'
+    import SongInfo from '../../library-components/SongInfo.svelte'
 
     export let customLayout = undefined
 

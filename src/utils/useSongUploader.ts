@@ -8,21 +8,15 @@ import type { Song } from '../types/song'
 export const useSongUploader = () => {
     const createUrl = (file: File) => URL.createObjectURL(file)
 
-    const getDuration = async (src: string) => {
+    const getDuration = (src: string) => new Promise(resolve => {
         const tempAudio = document.createElement('audio')
         tempAudio.src = src
-        tempAudio.volume = 0
+        tempAudio.preload = 'metadata'
 
-        let duration = 0
         tempAudio.onloadedmetadata = () => {
-            duration = tempAudio.duration
+            resolve(tempAudio.duration)
         }
-
-        await tempAudio.play()
-        tempAudio.pause()
-        tempAudio.remove()
-        return duration
-    }
+    })
 
     interface AudioFileData {
         tags: Tags,
@@ -33,7 +27,7 @@ export const useSongUploader = () => {
     const readTags = async (file: File) => {
         const reader = new jsmediatags.Reader(file).setTagsToRead([ 'title', 'artist', 'picture' ])
         const src = createUrl(file)
-        const duration = await getDuration(src)
+        const duration = await getDuration(src) as number
 
         reader.read({
             onSuccess: data => {
