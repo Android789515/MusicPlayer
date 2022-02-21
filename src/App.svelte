@@ -4,7 +4,7 @@
     import DirectoryNavigator from './components/navigation-components/DirectoryNavigator.svelte'
 </script>
 
-<main role='main'>
+<main aria-label='Application' role='main'>
     <DirectoryNavigator />
 
     <MediaControls />

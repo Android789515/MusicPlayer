@@ -9,6 +9,7 @@
 
 <img
     aria-label={capitalize(buttonName) + 'button'}
+    role='button'
     class='media-control-button clickable'
     class:smallerSize={smallerSize === true}
     class:hidden={hidden}

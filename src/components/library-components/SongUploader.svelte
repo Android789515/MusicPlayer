@@ -6,7 +6,7 @@
     const { handleUpload } = useSongUploader()
 </script>
 
-<div>
+<div aria-label='Song uploader'>
     <p on:click={() => uploader.click()}>Click to upload</p>
     <input
         class='song-uploader'

@@ -2,7 +2,7 @@
     import SongUploader from './SongUploader.svelte'
 </script>
 
-<section>
+<section aria-label='Library'>
     <SongUploader />
 </section>
 

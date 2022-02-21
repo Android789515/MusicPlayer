@@ -24,9 +24,17 @@
     onDestroy(unsubscribe)
 </script>
 
-<div class='directory-navigator' aria-label='App directory'>
+<div
+    aria-label='App directory'
+    role='directory'
+    class='directory-navigator'
+>
     <nav class='navigation' role='navigation'>
-        <ul class='links unstyled-ul' aria-label='Navigation Links'>
+        <ul
+            aria-label='Navigation Links'
+            role='menubar'
+            class='links unstyled-ul'
+        >
             <DirectoryLink linkTo='library'>
                 <DirectoryName name='Library' />
             </DirectoryLink>

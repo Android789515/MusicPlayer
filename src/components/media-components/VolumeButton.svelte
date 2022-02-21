@@ -20,6 +20,7 @@
 
 <img
     aria-label={`Volume button, volume is ${volumePercent}`}
+    role='button'
     class='volume-control-button clickable'
     src={muted ? mutedIcon : volumeIcon}
     alt='Volume and mute button'
