@@ -9,6 +9,7 @@
 </script>
 
 <li
+    aria-label='Navigation Link'
     class='link clickable'
     class:currentDirectory={isCurrentDirectory}
     on:click={() => navigator.navigate(linkTo)}>

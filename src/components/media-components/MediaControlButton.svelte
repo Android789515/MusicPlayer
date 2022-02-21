@@ -1,4 +1,6 @@
 <script lang='ts'>
+    import { capitalize } from '../../utils/stringUtils'
+
     export let buttonName
     export let buttonAction
     export let hidden = false
@@ -6,6 +8,7 @@
 </script>
 
 <img
+    aria-label={capitalize(buttonName) + 'button'}
     class='media-control-button clickable'
     class:smallerSize={smallerSize === true}
     class:hidden={hidden}

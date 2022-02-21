@@ -14,9 +14,12 @@
     } else {
         volumeIcon = 'assets/icons/volume-buttons/medium-volume.svg'
     }
+
+    $: volumePercent = volume * 100 + '%'
 </script>
 
 <img
+    aria-label={`Volume button, volume is ${volumePercent}`}
     class='volume-control-button clickable'
     src={muted ? mutedIcon : volumeIcon}
     alt='Volume and mute button'

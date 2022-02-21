@@ -21,7 +21,7 @@
     const toggleShuffle = () => shuffle = !shuffle
 </script>
 
-<div class='media-control-buttons'>
+<div aria-label='Media control buttons' class='media-control-buttons'>
     <MediaControlButton
         buttonName='shuffle'
         buttonAction={toggleShuffle}

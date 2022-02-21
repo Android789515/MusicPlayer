@@ -3,6 +3,7 @@
 
     import { queuedSong } from '../../stores/library'
     import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
+    import { capitalize } from '../../utils/stringUtils'
 
     import DirectoryLink from '../../components/navigation-components/DirectoryLink.svelte'
     import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
@@ -23,9 +24,9 @@
     onDestroy(unsubscribe)
 </script>
 
-<div class='directory'>
-    <nav class='navigation'>
-        <ul class='links unstyled-ul'>
+<div class='directory-navigator' aria-label='App directory'>
+    <nav class='navigation' role='navigation'>
+        <ul class='links unstyled-ul' aria-label='Navigation Links'>
             <DirectoryLink linkTo='library'>
                 <DirectoryName name='Library' />
             </DirectoryLink>
@@ -44,13 +45,13 @@
         </ul>
     </nav>
 
-    <div class='component'>
+    <div class='component' aria-label={capitalize($currentDirectory)}>
         <svelte:component this={navigator.getComponentToRender()} />
     </div>
 </div>
 
 <style>
-    .directory {
+    .directory-navigator {
         display: grid;
     }
 

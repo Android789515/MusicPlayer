@@ -1,11 +1,11 @@
 <script lang='ts'>
     import ModalContainer from './components/modal-components/ModalContainer.svelte'
     import MediaControls from './components/media-components/MediaControls.svelte'
-    import Directory from './components/navigation-components/DirectoryNavigator.svelte'
+    import DirectoryNavigator from './components/navigation-components/DirectoryNavigator.svelte'
 </script>
 
-<main>
-    <Directory />
+<main role='main'>
+    <DirectoryNavigator />
 
     <MediaControls />
 
