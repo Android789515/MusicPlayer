@@ -1,34 +1,18 @@
 <script lang='ts'>
-    let songUploader
+    import { useSongUploader } from '../../utils/useSongUploader'
 
-    const readTags = (file) => {
-        console.log(file)
-        // const reader = new jsmediatags.Reader(file).setTagsToRead([ 'title', 'artist', 'picture' ])
-        //
-        // let tags
-        // reader.read({
-        //     onSuccess: data => tags = data.tags,
-        //     onError: error => {
-        //         throw new Error(`${error.type} ${error.info}`)
-        //     }
-        // })
-        // return tags
-    }
+    let uploader
 
-    const handleUpload = () => {
-        const uploadedData = [ ...songUploader.files ]
-
-        uploadedData.forEach(readTags)
-    }
+    const { handleUpload } = useSongUploader()
 </script>
 
 <div>
-    <p on:click={() => songUploader.click()}>Click to upload</p>
+    <p on:click={() => uploader.click()}>Click to upload</p>
     <input
         class='song-uploader'
         type='file'
         multiple
-        bind:this={songUploader}
+        bind:this={uploader}
         on:change={handleUpload}
     >
 </div>
