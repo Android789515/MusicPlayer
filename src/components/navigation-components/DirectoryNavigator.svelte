@@ -32,7 +32,6 @@
     <nav class='navigation' role='navigation'>
         <ul
             aria-label='Navigation Links'
-            role='menubar'
             class='links unstyled-ul'
         >
             <DirectoryLink linkTo='library'>
@@ -53,7 +52,7 @@
         </ul>
     </nav>
 
-    <div class='component' aria-label={capitalize($currentDirectory)}>
+    <div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
         <svelte:component this={navigator.getComponentToRender()} />
     </div>
 </div>
