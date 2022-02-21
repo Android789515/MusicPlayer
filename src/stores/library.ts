@@ -2,8 +2,6 @@ import { writable } from 'svelte/store'
 
 import type { Song } from '../types/song'
 
-const songs = writable([])
-
 const blankSong: Song = {
     id: undefined,
     src: undefined,
@@ -11,6 +9,24 @@ const blankSong: Song = {
     title: undefined,
     artist: undefined,
     duration: undefined
+}
+
+const createSongsStore = () => {
+    const { subscribe, update } = writable<Song[]>([])
+
+    const addSong = (song: Song) => {
+        update(songs => [...songs, song])
+    }
+
+    const removeSong = (filterId: string) => {
+        update(songs => songs.filter(song => song.id !== filterId))
+    }
+
+    return {
+        subscribe,
+        addSong,
+        removeSong
+    }
 }
 
 const createQueuedSong = () => {
@@ -27,5 +43,5 @@ const createQueuedSong = () => {
 
 const playlists = writable([])
 
+export const songs = createSongsStore()
 export const queuedSong = createQueuedSong()
-export { songs, playlists }

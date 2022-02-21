@@ -17,9 +17,6 @@ const useDirectoryNavigator = () => {
         getComponentToRender() {
             return directories[get(currentDirectory) as keyof typeof directories]
         },
-        getNumberOfDirectories() {
-            return Object.keys(directories).length
-        },
         navigate(directory: string) {
             currentDirectory.set(directory)
         }
