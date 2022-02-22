@@ -32,18 +32,12 @@
     class:customLayout={customLayout !== undefined}
 >
     <slot name='cover-art'>
-        <img
-            src={coverArt || fallbackArt}
-            alt='Song cover art'
-        >
+        <img src={coverArt || fallbackArt} alt='Song cover art'>
     </slot>
+
     {#if isSongQueued}
         <slot name='song-info'>
-            <SongInfo
-                {title}
-                {artist}
-                {duration}
-            />
+            <SongInfo songInfo={{ title, artist }} timeToDisplay={duration} />
         </slot>
     {/if}
 </section>

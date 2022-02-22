@@ -1,10 +1,10 @@
 <script lang='ts'>
     import { onDestroy } from 'svelte'
 
-    import formatTime from '../../utils/formatTime'
     import { queuedSong } from '../../stores/library'
 
     import QueuedSong from './wrappers/QueuedSong.svelte'
+    import SongInfo from '../library-components/SongInfo.svelte'
 
     export let paused
     export let time
@@ -53,12 +53,12 @@
 
         <div
             aria-label='Song information'
-            slot='song-info'
             class='song-info'
+            slot='song-info'
         >
-            <h4>{title}</h4>
-            <p>{artist}</p>
-            <p>{formatTime(time)}</p>
+            <SongInfo songInfo={{ artist }} timeToDisplay={time} customStyle={true}>
+                <h4 class='song-title' slot='title'>{title}</h4>
+            </SongInfo>
         </div>
     </QueuedSong>
 </div>
@@ -86,7 +86,7 @@
         display: grid;
     }
 
-    .song-info > * {
+    .song-title {
         margin: 0;
     }
 </style>

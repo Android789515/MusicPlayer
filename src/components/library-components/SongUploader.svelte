@@ -13,7 +13,7 @@
         type='file'
         multiple
         bind:this={uploader}
-        on:change={handleUpload}
+        on:change={() => handleUpload(uploader)}
     >
 </div>
 

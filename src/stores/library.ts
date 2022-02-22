@@ -35,7 +35,7 @@ const createQueuedSong = () => {
     return {
         subscribe,
         update,
-        queueSong: (song: Song) => set(song),
+        set,
         unqueueSong: () => set(blankSong)
     }
 }

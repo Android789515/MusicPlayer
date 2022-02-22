@@ -1,22 +1,35 @@
 <script lang='ts'>
     import formatTime from '../../utils/formatTime'
 
-    export let title
-    export let artist
-    export let duration
+    export let songInfo
+    export let timeToDisplay
+
+    export let customStyle = false
+
+    const { title, artist } = songInfo
 </script>
 
-<div aria-label='Song information' class='song-info'>
-    <h2>{title}</h2>
+<div
+    aria-label='Song information'
+    class='song-info'
+    class:customStyle={customStyle}
+>
+    <slot name='title'>
+        <h2>{title}</h2>
+    </slot>
 
     <p>{artist}</p>
 
-    <p>{formatTime(duration)}</p>
+    <p>{formatTime(timeToDisplay)}</p>
 </div>
 
 <style>
     .song-info {
         text-align: center;
+    }
+
+    .customStyle {
+        all: inherit;
     }
 
     .song-info > * {
