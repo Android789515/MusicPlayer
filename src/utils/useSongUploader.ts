@@ -2,7 +2,7 @@ import jsmediatags from 'jsmediatags'
 import type { TagType } from 'jsmediatags/types'
 import { v4 as uuid } from 'uuid'
 
-import { songs } from '../stores/library'
+import { library } from '../stores/library'
 import type { Song } from '../types/song'
 import type { AudioFileData, TagDefaults } from '../types/audioFileTypes'
 
@@ -36,7 +36,7 @@ export const useSongUploader = () => {
                     tags: validateTags(data, tagDefaults),
                     src, duration
                 })
-                songs.addSong(song)
+                library.addSong(song)
             },
             onError: error => {
                 throw new Error(`${error.type} ${error.info}`)

@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store'
+import { derived, writable } from 'svelte/store'
 
 import type { Song } from '../types/song'
 
@@ -11,37 +11,59 @@ const blankSong: Song = {
     duration: undefined
 }
 
-const createSongsStore = () => {
-    const { subscribe, update } = writable<Song[]>([])
+interface Library {
+    songs: Song[],
+    playlists: [],
+    queuedSong: Song
+}
+
+const createLibrary = () => {
+    const internalState = writable<Library>({
+        songs: [],
+        playlists: [],
+        queuedSong: blankSong
+    })
+    const { subscribe, update } = internalState
 
     const addSong = (song: Song) => {
-        update(songs => [...songs, song])
+        update(library => {
+            return { ...library, songs: [...library.songs, song] }
+        })
     }
 
     const removeSong = (filterId: string) => {
-        update(songs => songs.filter(song => song.id !== filterId))
+        update(library => {
+            const filteredSongs = library.songs.filter(({ id }) => id !== filterId)
+
+            return { ...library, songs: filteredSongs }
+        })
+    }
+
+    const queueSong = (songId: string) => {
+        update(library => {
+            const songToQueue = library.songs.find(song => song.id === songId)
+            if (songToQueue) {
+                return { ...library, queuedSong: songToQueue }
+            }
+            return library
+        })
+    }
+
+    const unqueueSong = () => {
+        update(library => {
+            return { ...library, queuedSong: blankSong }
+        })
     }
 
     return {
         subscribe,
         addSong,
-        removeSong
+        removeSong,
+        queueSong,
+        unqueueSong
     }
 }
 
-const createQueuedSong = () => {
-    const { subscribe, update, set } = writable<Song>(blankSong)
-
-    return {
-        subscribe,
-        update,
-        set,
-        unqueueSong: () => set(blankSong)
-    }
-}
-
-
-const playlists = writable([])
-
-export const songs = createSongsStore()
-export const queuedSong = createQueuedSong()
+export const library = createLibrary()
+export const songs = derived(library, state => state.songs)
+export const queuedSong = derived(library, state => state.queuedSong)
