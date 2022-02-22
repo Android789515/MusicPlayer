@@ -60,7 +60,6 @@
 
         width: 100%;
 
-        margin-bottom: 5em;
         --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
         background: hsl(0, 0%, var(--shaded-nav-bg));
     }

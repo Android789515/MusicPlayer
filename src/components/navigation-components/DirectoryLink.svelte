@@ -21,10 +21,6 @@
         grid-row: 1;
         justify-self: start;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
         white-space: nowrap;
 
         padding: .5em 1em;

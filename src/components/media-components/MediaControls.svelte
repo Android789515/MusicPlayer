@@ -73,8 +73,8 @@
 
         width: 100%;
 
-        padding: 0 1em;
-        margin: 0 auto 2em auto;
+        padding: 1em;
+        background: #fff;
 
         transition: bottom 250ms;
     }
