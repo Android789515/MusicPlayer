@@ -16,7 +16,7 @@
     }
 </script>
 
-<div>
+<div aria-label='Songs' role='list'>
     {#each $songs as song (song.id)}
         <div
             class='song-info'

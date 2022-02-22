@@ -1,9 +1,10 @@
 import jsmediatags from 'jsmediatags'
-import type { Tags } from 'jsmediatags/types'
+import type { TagType } from 'jsmediatags/types'
 import { v4 as uuid } from 'uuid'
 
 import { songs } from '../stores/library'
 import type { Song } from '../types/song'
+import type { AudioFileData, TagDefaults } from '../types/audioFileTypes'
 
 export const useSongUploader = () => {
     const createUrl = (file: File) => URL.createObjectURL(file)
@@ -18,26 +19,43 @@ export const useSongUploader = () => {
         }
     })
 
-    interface AudioFileData {
-        tags: Tags,
-        src: string,
-        duration: number
-    }
+    const tagsToFind = [ 'title', 'artist', 'picture' ]
 
     const readTags = async (file: File) => {
-        const reader = new jsmediatags.Reader(file).setTagsToRead([ 'title', 'artist', 'picture' ])
+        const tagDefaults: TagDefaults = {
+            title: file.name,
+            artist: 'Unknown artist'
+        }
+        const reader = new jsmediatags.Reader(file).setTagsToRead(tagsToFind)
         const src = createUrl(file)
         const duration = await getDuration(src) as number
 
         reader.read({
             onSuccess: data => {
-                const song = createSong({ tags: data.tags, src, duration })
+                const song = createSong({
+                    tags: validateTags(data, tagDefaults),
+                    src, duration
+                })
                 songs.addSong(song)
             },
             onError: error => {
                 throw new Error(`${error.type} ${error.info}`)
             }
         })
+    }
+
+    const validateTags = (data: TagType, tagDefaults: TagDefaults) => {
+        const validTags = tagsToFind.reduce((validatedTags, tag) => {
+            const nextTag = data.tags[tag]
+            const wasTagFound = nextTag !== undefined
+
+            if (wasTagFound) {
+                return { ...validatedTags, [tag]: nextTag }
+            }
+            return { ...validatedTags, [tag]: tagDefaults[tag] }
+        }, {})
+
+        return validTags
     }
 
     const createSong = ({ tags, src, duration }: AudioFileData) => {
