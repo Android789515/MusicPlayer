@@ -45,6 +45,8 @@
             </DirectoryLink>
         {/if}
     </ul>
+
+    <div class='white-space'></div>
 </nav>
 
 <div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
@@ -62,6 +64,8 @@
 
         --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
         background: hsl(0, 0%, var(--shaded-nav-bg));
+
+        box-shadow: 0 0.5em 1em rgb(255, 255, 255, .7);
     }
 
     .links {
@@ -70,6 +74,13 @@
         align-items: baseline;
 
         width: 100%;
+    }
+
+    .white-space {
+        width: 100%;
+        height: .75em;
+
+        background: #fff;
     }
 
     .component {
