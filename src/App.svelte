@@ -15,10 +15,8 @@
 <style>
     main {
         display: grid;
-        grid-template-columns: minmax(1em, 1fr) 85% minmax(1em, 1fr);
-    }
+        grid-template-rows: auto 1fr;
 
-    :global(main > *) {
-        grid-column: 2 / -2;
+        min-height: 100vh;
     }
 </style>

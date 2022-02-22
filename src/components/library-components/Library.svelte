@@ -4,8 +4,8 @@
 </script>
 
 <section aria-label='Library'>
-    <Songs />
     <SongUploader />
+    <Songs />
 </section>
 
 <style>

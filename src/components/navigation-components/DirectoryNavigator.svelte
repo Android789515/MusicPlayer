@@ -24,54 +24,43 @@
     onDestroy(unsubscribe)
 </script>
 
-<div
-    aria-label='App directory'
-    role='directory'
-    class='directory-navigator'
->
-    <nav class='navigation' role='navigation'>
-        <ul
+<nav class='navigation' role='navigation'>
+    <ul
             aria-label='Navigation Links'
             class='links unstyled-ul'
-        >
-            <DirectoryLink linkTo='library'>
-                <DirectoryName name='Library' />
+    >
+        <DirectoryLink linkTo='library'>
+            <DirectoryName name='Library' />
+        </DirectoryLink>
+
+        {#if showPlaylists}
+            <DirectoryLink linkTo='playlists'>
+                <DirectoryName name='Playlists' />
             </DirectoryLink>
+        {/if}
 
-            {#if showPlaylists}
-                <DirectoryLink linkTo='playlists'>
-                    <DirectoryName name='Playlists' />
-                </DirectoryLink>
-            {/if}
+        {#if isSongQueued}
+            <DirectoryLink linkTo='currentlyPlaying'>
+                <DirectoryName name='Currently Playing' />
+            </DirectoryLink>
+        {/if}
+    </ul>
+</nav>
 
-            {#if isSongQueued}
-                <DirectoryLink linkTo='currentlyPlaying'>
-                    <DirectoryName name='Currently Playing' />
-                </DirectoryLink>
-            {/if}
-        </ul>
-    </nav>
-
-    <div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
-        <svelte:component this={navigator.getComponentToRender()} />
-    </div>
+<div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
+    <svelte:component this={navigator.getComponentToRender()} />
 </div>
 
 <style>
-    .directory-navigator {
-        display: grid;
-    }
-
     .navigation {
-        position: fixed;
-        left: 0;
-        right: 0;
+        position: sticky;
+        top: 0;
 
         overflow-x: auto;
 
         width: 100%;
 
-        margin: auto;
+        margin-bottom: 5em;
         --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
         background: hsl(0, 0%, var(--shaded-nav-bg));
     }
@@ -85,6 +74,6 @@
     }
 
     .component {
-        padding: 5em 0;
+        grid-row: 2;
     }
 </style>

@@ -6,10 +6,10 @@
     const { handleUpload } = useSongUploader()
 </script>
 
-<div aria-label='Song uploader'>
+<div aria-label='Song uploader' class='song-uploader'>
     <p on:click={() => uploader.click()}>Click to upload</p>
     <input
-        class='song-uploader'
+        class='file-uploader'
         type='file'
         multiple
         bind:this={uploader}
@@ -19,6 +19,9 @@
 
 <style>
     .song-uploader {
+    }
+
+    .file-uploader {
         display: none;
     }
 </style>
