@@ -44,9 +44,6 @@
 
 <style>
     .media-control-buttons {
-        grid-row: 2;
-        grid-column: 1 / span 2;
-
         display: flex;
         align-items: flex-end;
     }

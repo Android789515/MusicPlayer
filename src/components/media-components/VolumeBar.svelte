@@ -71,7 +71,7 @@
         display: none;
 
         width: .5em;
-        height: var(--volume-bar-height);
+        height: 2em;
 
         background: var(--bar-bg);
 
@@ -79,11 +79,6 @@
     }
 
     .volume-bar.shown {
-        grid-row: 1;
-        grid-column: 2;
-        justify-self: center;
-        align-self: end;
-
         display: block;
     }
 

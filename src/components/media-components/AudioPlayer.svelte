@@ -46,7 +46,6 @@
         <img
             slot='cover-art'
             class='cover-art'
-            class:shown={isSongQueued}
             src={coverArt || fallbackArt}
             alt='Cover art'
         >
@@ -67,19 +66,19 @@
     .queued-song {
         display: flex;
         align-items: center;
+
+        overflow: hidden;
+
+        margin-bottom: .5em;
     }
 
     .cover-art {
-        display: none;
+        display: block;
 
         width: 4em;
 
-        margin: 1em 1em 1em 0;
+        margin-right: 1em;
         border-radius: 25%;
-    }
-
-    .cover-art.shown {
-        display: block;
     }
 
     .song-info {
@@ -87,6 +86,8 @@
     }
 
     .song-title {
+        white-space: nowrap;
+
         margin: 0;
     }
 </style>
