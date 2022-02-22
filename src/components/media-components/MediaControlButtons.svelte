@@ -1,6 +1,7 @@
 <script>
     import MediaControlButton from './MediaControlButton.svelte'
     import VolumeButton from './VolumeButton.svelte'
+    import VolumeBar from './VolumeBar.svelte'
 
     export let paused
     export let time
@@ -40,6 +41,8 @@
         bind:volume
         bind:muted
     />
+
+    <VolumeBar bind:isVolumeBarShown bind:volume />
 </div>
 
 <style>

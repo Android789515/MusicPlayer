@@ -73,6 +73,8 @@
         width: .5em;
         height: 2em;
 
+        margin-bottom: .7em;
+
         background: var(--bar-bg);
 
         transform: rotate(180deg);

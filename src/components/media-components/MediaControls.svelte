@@ -6,7 +6,6 @@
     import AudioPlayer from './AudioPlayer.svelte'
     import MediaControlButtons from './MediaControlButtons.svelte'
     import SongBar from './SongBar.svelte'
-    import VolumeBar from './VolumeBar.svelte'
 
     let paused = true
     let time = 0
@@ -54,8 +53,6 @@
 
         bind:isVolumeBarShown
     />
-
-    <VolumeBar bind:isVolumeBarShown bind:volume />
 
     <SongBar {duration} bind:time />
 </div>
