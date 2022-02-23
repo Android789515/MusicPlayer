@@ -1,11 +1,11 @@
 <script lang='ts'>
-    import { onDestroy } from 'svelte'
+    import { onDestroy, onMount } from 'svelte'
 
-    import { queuedSong } from '../../../stores/library'
+    import { queuedSong } from '../../stores/library'
 
-    import SongInfo from '../../library-components/SongInfo.svelte'
+    import SongInfo from './SongInfo.svelte'
 
-    export let customLayout = undefined
+    export let styles = undefined
 
     let src
     let coverArt
@@ -23,13 +23,25 @@
     })
     $: isSongQueued = src !== undefined
 
+    let container
+    const applyStyles = () => {
+        Object.entries(styles).forEach(([style, value]) => {
+            container.style[style] = value
+        })
+    }
+
+    onMount(() => {
+        if (styles) {
+            applyStyles()
+        }
+    })
     onDestroy(unsubscribe)
 </script>
 
 <section
     aria-label='Queued song'
-    class='queued-song'
-    class:customLayout={customLayout !== undefined}
+    class:default={!styles}
+    bind:this={container}
 >
     <slot name='cover-art'>
         <img src={coverArt || fallbackArt} alt='Song cover art'>
@@ -43,19 +55,17 @@
 </section>
 
 <style>
-    .queued-song {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .customLayout {
-        all: inherit;
-    }
-
     img {
         width: 10.5em;
 
         margin: 2em auto;
         border-radius: 25%;
+    }
+
+    .default {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 5em;
     }
 </style>

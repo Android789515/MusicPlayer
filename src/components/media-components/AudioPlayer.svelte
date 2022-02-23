@@ -3,8 +3,8 @@
 
     import { queuedSong } from '../../stores/library'
 
-    import QueuedSong from './wrappers/QueuedSong.svelte'
-    import SongInfo from '../library-components/SongInfo.svelte'
+    import QueuedSong from '../wrappers/QueuedSong.svelte'
+    import SongInfo from '../wrappers/SongInfo.svelte'
 
     export let paused
     export let time
@@ -41,37 +41,30 @@
 
 <!-- I wrap this in a div and tell the inner Component that -->
 <!-- it will have a custom layout so it will inherit styles. -->
-<div class='queued-song'>
-    <QueuedSong customLayout={true}>
-        <img
-            slot='cover-art'
-            class='cover-art'
-            src={coverArt || fallbackArt}
-            alt='Cover art'
-        >
+<QueuedSong styles={{
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
+        marginBottom: '.5em'
+    }}>
+    <img
+        slot='cover-art'
+        class='cover-art'
+        src={coverArt || fallbackArt}
+        alt='Cover art'
+    >
 
-        <div
-            aria-label='Song information'
-            class='song-info'
-            slot='song-info'
-        >
-            <SongInfo songInfo={{ artist }} timeToDisplay={time} customStyle={true}>
-                <h4 class='song-title' slot='title'>{title}</h4>
-            </SongInfo>
-        </div>
-    </QueuedSong>
-</div>
+    <SongInfo
+        songInfo={{ artist }}
+        slot='song-info'
+        timeToDisplay={time}
+        styles={{ display: 'grid' }}
+    >
+        <h4 class='song-title' slot='title'>{title}</h4>
+    </SongInfo>
+</QueuedSong>
 
 <style>
-    .queued-song {
-        display: flex;
-        align-items: center;
-
-        overflow: hidden;
-
-        margin-bottom: .5em;
-    }
-
     .cover-art {
         display: block;
 
@@ -79,10 +72,6 @@
 
         margin-right: 1em;
         border-radius: 25%;
-    }
-
-    .song-info {
-        display: grid;
     }
 
     .song-title {
