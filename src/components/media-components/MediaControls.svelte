@@ -69,7 +69,7 @@
         position: fixed;
         left: 0;
         right: 0;
-        bottom: -100%;
+        bottom: 0;
 
         width: 100%;
 
@@ -77,9 +77,5 @@
         background: #fff;
 
         transition: bottom 250ms;
-    }
-
-    .media-controls.show {
-        bottom: 0;
     }
 </style>

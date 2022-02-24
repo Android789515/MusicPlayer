@@ -35,7 +35,7 @@
 
         {#if showPlaylists}
             <DirectoryLink linkTo='playlists'>
-                <DirectoryName name='Playlistsaaaaaaaaaaaaaaaaaaaaa' />
+                <DirectoryName name='Playlists' />
             </DirectoryLink>
         {/if}
 
@@ -45,8 +45,6 @@
             </DirectoryLink>
         {/if}
     </ul>
-
-    <div class='white-space'></div>
 </nav>
 
 <div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
@@ -74,14 +72,6 @@
         align-items: baseline;
 
         width: 100%;
-    }
-
-    .white-space {
-        /* TODO figure out proper width */
-        width: 100%;
-        height: .75em;
-
-        background: #fff;
     }
 
     .component {

@@ -11,7 +11,7 @@
 <style>
     .library {
         display: grid;
-        grid-template-columns: minmax(1em, 2em) auto minmax(1em, 2em);
+        grid-template-columns: 1em auto 1em;
 
         margin-top: 2em;
     }

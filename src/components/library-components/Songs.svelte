@@ -44,6 +44,12 @@
     .songs {
         display: grid;
         grid-row-gap: 1.25em;
+
+        overflow: auto;
+
+        max-height: 34em;
+
+        padding: 0 1em;
     }
 
     .song-title {
