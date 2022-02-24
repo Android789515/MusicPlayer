@@ -15,7 +15,7 @@
 <style>
     main {
         display: grid;
-        grid-template-rows: max-content 1fr;
+        grid-template-rows: auto 1fr;
 
         min-height: 100vh;
     }

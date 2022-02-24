@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { library, songs } from '../../stores/library'
+    import { library, songs, queuedSong } from '../../stores/library'
     import { useDirectoryNavigator } from '../../stores/directoryNavigator'
 
     import SongInfo from '../wrappers/SongInfo.svelte'
@@ -26,7 +26,7 @@
         borderBottom: 'solid .25em'
     }
 
-    $: isSongQueued = $library.queuedSong.src !== undefined
+    $: isSongQueued = $queuedSong.src !== undefined
 </script>
 
 <ul
