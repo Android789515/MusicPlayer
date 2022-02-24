@@ -77,6 +77,7 @@
     }
 
     .white-space {
+        /* TODO figure out proper width */
         width: 100%;
         height: .75em;
 
