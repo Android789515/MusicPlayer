@@ -12,11 +12,8 @@
     .library {
         display: grid;
         grid-template-columns: 1em auto 1em;
+        grid-row-gap: 1em;
 
         margin-top: 2em;
-    }
-
-    :global(.library > *) {
-        grid-column: 2 / -2;
     }
 </style>

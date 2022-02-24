@@ -49,18 +49,22 @@
 
 <style>
     .songs {
+        grid-column: 2 / span 2;
+
         display: grid;
         grid-row-gap: 1.25em;
 
         overflow: auto;
 
         max-height: 45em;
-
-        padding: 0 1em;
     }
 
     .songs.whenSongQueued {
         max-height: 34em;
+    }
+
+    .song {
+        padding-right: 1em;
     }
 
     .song-title {
