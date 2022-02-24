@@ -41,12 +41,6 @@
         margin: 0;
     }
 
-    .normal-text {
-        /* Font size in ems will keep the normal text (p's) */
-        /* 1/3 the size of the headers. */
-        font-size: .75em;
-    }
-
     .default {
         text-align: center;
     }
