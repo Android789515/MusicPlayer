@@ -25,9 +25,16 @@
         paddingBottom: '1em',
         borderBottom: 'solid .25em'
     }
+
+    $: isSongQueued = $library.queuedSong.src !== undefined
 </script>
 
-<ul aria-label='Songs' class='songs unstyled-ul' role='list'>
+<ul
+    aria-label='Songs'
+    class='songs unstyled-ul'
+    class:whenSongQueued={isSongQueued}
+    role='list'
+>
     {#each $songs as song (song.id)}
         <li
             class='song clickable'
@@ -47,9 +54,13 @@
 
         overflow: auto;
 
-        max-height: 34em;
+        max-height: 45em;
 
         padding: 0 1em;
+    }
+
+    .songs.whenSongQueued {
+        max-height: 34em;
     }
 
     .song-title {
