@@ -26,8 +26,8 @@
 
 <nav class='navigation' role='navigation'>
     <ul
-            aria-label='Navigation Links'
-            class='links unstyled-ul'
+        aria-label='Navigation Links'
+        class='links unstyled-ul'
     >
         <DirectoryLink linkTo='library'>
             <DirectoryName name='Library' />
@@ -35,7 +35,7 @@
 
         {#if showPlaylists}
             <DirectoryLink linkTo='playlists'>
-                <DirectoryName name='Playlists' />
+                <DirectoryName name='Playlistsaaaaaaaaaaaaaaaaaaaaa' />
             </DirectoryLink>
         {/if}
 

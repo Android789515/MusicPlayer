@@ -1,4 +1,6 @@
 <script lang='ts'>
+    import { onMount } from 'svelte'
+
     import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
 
     export let linkTo
@@ -6,13 +8,25 @@
     $: isCurrentDirectory = linkTo === $currentDirectory
 
     const navigator = useDirectoryNavigator()
+
+    let navLink
+    const focusPage = () => {
+        if (isCurrentDirectory) {
+            navLink.focus()
+        }
+    }
+
+    onMount(focusPage)
 </script>
 
 <li
     aria-label='Navigation Link'
     class='link clickable'
+    tabindex='1'
     class:currentDirectory={isCurrentDirectory}
-    on:click={() => navigator.navigate(linkTo)}>
+    on:click={() => navigator.navigate(linkTo)}
+    bind:this={navLink}
+>
     <slot></slot>
 </li>
 
