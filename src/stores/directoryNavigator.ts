@@ -1,12 +1,12 @@
 import { get, writable } from 'svelte/store'
 
-import QueuedSong from '../components/wrappers/QueuedSong.svelte'
-import Library from '../components/library-components/Library.svelte'
+import CurrentlyPlaying from '../pages/CurrentlyPlaying.svelte'
+import Library from '../pages/Library.svelte'
 
 const currentDirectory = writable<string>('')
 
 const directories = {
-    currentlyPlaying: QueuedSong,
+    currentlyPlaying: CurrentlyPlaying,
     library: Library
 }
 

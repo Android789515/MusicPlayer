@@ -5,7 +5,8 @@
 
     import SongInfo from './SongInfo.svelte'
 
-    export let styles = undefined
+    export let styles
+    export let timeToDisplay = undefined
 
     let src
     let coverArt
@@ -21,18 +22,25 @@
         artist = queuedSong.artist
         duration = queuedSong.duration
     })
-    $: isSongQueued = src !== undefined
 
     let container
-    const applyStyles = () => {
-        Object.entries(styles).forEach(([style, value]) => {
+    let img
+    const applyContainerStyles = () => {
+        Object.entries(styles.container).forEach(([style, value]) => {
             container.style[style] = value
+        })
+    }
+
+    const applyCoverArtStyles = () => {
+        Object.entries(styles.coverArt).forEach(([style, value]) => {
+            img.style[style] = value
         })
     }
 
     onMount(() => {
         if (styles) {
-            applyStyles()
+            applyContainerStyles()
+            applyCoverArtStyles()
         }
     })
     onDestroy(unsubscribe)
@@ -40,33 +48,23 @@
 
 <section
     aria-label='Queued song'
-    class:default={!styles}
     bind:this={container}
 >
-    <slot name='cover-art'>
-        <img src={coverArt || fallbackArt} alt='Song cover art'>
-    </slot>
+    <img class='cover-art' src={coverArt || fallbackArt} alt='Song cover art' bind:this={img}>
 
-    {#if isSongQueued}
-        <slot name='song-info'>
-            <SongInfo songInfo={{ title, artist }} timeToDisplay={duration} />
-        </slot>
-    {/if}
+    <SongInfo
+        styles={styles.songInfo}
+        songInfo={{ title: title, artist: artist }}
+        timeToDisplay={timeToDisplay === undefined ? duration : timeToDisplay}
+    />
 </section>
 
 <style>
-    img {
-        width: 10.5em;
-
-        margin: 2em auto;
+    .cover-art {
         border-radius: 25%;
     }
 
-    .default {
-        display: flex;
-        flex-direction: column;
-
-        padding: 1em;
-        margin-top: 5em;
+    .song-info > * {
+        margin: 0;
     }
 </style>
