@@ -39,7 +39,7 @@
 <div
     aria-label={`Song time bar, current song time is ${timePercent}%`}
     role='progressbar'
-    class='song-bar clickable'
+    class='song-bar clickable barTransition'
     draggable='true'
     bind:this={songBar}
     on:mousedown|preventDefault={handleClick}

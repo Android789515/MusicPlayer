@@ -62,8 +62,6 @@
 
         --shaded-nav-bg: calc(var(--app-bg-lightness) - 10%);
         background: hsl(0, 0%, var(--shaded-nav-bg));
-
-        box-shadow: 0 0.5em 1em rgb(255, 255, 255, .7);
     }
 
     .links {

@@ -14,6 +14,6 @@
         grid-template-columns: 1em auto 1em;
         grid-row-gap: 1em;
 
-        margin-top: 2em;
+        margin: 2em 0;
     }
 </style>

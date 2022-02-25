@@ -78,6 +78,11 @@ button:hover {
 	margin: 0;
 }
 
+.barTransition,
+.barTransition > * {
+	transition: width 250ms, height 250ms;
+}
+
 .clickable {
 	cursor: pointer;
 }

@@ -31,7 +31,13 @@
 
         const volumeToSet = capPercentage(positionInteracted / volumeBarHeight)
 
-        volume = volumeToSet
+        // Mouse dragging is inaccurate so rounding must happen
+        if (event instanceof MouseEvent) {
+            const roundedValue = Math.round(volumeToSet * 10) / 10
+            volume = roundedValue
+        } else {
+            volume = volumeToSet
+        }
     }
 
     const { draggingOff, handleClick, handleMove } = useDraggableBar(setVolume)
@@ -50,7 +56,7 @@
 
 <div
     aria-label={`Volume bar, volume is ${volumePercent}%`}
-    class='volume-bar clickable'
+    class='volume-bar clickable barTransition'
     class:shown={isVolumeBarShown}
     draggable='true'
     bind:this={volumeBar}
@@ -73,6 +79,7 @@
         width: .5em;
         height: 2em;
 
+        margin-left: .125em;
         margin-bottom: .7em;
 
         background: var(--bar-bg);

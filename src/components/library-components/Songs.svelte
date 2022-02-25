@@ -56,11 +56,12 @@
 
         overflow: auto;
 
-        max-height: 45em;
+        max-height: 48em;
+
+        padding: 1em 0;
     }
 
     .songs.whenSongQueued {
-        max-height: 34em;
     }
 
     .song {
