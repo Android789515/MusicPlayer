@@ -127,3 +127,4 @@ const createLibrary = () => {
 export const library = createLibrary()
 export const songs = derived(library, state => state.songs)
 export const queuedSong = derived(library, state => state.queuedSong)
+export const playlists = derived(library, state => state.playlists)
