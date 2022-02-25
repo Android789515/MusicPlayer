@@ -16,9 +16,9 @@
 
     const initializeDirectory = () => $currentDirectory = 'library'
 
-    let showPlaylists = false
-
     const navigator = useDirectoryNavigator()
+
+    let isPlaylistOpen = false
 
     onMount(initializeDirectory)
     onDestroy(unsubscribe)
@@ -33,9 +33,9 @@
             <DirectoryName name='Library' />
         </DirectoryLink>
 
-        {#if showPlaylists}
-            <DirectoryLink linkTo='playlists'>
-                <DirectoryName name='Playlists' />
+        {#if isPlaylistOpen}
+            <DirectoryLink linkTo='openedPlaylist'>
+                <DirectoryName name='Playlist' />
             </DirectoryLink>
         {/if}
 
