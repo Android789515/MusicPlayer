@@ -40,9 +40,11 @@
             class='song clickable'
             on:click={() => handleClick(() => library.queueSong(song.id))}
         >
-            <SongInfo songInfo={song} timeToDisplay={song.duration} styles={songStyles}>
-                <h5 class='song-title' slot='title'>{song.title}</h5>
-            </SongInfo>
+            <SongInfo
+                styles={songStyles}
+                songInfo={song}
+                timeToDisplay={song.duration}
+            />
         </li>
     {/each}
 </ul>

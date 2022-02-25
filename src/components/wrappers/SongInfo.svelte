@@ -8,7 +8,9 @@
 
     export let styles = undefined
 
-    const { title, artist } = songInfo
+    // Note that this is valid, the Svelte plugin
+    // needs to update
+    $: ({ title, artist } = songInfo)
 
     let container
     const applyStyles = () => {
@@ -25,23 +27,15 @@
 </script>
 
 <div class='container' class:default={!styles} bind:this={container}>
-    <slot name='title'>
-        <h2>{title}</h2>
-    </slot>
+    <h2>{title}</h2>
 
-    <slot name='other-info'>
-        <p>{artist}</p>
+    <p>{artist}</p>
 
-        <p>{formatTime(timeToDisplay)}</p>
-    </slot>
+    <p>{formatTime(timeToDisplay)}</p>
 </div>
 
 <style>
     .container > * {
         margin: 0;
-    }
-
-    .default {
-        text-align: center;
     }
 </style>

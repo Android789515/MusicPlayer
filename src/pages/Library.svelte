@@ -1,6 +1,6 @@
 <script lang='ts'>
-    import SongUploader from './SongUploader.svelte'
-    import Songs from './Songs.svelte'
+    import SongUploader from '../components/library-components/SongUploader.svelte'
+    import Songs from '../components/library-components/Songs.svelte'
 </script>
 
 <section aria-label='Library' class='library'>
