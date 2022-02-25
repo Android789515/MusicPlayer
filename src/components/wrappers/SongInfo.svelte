@@ -6,7 +6,7 @@
     export let songInfo
     export let timeToDisplay
 
-    export let styles
+    export let styles = undefined
 
     const { title, artist } = songInfo
 
