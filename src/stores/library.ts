@@ -1,6 +1,7 @@
 import { derived, writable } from 'svelte/store'
+import { v4 as uuid } from 'uuid'
 
-import type { Song } from '../types/song'
+import type { Playlist, PlaylistID, Song, SongID } from '../types/libraryTypes'
 
 const blankSong: Song = {
     id: undefined,
@@ -13,7 +14,7 @@ const blankSong: Song = {
 
 interface Library {
     songs: Song[],
-    playlists: [],
+    playlists: Playlist[],
     queuedSong: Song
 }
 
@@ -31,17 +32,17 @@ const createLibrary = () => {
         })
     }
 
-    const removeSong = (filterId: string) => {
+    const removeSong = (songID: SongID) => {
         update(library => {
-            const filteredSongs = library.songs.filter(({ id }) => id !== filterId)
+            const filteredSongs = library.songs.filter(({ id }) => id !== songID)
 
             return { ...library, songs: filteredSongs }
         })
     }
 
-    const queueSong = (songId: string) => {
+    const queueSong = (songID: SongID) => {
         update(library => {
-            const songToQueue = library.songs.find(song => song.id === songId)
+            const songToQueue = library.songs.find(song => song.id === songID)
             if (songToQueue) {
                 return { ...library, queuedSong: songToQueue }
             }
@@ -55,12 +56,71 @@ const createLibrary = () => {
         })
     }
 
+    const createPlaylist = (name: string) => {
+        update(library => {
+            const newPlaylist = {
+                id: uuid(),
+                name,
+                assignedSongs: []
+            }
+            return { ...library, playlists: [...library.playlists, newPlaylist] }
+        })
+    }
+
+    const addSongToPlaylist = (songID: SongID, playlistID: PlaylistID) => {
+        update(library => {
+            return { ...library, playlists: library.playlists.map(playlist => {
+                    const isPlaylistToAddTo = playlist.id === playlistID
+                    if (isPlaylistToAddTo) {
+                        return {
+                            ...playlist,
+                            assignedSongs: [...playlist.assignedSongs, songID]
+                        }
+                    }
+                    return playlist
+                })
+            }
+        })
+    }
+
+    const deletePlaylist = (playlistID: PlaylistID) => {
+        update(library => {
+            return { ...library, playlists: library.playlists.filter(playlist => {
+                    const shouldKeep = playlist.id !== playlistID
+                    if (shouldKeep) {
+                        return playlist
+                    }
+                })
+            }
+        })
+    }
+
+    const removeSongFromPlaylist = (songID: SongID, playlistID: PlaylistID) => {
+        update(library => {
+            return { ...library, playlists: library.playlists.map(playlist => {
+                    const isPlaylistToUpdate = playlist.id === playlistID
+                    if (isPlaylistToUpdate) {
+                        return {
+                            ...playlist,
+                            assignedSongs: playlist.assignedSongs.filter(id => id !== songID)
+                        }
+                    }
+                    return playlist
+                })
+            }
+        })
+    }
+
     return {
         subscribe,
         addSong,
         removeSong,
         queueSong,
-        unqueueSong
+        unqueueSong,
+        createPlaylist,
+        addSongToPlaylist,
+        deletePlaylist,
+        removeSongFromPlaylist
     }
 }
 

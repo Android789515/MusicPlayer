@@ -3,7 +3,7 @@ import type { TagType } from 'jsmediatags/types'
 import { v4 as uuid } from 'uuid'
 
 import { library } from '../stores/library'
-import type { Song } from '../types/song'
+import type { Song } from '../types/libraryTypes'
 import type { AudioFileData, TagDefaults } from '../types/audioFileTypes'
 
 export const useSongUploader = () => {
