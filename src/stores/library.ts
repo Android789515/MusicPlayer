@@ -111,6 +111,13 @@ const createLibrary = () => {
         })
     }
 
+    const queryLibrary = (query: string) => {
+        let results
+        derived(internalState, library => {
+            const libraryIndices = Object.values(library)
+        })
+    }
+
     return {
         subscribe,
         addSong,
