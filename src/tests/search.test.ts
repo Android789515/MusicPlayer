@@ -13,9 +13,9 @@ describe('Search method', () => {
     test(`Find every string of 'Hi, there' in an array of
     [['No', 'Why'], 'Hi, there', ['Hi, there', 'Nice', 'Stop'], 'Last', 'Hi, there']`, () => {
         expect(search([
-            ['No', 'Why'],
+            ['No', 'Low'],
             'Hi, there',
-            ['Hi, there', 'Nice', 'Stop'],
+            ['Hi, there', 'Nice', 'Think'],
             'Last',
             'Hi, there'
         ], 'Hi, there')).toIncludeSameMembers(['Hi, there', 'Hi, there', 'Hi, there'])
