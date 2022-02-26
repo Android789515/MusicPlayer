@@ -9,7 +9,9 @@ export const findObjects =
     }, [])
 }
 
-export const delve = (array: any[], find: string | number | []): boolean => {
+type objectValues = string | number | [] | object
+
+export const delve = (array: objectValues[], find: string | number): boolean => {
     return array.some(value => {
         if (Array.isArray(value)) {
             return delve(value, find)

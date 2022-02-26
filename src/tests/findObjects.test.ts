@@ -27,4 +27,16 @@ describe('Find method', () => {
             { fruits: ['Apples', 'Pears', 'Oranges'], Vegetables: ['Carrots', 'Cucumbers'] }
         ])
     })
+
+    test('Find all objects in array with string: 123j8123', () => {
+        const testArray = [
+            {},
+            { name: 'name', props: [{ not: -1 }, 0, 'a'] },
+            { someVal: { someVal: { 123: '123j8123' }, otherVal: [{ 1: 2 }] } },
+            { vals: [], props: 2 }
+        ]
+        expect(findObjects(testArray, '123j8123')).toIncludeSameMembers([
+            { someVal: { someVal: { 123: '123j8123' }, otherVal: [{ 1: 2 }] } }
+        ])
+    })
 })
