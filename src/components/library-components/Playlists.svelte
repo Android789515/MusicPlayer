@@ -3,8 +3,12 @@
 </script>
 
 <ul aria-label='Playlists' role='list'>
-    {#each playlists as playlist}
-
+    {#each $playlists as { id, name, songs } (id)}
+        {@const numberOfSongs = songs.length}
+        <li class='playlist' aria-label='Playlist' role='listitem'>
+            <p>{name}</p>
+            <p>{numberOfSongs}</p>
+        </li>
     {/each}
 </ul>
 

@@ -16,5 +16,5 @@ export type PlaylistID = string
 export interface Playlist {
     id: PlaylistID
     name: string
-    assignedSongs: string[]
+    songs: string[]
 }

@@ -61,7 +61,7 @@ const createLibrary = () => {
             const newPlaylist = {
                 id: uuid(),
                 name,
-                assignedSongs: []
+                songs: []
             }
             return { ...library, playlists: [...library.playlists, newPlaylist] }
         })
@@ -74,7 +74,7 @@ const createLibrary = () => {
                     if (isPlaylistToAddTo) {
                         return {
                             ...playlist,
-                            assignedSongs: [...playlist.assignedSongs, songID]
+                            songs: [...playlist.songs, songID]
                         }
                     }
                     return playlist
@@ -102,7 +102,7 @@ const createLibrary = () => {
                     if (isPlaylistToUpdate) {
                         return {
                             ...playlist,
-                            assignedSongs: playlist.assignedSongs.filter(id => id !== songID)
+                            songs: playlist.songs.filter(id => id !== songID)
                         }
                     }
                     return playlist
