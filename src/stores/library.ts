@@ -115,6 +115,7 @@ const createLibrary = () => {
         let results
         derived(internalState, library => {
             const libraryIndices = Object.values(library)
+
         })
     }
 

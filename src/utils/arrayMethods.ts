@@ -1,24 +1,24 @@
 
 
-export const search = (array: any[], find: any): any => {
-    return array.reduce((results: [], element: any) => {
-        if (Array.isArray(element)) {
-            return [...results, ...search(element, find)]
-        }
+export const findObjects =
+    (array: object[], find: string | number): object[] => {
+    return array.reduce((results: object[], element: object) => {
+        const wasFound = delve(Object.values(element), find)
 
-        if (typeof element === 'object') {
-            return [
-                ...results,
-                ...search(Object.values(element), find)
-            ]
-        }
-
-        if (element === find) {
-            return [...results, element]
-        }
-
-        return results
+        return wasFound ? [...results, element] : results
     }, [])
 }
 
-module.exports = search
+export const delve = (array: any[], find: string | number | []): boolean => {
+    return array.some(value => {
+        if (Array.isArray(value)) {
+            return delve(value, find)
+        } else if (typeof value === 'object') {
+            return delve(Object.values(value), find)
+        } else {
+            return value === find;
+        }
+    })
+}
+
+module.exports = { findObjects, delve }
