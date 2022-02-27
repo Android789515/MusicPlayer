@@ -1,10 +1,5 @@
 <script lang='ts'>
-    import { library } from '../../stores/library'
-
-    export let searchResults
-
     let searchText = ''
-    $: searchResults = library.searchLibrary(searchText)
 </script>
 
 <div class='layout'>
@@ -19,10 +14,6 @@
 </div>
 
 <style>
-    .layout, button {
-        grid-column: 2 / -2;
-    }
-
     .searchbar {
         display: block;
 

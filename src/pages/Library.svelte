@@ -1,15 +1,11 @@
 <script lang='ts'>
-    import SearchBar from '../components/library-components/SearchBar.svelte'
     import SongUploader from '../components/library-components/SongUploader.svelte'
-    import SearchResults from '../components/library-components/SearchResults.svelte'
-
-    let searchResults = []
+    import Explorer from '../components/library-components/Explorer.svelte'
 </script>
 
 <section aria-label='Library' class='library'>
-    <SearchBar bind:searchResults />
     <SongUploader />
-    <SearchResults bind:searchResults />
+    <Explorer />
 </section>
 
 <style>

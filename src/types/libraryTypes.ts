@@ -11,6 +11,15 @@ export interface Song {
     duration: number | undefined
 }
 
+export enum SongKeys {
+    id = 'id',
+    src = 'src',
+    coverArt = 'coverArt',
+    title = 'title',
+    artist = 'artist',
+    duration = 'duration'
+}
+
 export type PlaylistID = string
 
 export interface Playlist {
