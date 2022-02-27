@@ -114,7 +114,7 @@ const createLibrary = () => {
 
     const searchSongs = (query: string) => {
         return get(library).songs.reduce<Song[]>((results, song) => {
-            const doesMatchQuery = queryMatch(song, query)
+            const doesMatchQuery = findIn(song, query)
             if (doesMatchQuery) return [...results, song]
 
             return results
@@ -123,33 +123,36 @@ const createLibrary = () => {
 
     const searchPlaylists = (query: string) => {
         return get(library).playlists.reduce<Playlist[]>((results, playlist) => {
-            const doesMatchQuery = queryMatch(playlist, query)
-            if (doesMatchQuery) return [...results, playlist]
+            const wasFound = findIn(playlist, query)
+            if (wasFound) return [...results, playlist]
 
             return results
         }, [])
     }
 
-    const queryMatch = (songOrPlaylist: Song | Playlist, query: string) => {
-        return Object.values(songOrPlaylist).some(detail => {
-            switch (typeof detail) {
-                case 'number': // When detail is a song duration
-                    const roundedDuration = Math.floor(detail)
+    const findIn = (songOrPlaylist: Song | Playlist, query: string) => {
+        return Object.entries(songOrPlaylist).some(([key , value]) => {
+            switch (typeof value) {
+                case 'number': // When song duration
+                    const roundedDuration = Math.floor(value)
                     return roundedDuration <= Number(query)
 
                 case 'string':
-                    return detail.includes(query) || detail === query
+                    // Other keys, such as ID, must match exactly
+                    // See default case
+                    if (key === 'id' || key === 'src') break
+                    return value.includes(query) || value === query
 
                 default:
-                    return detail === query
+                    return value === query
             }
         })
     }
 
-    const parseQuery = (query: string) => {
+    const parseSearch = (query: string) => {
         // Example - 3:12 < 4 characters
-        const couldQueryBeTimeFormat = query.includes(':')
-        if (couldQueryBeTimeFormat) {
+        const couldSearchBeTimeFormat = query.includes(':')
+        if (couldSearchBeTimeFormat) {
             const timeInSeconds = getSecondsOfTimeFormat(query)
             if (timeInSeconds) {
                 return String(timeInSeconds) // Will be converted to a number later, if needed
@@ -159,13 +162,13 @@ const createLibrary = () => {
         return query
     }
 
-    const queryLibrary = (query: string) => {
+    const searchLibrary = (query: string) => {
         if (!query) return []
 
-        const parsedQuery = parseQuery(query)
+        const parsedSearch = parseSearch(query)
         const searchResults = [
-            ...searchSongs(parsedQuery),
-            ...searchPlaylists(parsedQuery)
+            ...searchSongs(parsedSearch),
+            ...searchPlaylists(parsedSearch)
         ]
 
         if (!searchResults.length) {
@@ -187,7 +190,7 @@ const createLibrary = () => {
         addSongToPlaylist,
         deletePlaylist,
         removeSongFromPlaylist,
-        queryLibrary
+        searchLibrary
     }
 }
 

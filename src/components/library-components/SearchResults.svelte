@@ -1,6 +1,6 @@
 <script lang='ts'>
     import type { Song, Playlist } from '../../types/libraryTypes'
-    import { songs } from '../../stores/library'
+    import { songs, queuedSong } from '../../stores/library'
 
     import SongEntry from './SongEntry.svelte'
     import ResultsMessage from './ResultsMessage.svelte'
@@ -8,6 +8,7 @@
     export let searchResults
 
     $: areThereSearchResults = searchResults.length > 0
+    $: isSongQueued = $queuedSong.src !== undefined
 
     const isPlaylist = (searchResult: Song | Playlist) => {
         return 'name' in searchResult
@@ -18,7 +19,7 @@
     }
 </script>
 
-<ul class='search-results unstyled-ul'>
+<ul class='search-results unstyled-ul' class:whenSongQueued={isSongQueued}>
     {#each areThereSearchResults ? searchResults : $songs as result (result.id)}
         {#if isPlaylist(result)}
             <li></li>
@@ -48,9 +49,13 @@
 
         overflow: auto;
 
-        max-height: 48em;
+        max-height: 39em;
 
         padding: 1em 0;
+    }
+
+    .search-results.whenSongQueued {
+        max-height: 30em;
     }
 
     :global(.search-results > *) {

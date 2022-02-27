@@ -4,7 +4,7 @@
     export let searchResults
 
     let searchText = ''
-    $: searchResults = library.queryLibrary(searchText)
+    $: searchResults = library.searchLibrary(searchText)
 </script>
 
 <div class='layout'>

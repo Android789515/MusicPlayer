@@ -74,9 +74,5 @@
 
     .component {
         grid-row: 2;
-
-        overflow: hidden;
-
-        max-height: 100vh;
     }
 </style>
