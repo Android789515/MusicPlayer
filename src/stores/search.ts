@@ -5,26 +5,19 @@ import type { Playlist, Song } from '../types/libraryTypes'
 
 const search = (query: string) => derived(library, state => {
     if (!query) return []
-    const piecesOfState = Object.values(state)
 
-    // Go through each piece of state
-    const searchResults = piecesOfState.reduce((results, piece) => {
-        if (Array.isArray(piece)) {
-            // If it's songs or playlists
-            const matches = lookThrough(piece).for(query)
-            return [...results, ...matches]
-        }
-        return results
-    }, [])
+    const searchResults = [
+        ...lookThrough(state.songs).for(query),
+        ...lookThrough(state.playlists).for(query)
+    ]
+    const anyResults = searchResults.length
 
-    if (!searchResults.length) {
-        const nothingFound = [
-            { message: 'Nothing Found' }
-        ]
-        return nothingFound
-    }
-    return searchResults
+    return anyResults ? searchResults : newResultsMessage('Nothing found')
 })
+
+const newResultsMessage = (message: string) => {
+    return [{ message }]
+}
 
 const lookThrough = (collection: (Song | Playlist)[]) => {
     return {
