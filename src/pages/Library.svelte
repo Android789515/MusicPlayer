@@ -15,6 +15,7 @@
 
 <style>
     .library {
+        --inner-component-side-space: 1em;
         display: grid;
         grid-template-columns: 1em auto 1em;
         grid-row-gap: 1em;

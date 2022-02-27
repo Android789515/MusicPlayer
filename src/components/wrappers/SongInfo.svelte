@@ -1,7 +1,7 @@
 <script lang='ts'>
     import { onMount } from 'svelte'
 
-    import formatTime from '../../utils/formatTime'
+    import { formatTime } from '../../utils/formatTime'
 
     export let songInfo
     export let timeToDisplay

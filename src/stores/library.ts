@@ -2,6 +2,7 @@ import { derived, get, writable } from 'svelte/store'
 import { v4 as uuid } from 'uuid'
 
 import type { Playlist, PlaylistID, Song, SongID } from '../types/libraryTypes'
+import { getSecondsOfTimeFormat } from '../utils/formatTime'
 
 const blankSong: Song = {
     id: undefined,
@@ -134,8 +135,9 @@ const createLibrary = () => {
     const queryMatch = (array: Song | Playlist, query: LibraryQuery) => {
         return Object.values(array).some(detail => {
             switch (typeof detail) {
-                case 'number':
-                    return detail === Number(query)
+                case 'number': // Detail is a song duration
+                    const roundedDuration = Math.floor(detail)
+                    return roundedDuration <= Number(query)
 
                 case 'string':
                     return detail.includes(String(query)) || detail === String(query)
@@ -146,11 +148,27 @@ const createLibrary = () => {
         })
     }
 
+    const parseQuery = (query: string) => {
+        // Example - 3:12 < 4 characters
+        const couldQueryBeTimeFormat = query.includes(':')
+        if (couldQueryBeTimeFormat) {
+            const timeInSeconds = getSecondsOfTimeFormat(query)
+            console.log(timeInSeconds)
+            if (timeInSeconds) {
+                return String(timeInSeconds) // Will be converted to a number later, if needed
+            }
+        }
+
+        return query
+    }
+
     const queryLibrary = (query: string) => {
         if (!query) return []
+
+        const parsedQuery = parseQuery(query)
         const searchResults = [
-            ...searchSongs(query),
-            ...searchPlaylists(query)
+            ...searchSongs(parsedQuery),
+            ...searchPlaylists(parsedQuery)
         ]
 
         if (!searchResults.length) {

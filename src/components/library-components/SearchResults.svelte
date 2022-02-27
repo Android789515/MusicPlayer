@@ -6,7 +6,6 @@
     import ResultsMessage from './ResultsMessage.svelte'
 
     export let searchResults
-    $: console.log(searchResults)
 
     const isPlaylist = (searchResult: Song | Playlist) => {
         return 'name' in searchResult
@@ -58,6 +57,6 @@
     }
 
     :global(.search-results > *) {
-        padding-right: 1em;
+        padding-right: var(--inner-component-side-space);
     }
 </style>

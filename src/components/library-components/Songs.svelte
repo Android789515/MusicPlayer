@@ -67,6 +67,6 @@
     }
 
     .song {
-        padding-right: 1em;
+        padding-right: var(--inner-component-side-space);
     }
 </style>
