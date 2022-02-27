@@ -5,7 +5,9 @@
     import SongEntry from './SongEntry.svelte'
     import ResultsMessage from './ResultsMessage.svelte'
 
-    $: areThereSearchResults = false
+    export let searchResults
+
+    $: areThereSearchResults = $searchResults.length > 0
     $: isSongQueued = $queuedSong.src !== undefined
 
     const isPlaylist = (searchResult: Song | Playlist) => {
@@ -18,7 +20,7 @@
 </script>
 
 <ul class='search-results unstyled-ul' class:whenSongQueued={isSongQueued}>
-    {#each areThereSearchResults ? false : $songs as result (result.id)}
+    {#each areThereSearchResults ? $searchResults : $songs as result (result.id)}
         {#if isPlaylist(result)}
             <li></li>
 
@@ -40,6 +42,8 @@
 
 <style>
     .search-results {
+        grid-column: 2 / span 2;
+
         display: grid;
         grid-row-gap: 1.25em;
 

@@ -1,5 +1,5 @@
 <script lang='ts'>
-    let searchText = ''
+    export let query
 </script>
 
 <div class='layout'>
@@ -9,12 +9,14 @@
         placeholder='Type to search or create'
         aria-label='Search bar'
         role='searchbox'
-        bind:value={searchText}
+        bind:value={query}
     />
 </div>
 
 <style>
     .searchbar {
+        grid-column: 2 / span 2;
+
         display: block;
 
         width: 100%;

@@ -1,16 +1,16 @@
 <script lang='ts'>
-    import { librarySearchResults } from '../../stores/librarySearchResults'
+    import { search } from '../../stores/search'
 
     import SearchBar from './SearchBar.svelte'
     import SearchResults from './SearchResults.svelte'
 
-    $: search = librarySearchResults('Rondo Alla Turca')
-    $: $search
+    let query = ''
+    $: searchResults = search(query)
 </script>
 
 <div class='explorer'>
-    <SearchBar />
-    <SearchResults />
+    <SearchBar bind:query/>
+    <SearchResults {searchResults} />
 </div>
 
 <style>
