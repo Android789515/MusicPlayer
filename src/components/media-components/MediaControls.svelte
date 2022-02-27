@@ -1,6 +1,4 @@
 <script lang='ts'>
-    import { onDestroy } from 'svelte'
-
     import { queuedSong } from '../../stores/library'
 
     import AudioPlayer from './AudioPlayer.svelte'
@@ -15,17 +13,11 @@
 
     let shuffle = false
 
-    let src
-    let duration
-    const unsubscribe = queuedSong.subscribe(queuedSong => {
-        src = queuedSong.src
-        duration = queuedSong.duration
-    })
+    $: src = $queuedSong.src
+    $: duration = $queuedSong.duration
     $: isSongQueued = src !== undefined
 
     let isVolumeBarShown = false
-
-    onDestroy(unsubscribe)
 </script>
 
 <div
@@ -35,6 +27,7 @@
 >
     <AudioPlayer
         src={isSongQueued && src}
+        {shuffle}
         bind:paused
         bind:time
 

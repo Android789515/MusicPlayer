@@ -1,4 +1,7 @@
 <script lang='ts'>
+    import { library, songs } from '../../stores/library'
+    import { toInteger } from '../../utils/math'
+
     import QueuedSong from '../wrappers/QueuedSong.svelte'
 
     export let paused
@@ -7,7 +10,19 @@
     export let volume
     export let muted
 
+    export let shuffle
+
     export let src
+
+    const playRandomSong = () => {
+        const songIDs = $songs.map(song => song.id)
+        const randomIndex = Math.random() * songIDs.length
+        const nextSong = songIDs[toInteger(randomIndex)]
+
+        if (nextSong) {
+            library.queueSong(nextSong)
+        }
+    }
 </script>
 
 <audio
@@ -19,6 +34,11 @@
 
     bind:volume
     bind:muted
+    on:ended={() => {
+        if (shuffle) {
+            playRandomSong()
+        }
+    }}
 ></audio>
 
 <!-- I wrap this in a div and tell the inner Component that -->
