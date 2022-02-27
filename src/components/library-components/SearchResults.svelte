@@ -1,11 +1,13 @@
 <script lang='ts'>
     import type { Song, Playlist } from '../../types/libraryTypes'
+    import { songs } from '../../stores/library'
 
-    import Songs from './Songs.svelte'
     import SongEntry from './SongEntry.svelte'
     import ResultsMessage from './ResultsMessage.svelte'
 
     export let searchResults
+
+    $: areThereSearchResults = searchResults.length > 0
 
     const isPlaylist = (searchResult: Song | Playlist) => {
         return 'name' in searchResult
@@ -16,31 +18,26 @@
     }
 </script>
 
-{#if searchResults.length}
-    <ul class='search-results unstyled-ul'>
-        {#each searchResults as result (result.id)}
-            {#if isPlaylist(result)}
-                <li></li>
+<ul class='search-results unstyled-ul'>
+    {#each areThereSearchResults ? searchResults : $songs as result (result.id)}
+        {#if isPlaylist(result)}
+            <li></li>
 
-            {:else if isSong(result)}
-                <SongEntry songInfo={{
+        {:else if isSong(result)}
+            <SongEntry songInfo={{
                 id: result.id,
                 title: result.title,
                 artist: result.artist,
                 duration: result.duration
                 }} />
 
-            {:else}
-                <ResultsMessage
-                    message={result.message}
-                />
-            {/if}
-        {/each}
-    </ul>
-
-{:else}
-    <Songs />
-{/if}
+        {:else}
+            <ResultsMessage
+                message={result.message}
+            />
+        {/if}
+    {/each}
+</ul>
 
 <style>
     .search-results {

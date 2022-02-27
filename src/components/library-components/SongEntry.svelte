@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { library, songs, queuedSong } from '../../stores/library'
+    import { library, queuedSong } from '../../stores/library'
     import { useDirectoryNavigator } from '../../stores/directoryNavigator'
 
     import SongInfo from '../wrappers/SongInfo.svelte'

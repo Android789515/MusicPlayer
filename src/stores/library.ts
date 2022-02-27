@@ -112,9 +112,7 @@ const createLibrary = () => {
         })
     }
 
-    type LibraryQuery = string | number
-
-    const searchSongs = (query: LibraryQuery) => {
+    const searchSongs = (query: string) => {
         return get(library).songs.reduce<Song[]>((results, song) => {
             const doesMatchQuery = queryMatch(song, query)
             if (doesMatchQuery) return [...results, song]
@@ -123,7 +121,7 @@ const createLibrary = () => {
         }, [])
     }
 
-    const searchPlaylists = (query: LibraryQuery) => {
+    const searchPlaylists = (query: string) => {
         return get(library).playlists.reduce<Playlist[]>((results, playlist) => {
             const doesMatchQuery = queryMatch(playlist, query)
             if (doesMatchQuery) return [...results, playlist]
@@ -132,15 +130,15 @@ const createLibrary = () => {
         }, [])
     }
 
-    const queryMatch = (array: Song | Playlist, query: LibraryQuery) => {
-        return Object.values(array).some(detail => {
+    const queryMatch = (songOrPlaylist: Song | Playlist, query: string) => {
+        return Object.values(songOrPlaylist).some(detail => {
             switch (typeof detail) {
-                case 'number': // Detail is a song duration
+                case 'number': // When detail is a song duration
                     const roundedDuration = Math.floor(detail)
                     return roundedDuration <= Number(query)
 
                 case 'string':
-                    return detail.includes(String(query)) || detail === String(query)
+                    return detail.includes(query) || detail === query
 
                 default:
                     return detail === query
@@ -171,7 +169,10 @@ const createLibrary = () => {
         ]
 
         if (!searchResults.length) {
-            return [{ message: 'Nothing Found' }]
+            const nothingFound = [
+                { message: 'Nothing Found' }
+            ]
+            return nothingFound
         }
         return searchResults
     }

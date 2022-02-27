@@ -2,7 +2,6 @@
     import SearchBar from '../components/library-components/SearchBar.svelte'
     import SongUploader from '../components/library-components/SongUploader.svelte'
     import SearchResults from '../components/library-components/SearchResults.svelte'
-    import Songs from '../components/library-components/Songs.svelte'
 
     let searchResults = []
 </script>
