@@ -80,7 +80,6 @@
         height: 2em;
 
         margin-left: .1em;
-        margin-bottom: .7em;
 
         background: var(--bar-bg);
 

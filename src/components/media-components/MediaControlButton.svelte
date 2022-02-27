@@ -25,6 +25,5 @@
 
     .smallerSize {
         width: 3.125em;
-        height: 3.75em;
     }
 </style>

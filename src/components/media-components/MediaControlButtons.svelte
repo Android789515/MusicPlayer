@@ -23,11 +23,13 @@
 </script>
 
 <div aria-label='Media control buttons' class='media-control-buttons'>
-    <MediaControlButton
-        buttonName='shuffle'
-        buttonAction={toggleShuffle}
-        smallerSize={true}
-    />
+    <div class='shuffle-button' class:toggled={shuffle}>
+        <MediaControlButton
+            buttonName='shuffle'
+            buttonAction={toggleShuffle}
+            smallerSize={true}
+        />
+    </div>
 
     <MediaControlButton buttonName='rewind' buttonAction={rewind} />
 
@@ -48,6 +50,16 @@
 <style>
     .media-control-buttons {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+    }
+
+    .shuffle-button {
+        padding: .0625em .125em;
+        margin-bottom: .125em;
+    }
+
+    .shuffle-button.toggled {
+        background: #dbdbdb9e;
+        border-radius: 25%;
     }
 </style>
