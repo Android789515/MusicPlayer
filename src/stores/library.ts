@@ -1,7 +1,8 @@
-import { derived, writable } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 import { v4 as uuid } from 'uuid'
 
 import type { Playlist, PlaylistID, Song, SongID } from '../types/libraryTypes'
+import { searchLibrary } from '../utils/arrayMethods'
 
 const blankSong: Song = {
     id: undefined,
@@ -13,8 +14,8 @@ const blankSong: Song = {
 }
 
 interface Library {
-    songs: Song[],
-    playlists: Playlist[],
+    songs: Song[]
+    playlists: Playlist[]
     queuedSong: Song
 }
 
@@ -111,12 +112,52 @@ const createLibrary = () => {
         })
     }
 
-    const queryLibrary = (query: string) => {
-        let results
-        derived(internalState, library => {
-            const libraryIndices = Object.values(library)
+    type LibraryQuery = string | number
 
+    const searchSongs = (query: LibraryQuery) => {
+        return get(library).songs.reduce<Song[]>((results, song) => {
+            const doesMatchQuery = queryMatch(song, query)
+            if (doesMatchQuery) return [...results, song]
+
+            return results
+        }, [])
+    }
+
+    const searchPlaylists = (query: LibraryQuery) => {
+        return get(library).playlists.reduce<Playlist[]>((results, playlist) => {
+            const doesMatchQuery = queryMatch(playlist, query)
+            if (doesMatchQuery) return [...results, playlist]
+
+            return results
+        }, [])
+    }
+
+    const queryMatch = (array: Song | Playlist, query: LibraryQuery) => {
+        return Object.values(array).some(detail => {
+            switch (typeof detail) {
+                case 'number':
+                    return detail === Number(query)
+
+                case 'string':
+                    return detail.includes(String(query)) || detail === String(query)
+
+                default:
+                    return detail === query
+            }
         })
+    }
+
+    const queryLibrary = (query: string) => {
+        if (!query) return []
+        const searchResults = [
+            ...searchSongs(query),
+            ...searchPlaylists(query)
+        ]
+
+        if (!searchResults.length) {
+            return [{ message: 'Nothing Found' }]
+        }
+        return searchResults
     }
 
     return {
@@ -128,7 +169,8 @@ const createLibrary = () => {
         createPlaylist,
         addSongToPlaylist,
         deletePlaylist,
-        removeSongFromPlaylist
+        removeSongFromPlaylist,
+        queryLibrary
     }
 }
 

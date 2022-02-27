@@ -1,5 +1,10 @@
 <script lang='ts'>
+    import { library } from '../../stores/library'
 
+    export let searchResults
+
+    let searchText = ''
+    $: searchResults = library.queryLibrary(searchText)
 </script>
 
 <div class='layout'>
@@ -9,11 +14,12 @@
         placeholder='Type to search or create'
         aria-label='Search bar'
         role='searchbox'
+        bind:value={searchText}
     />
 </div>
 
 <style>
-    .layout {
+    .layout, button {
         grid-column: 2 / -2;
     }
 

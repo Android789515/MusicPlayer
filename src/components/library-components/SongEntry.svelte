@@ -4,6 +4,8 @@
 
     import SongInfo from '../wrappers/SongInfo.svelte'
 
+    export let songInfo
+
     const navigator = useDirectoryNavigator()
 
     const handleClick = (callback) => {
@@ -29,43 +31,18 @@
     $: isSongQueued = $queuedSong.src !== undefined
 </script>
 
-<ul
-    aria-label='Songs'
-    class='songs unstyled-ul'
-    class:whenSongQueued={isSongQueued}
-    role='list'
+<li
+    class='song clickable'
+    on:click={() => handleClick(() => library.queueSong(songInfo.id))}
 >
-    {#each $songs as song (song.id)}
-        <li
-            class='song clickable'
-            on:click={() => handleClick(() => library.queueSong(song.id))}
-        >
-            <SongInfo
-                styles={songStyles}
-                songInfo={song}
-                timeToDisplay={song.duration}
-            />
-        </li>
-    {/each}
-</ul>
+    <SongInfo
+        styles={songStyles}
+        {songInfo}
+        timeToDisplay={songInfo.duration}
+    />
+</li>
 
 <style>
-    .songs {
-        grid-column: 2 / span 2;
-
-        display: grid;
-        grid-row-gap: 1.25em;
-
-        overflow: auto;
-
-        max-height: 48em;
-
-        padding: 1em 0;
-    }
-
-    .songs.whenSongQueued {
-    }
-
     .song {
         padding-right: 1em;
     }
