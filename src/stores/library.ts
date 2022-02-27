@@ -2,7 +2,6 @@ import { derived, get, writable } from 'svelte/store'
 import { v4 as uuid } from 'uuid'
 
 import type { Playlist, PlaylistID, Song, SongID } from '../types/libraryTypes'
-import { searchLibrary } from '../utils/arrayMethods'
 
 const blankSong: Song = {
     id: undefined,
