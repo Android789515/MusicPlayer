@@ -31,8 +31,17 @@ const lookThrough = (collection: (Song | Playlist)[]) => {
     }
 }
 
-const queryMatch = <Type>(item: Type, query: string) => {
-    return String(item) === query
+const queryMatch = (item: string | number, query: string) => {
+    switch (typeof item) {
+        case 'string':
+            return item.includes(query)
+
+        case 'number':
+            return item <= Number(query)
+
+        default:
+            return item === query
+    }
 }
 
 export { search }

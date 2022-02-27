@@ -112,74 +112,6 @@ const createLibrary = () => {
         })
     }
 
-    const searchSongs = (query: string) => {
-        return get(library).songs.reduce<Song[]>((results, song) => {
-            const doesMatchQuery = findIn(song, query)
-            if (doesMatchQuery) return [...results, song]
-
-            return results
-        }, [])
-    }
-
-    const searchPlaylists = (query: string) => {
-        return get(library).playlists.reduce<Playlist[]>((results, playlist) => {
-            const wasFound = findIn(playlist, query)
-            if (wasFound) return [...results, playlist]
-
-            return results
-        }, [])
-    }
-
-    const findIn = (songOrPlaylist: Song | Playlist, query: string) => {
-        return Object.entries(songOrPlaylist).some(([key , value]) => {
-            switch (typeof value) {
-                case 'number': // When song duration
-                    const roundedDuration = Math.floor(value)
-                    return roundedDuration <= Number(query)
-
-                case 'string':
-                    // Other keys, such as ID, must match exactly
-                    // See default case
-                    if (key === 'id' || key === 'src') break
-                    return value.includes(query) || value === query
-
-                default:
-                    return value === query
-            }
-        })
-    }
-
-    const parseSearch = (query: string) => {
-        // Example - 3:12 < 4 characters
-        const couldSearchBeTimeFormat = query.includes(':')
-        if (couldSearchBeTimeFormat) {
-            const timeInSeconds = getSecondsOfTimeFormat(query)
-            if (timeInSeconds) {
-                return String(timeInSeconds) // Will be converted to a number later, if needed
-            }
-        }
-
-        return query
-    }
-
-    const searchLibrary = (query: string) => {
-        if (!query) return []
-
-        const parsedSearch = parseSearch(query)
-        const searchResults = [
-            ...searchSongs(parsedSearch),
-            ...searchPlaylists(parsedSearch)
-        ]
-
-        if (!searchResults.length) {
-            const nothingFound = [
-                { message: 'Nothing Found' }
-            ]
-            return nothingFound
-        }
-        return searchResults
-    }
-
     return {
         subscribe,
         addSong,
@@ -189,8 +121,7 @@ const createLibrary = () => {
         createPlaylist,
         addSongToPlaylist,
         deletePlaylist,
-        removeSongFromPlaylist,
-        searchLibrary
+        removeSongFromPlaylist
     }
 }
 
