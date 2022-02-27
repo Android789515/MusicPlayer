@@ -153,7 +153,6 @@ const createLibrary = () => {
         const couldQueryBeTimeFormat = query.includes(':')
         if (couldQueryBeTimeFormat) {
             const timeInSeconds = getSecondsOfTimeFormat(query)
-            console.log(timeInSeconds)
             if (timeInSeconds) {
                 return String(timeInSeconds) // Will be converted to a number later, if needed
             }
