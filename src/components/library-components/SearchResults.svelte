@@ -7,7 +7,7 @@
 
     export let searchResults
 
-    $: areThereSearchResults = $searchResults.length > 0
+    $: areThereSearchResults = $searchResults.length
     $: isSongQueued = $queuedSong.src !== undefined
 
     const isPlaylist = (searchResult: Song | Playlist) => {

@@ -55,7 +55,7 @@ const queryMatch = (item: PossibleValues, query: string) => {
                 return item === query
             }
 
-            const anyMatchesInSongsList = lookThrough(item).for(query).length > 0
+            const anyMatchesInSongsList = lookThrough(item).for(query).length
             return anyMatchesInSongsList
     }
 }
