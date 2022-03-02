@@ -16,15 +16,13 @@ const search = (query: string) => derived(library, state => {
     return anyResults ? searchResults : newResultsMessage('Nothing found')
 })
 
-const newResultsMessage = (message: string) => {
-    return [{ message }]
-}
+const newResultsMessage = (message: string) => [{ message }]
 
 const lookThrough = (collection: (Song | Playlist)[]) => {
     return {
         for: (query: string) => {
             return collection.reduce((matches: (Song | Playlist)[], item: Song | Playlist) => {
-                const searchableValues = Object.entries(item).map(getSearchableValues)
+                const searchableValues = Object.entries(item).reduce(getSearchableValues, [])
                 const wasMatchFound = searchableValues.some(value => queryMatch(value, query))
 
                 return wasMatchFound ? [...matches, item] : matches
@@ -33,14 +31,17 @@ const lookThrough = (collection: (Song | Playlist)[]) => {
     }
 }
 
-type ArrayEntries = [string, any]
-const getSearchableValues = ([ key, value ]: ArrayEntries) => {
+type PossibleValues = SearchableKeys | Song[]
+type ArrayEntries = [string, PossibleValues]
+
+const getSearchableValues = (values: PossibleValues[], [ key, value ]: ArrayEntries) => {
     if (key in SearchableKeys) {
-        return value
+        return [...values, value]
     }
+    return values
 }
 
-const queryMatch = (item: string | number, query: string) => {
+const queryMatch = (item: PossibleValues, query: string) => {
     switch (typeof item) {
         case 'string':
             return item.includes(query)
@@ -49,7 +50,13 @@ const queryMatch = (item: string | number, query: string) => {
             return item <= Number(query)
 
         default:
-            return item === query
+            const isSongsList = Array.isArray(item)
+            if (!isSongsList) {
+                return item === query
+            }
+
+            const anyMatchesInSongsList = lookThrough(item).for(query).length > 0
+            return anyMatchesInSongsList
     }
 }
 
