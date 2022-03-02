@@ -18,3 +18,11 @@ export interface Playlist {
     name: string
     songs: string[]
 }
+
+export enum SearchableKeys {
+    title = 'title',
+    artist = 'artist',
+    duration = 'duration',
+    name = 'name',
+    songs = 'songs'
+}

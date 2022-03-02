@@ -2,6 +2,7 @@ import { derived } from 'svelte/store'
 
 import { library } from './library'
 import type { Playlist, Song } from '../types/libraryTypes'
+import { SearchableKeys } from '../types/libraryTypes'
 
 const search = (query: string) => derived(library, state => {
     if (!query) return []
@@ -23,11 +24,19 @@ const lookThrough = (collection: (Song | Playlist)[]) => {
     return {
         for: (query: string) => {
             return collection.reduce((matches: (Song | Playlist)[], item: Song | Playlist) => {
-                const wasMatchFound = Object.values(item).some(value => queryMatch(value, query))
+                const searchableValues = Object.entries(item).map(getSearchableValues)
+                const wasMatchFound = searchableValues.some(value => queryMatch(value, query))
 
                 return wasMatchFound ? [...matches, item] : matches
             }, [])
         }
+    }
+}
+
+type ArrayEntries = [string, any]
+const getSearchableValues = ([ key, value ]: ArrayEntries) => {
+    if (key in SearchableKeys) {
+        return value
     }
 }
 
