@@ -4,7 +4,9 @@
 
     import SongEntry from './SongEntry.svelte'
     import ResultsMessage from './ResultsMessage.svelte'
+    import CreatePlaylistButton from './CreatePlaylistButton.svelte'
 
+    export let query
     export let searchResults
 
     $: areThereSearchResults = $searchResults.length
@@ -38,6 +40,10 @@
             />
         {/if}
     {/each}
+
+    {#if query}
+        <CreatePlaylistButton textSearched={query} />
+    {/if}
 </ul>
 
 <style>

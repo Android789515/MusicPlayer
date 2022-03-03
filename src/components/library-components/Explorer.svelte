@@ -10,7 +10,7 @@
 
 <div class='explorer'>
     <SearchBar bind:query/>
-    <SearchResults {searchResults} />
+    <SearchResults {query} {searchResults} />
 </div>
 
 <style>
