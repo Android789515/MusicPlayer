@@ -22,6 +22,10 @@
 </script>
 
 <ul class='search-results unstyled-ul' class:whenSongQueued={isSongQueued}>
+    {#if query}
+        <CreatePlaylistButton textSearched={query} />
+    {/if}
+
     {#each areThereSearchResults ? $searchResults : $songs as result (result.id)}
         {#if isPlaylist(result)}
             <li></li>
@@ -40,10 +44,6 @@
             />
         {/if}
     {/each}
-
-    {#if query}
-        <CreatePlaylistButton textSearched={query} />
-    {/if}
 </ul>
 
 <style>

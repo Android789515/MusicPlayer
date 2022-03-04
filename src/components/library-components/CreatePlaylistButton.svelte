@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { slide } from '../../utils/transitions'
+    import { slide } from 'svelte/transition'
 
     export let textSearched
 </script>
