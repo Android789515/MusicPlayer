@@ -23,7 +23,7 @@
 
 <ul class='search-results unstyled-ul' class:whenSongQueued={isSongQueued}>
     {#if query}
-        <CreatePlaylistButton textSearched={query} />
+        <CreatePlaylistButton />
     {/if}
 
     {#each areThereSearchResults ? $searchResults : $songs as result (result.id)}

@@ -13,5 +13,7 @@
 
     .message {
         text-align: center;
+
+        margin: 0;
     }
 </style>
