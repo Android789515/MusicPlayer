@@ -8,8 +8,8 @@
 
     const navigator = useDirectoryNavigator()
 
-    const handleClick = (callback) => {
-        callback()
+    const handleClick = () => {
+        library.queueSong(songInfo.id)
         navigator.navigate('currentlyPlaying')
     }
 
@@ -33,7 +33,7 @@
 
 <li
     class='song clickable'
-    on:click={() => handleClick(() => library.queueSong(songInfo.id))}
+    on:click={() => handleClick()}
 >
     <SongInfo
         styles={songStyles}

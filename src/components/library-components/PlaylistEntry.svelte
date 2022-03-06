@@ -1,12 +1,20 @@
 <script lang='ts'>
+    import { useDirectoryNavigator } from '../../stores/directoryNavigator'
+
     export let playlistInfo
 
     const { name, songs } = playlistInfo
 
     const numberOfSongs = songs.length + ' songs'
+
+    const navigator = useDirectoryNavigator()
+
+    const handleClick = () => {
+
+    }
 </script>
 
-<li class='container'>
+<li class='playlist clickable' on:click>
     <div class='layout'>
         <h2 class='title'>{name}</h2>
         <p class='number-of-songs'>{numberOfSongs}</p>
@@ -14,7 +22,7 @@
 </li>
 
 <style>
-    .container {
+    .playlist {
         padding-right: var(--inner-component-side-space);
     }
 

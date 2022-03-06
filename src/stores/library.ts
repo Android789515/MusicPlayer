@@ -1,8 +1,7 @@
-import { derived, get, writable } from 'svelte/store'
+import { derived, writable } from 'svelte/store'
 import { v4 as uuid } from 'uuid'
 
 import type { Playlist, PlaylistID, Song, SongID } from '../types/libraryTypes'
-import { getSecondsOfTimeFormat } from '../utils/formatTime'
 
 const blankSong: Song = {
     id: undefined,
