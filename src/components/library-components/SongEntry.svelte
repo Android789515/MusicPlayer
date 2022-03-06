@@ -1,6 +1,7 @@
 <script lang='ts'>
     import { library, queuedSong } from '../../stores/library'
     import { useDirectoryNavigator } from '../../stores/directoryNavigator'
+    import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     import SongInfo from '../wrappers/SongInfo.svelte'
 
@@ -12,6 +13,8 @@
         library.queueSong(songInfo.id)
         navigator.navigate('currentlyPlaying')
     }
+
+    const handleKeydown = useEnterKeyAsClick(handleClick)
 
     const songStyles = {
         textAlign: 'left',
@@ -33,7 +36,9 @@
 
 <li
     class='song clickable'
+    tabindex='4'
     on:click={() => handleClick()}
+    on:keydown={handleKeydown}
 >
     <SongInfo
         styles={songStyles}

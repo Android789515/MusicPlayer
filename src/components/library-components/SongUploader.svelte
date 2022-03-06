@@ -1,13 +1,25 @@
 <script lang='ts'>
     import { useSongUploader } from '../../utils/useSongUploader'
+    import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     let uploader
 
     const { handleUpload } = useSongUploader()
+
+    const openUploadWindow = () => uploader.click()
+
+    const handleKeydown = useEnterKeyAsClick(openUploadWindow)
 </script>
 
 <div aria-label='Song uploader' class='song-uploader clickable'>
-    <h3 class='upload-text' on:click={() => uploader.click()}>Click to upload</h3>
+    <h3
+        class='upload-text'
+        tabindex='3'
+        on:keydown={handleKeydown}
+        on:click={openUploadWindow}
+    >
+        Click to upload
+    </h3>
     <input
         class='file-uploader'
         type='file'

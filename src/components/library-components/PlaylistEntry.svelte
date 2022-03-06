@@ -1,5 +1,6 @@
 <script lang='ts'>
     import { useDirectoryNavigator } from '../../stores/directoryNavigator'
+    import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     export let playlistInfo
 
@@ -12,9 +13,16 @@
     const handleClick = () => {
 
     }
+
+    const handleKeydown = useEnterKeyAsClick(handleClick)
 </script>
 
-<li class='playlist clickable' on:click>
+<li
+    class='playlist clickable'
+    tabindex='4'
+    on:click
+    on:keydown={handleKeydown}
+>
     <div class='layout'>
         <h2 class='title'>{name}</h2>
         <p class='number-of-songs'>{numberOfSongs}</p>

@@ -1,17 +1,15 @@
 <script lang='ts'>
-    import { onDestroy, onMount } from 'svelte'
+    import { onMount } from 'svelte'
 
-    import { queuedSong } from '../../stores/library'
+    import { queuedSong, library } from '../../stores/library'
     import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
     import { capitalize } from '../../utils/stringUtils'
 
-    import DirectoryLink from '../../components/navigation-components/DirectoryLink.svelte'
+    import Tab from './Tab.svelte'
     import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
+    import CloseableTab from '../../components/navigation-components/CloseableTab.svelte'
 
-    let src
-    const unsubscribe = queuedSong.subscribe(queuedSong => {
-        src = queuedSong.src
-    })
+    $: ({ src } = $queuedSong)
     $: isSongQueued = src !== undefined
 
     const initializeDirectory = () => $currentDirectory = 'library'
@@ -20,8 +18,12 @@
 
     let isPlaylistOpen = false
 
+    const unqueueSong = () => {
+        library.unqueueSong()
+        navigator.navigate('library')
+    }
+
     onMount(initializeDirectory)
-    onDestroy(unsubscribe)
 </script>
 
 <nav class='navigation' role='navigation'>
@@ -29,20 +31,20 @@
         aria-label='Navigation Links'
         class='links unstyled-ul'
     >
-        <DirectoryLink linkTo='library'>
+        <Tab linkTo='library'>
             <DirectoryName name='Library' />
-        </DirectoryLink>
+        </Tab>
 
         {#if isPlaylistOpen}
-            <DirectoryLink linkTo='openedPlaylist'>
+            <Tab linkTo='openedPlaylist'>
                 <DirectoryName name='Playlist' />
-            </DirectoryLink>
+            </Tab>
         {/if}
 
         {#if isSongQueued}
-            <DirectoryLink linkTo='currentlyPlaying'>
+            <CloseableTab linkTo='currentlyPlaying' on:closeTab={unqueueSong}>
                 <DirectoryName name='Currently Playing' />
-            </DirectoryLink>
+            </CloseableTab>
         {/if}
     </ul>
 </nav>
