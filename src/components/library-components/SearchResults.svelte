@@ -2,9 +2,10 @@
     import type { Song, Playlist } from '../../types/libraryTypes'
     import { songs, queuedSong } from '../../stores/library'
 
+    import CreatePlaylistButton from './CreatePlaylistButton.svelte'
+    import PlaylistEntry from './PlaylistEntry.svelte'
     import SongEntry from './SongEntry.svelte'
     import ResultsMessage from './ResultsMessage.svelte'
-    import CreatePlaylistButton from './CreatePlaylistButton.svelte'
 
     export let query
     export let searchResults
@@ -23,20 +24,15 @@
 
 <ul class='search-results unstyled-ul' class:whenSongQueued={isSongQueued}>
     {#if query}
-        <CreatePlaylistButton />
+        <CreatePlaylistButton {query} />
     {/if}
 
     {#each areThereSearchResults ? $searchResults : $songs as result (result.id)}
         {#if isPlaylist(result)}
-            <li></li>
+            <PlaylistEntry playlistInfo={{...result}} />
 
         {:else if isSong(result)}
-            <SongEntry songInfo={{
-                id: result.id,
-                title: result.title,
-                artist: result.artist,
-                duration: result.duration
-                }} />
+            <SongEntry songInfo={{...result}} />
 
         {:else}
             <ResultsMessage

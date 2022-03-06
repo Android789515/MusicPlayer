@@ -45,7 +45,9 @@ const queryMatch = (item: PossibleValues, query: string) => {
     switch (typeof item) {
         case 'string':
             const lowerCaseString = item.toLocaleLowerCase()
-            return lowerCaseString.includes(query)
+            const lowerCaseQuery = query.toLocaleLowerCase()
+
+            return lowerCaseString.includes(lowerCaseQuery)
 
         case 'number':
             return item <= Number(query)

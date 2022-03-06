@@ -3,7 +3,13 @@
 
     import { library } from '../../stores/library'
 
+    export let query
+
     let playlistName
+
+    $: {
+        playlistName = query
+    }
 
     type KeyPressed = string
     enum Keys { enter = 'Enter' }
