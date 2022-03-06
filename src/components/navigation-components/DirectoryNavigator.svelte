@@ -14,9 +14,9 @@
 
     const initializeDirectory = () => $currentDirectory = 'library'
 
-    const navigator = useDirectoryNavigator()
+    $: openedPlaylists = []
 
-    let isPlaylistOpen = false
+    const navigator = useDirectoryNavigator()
 
     const unqueueSong = () => {
         library.unqueueSong()
@@ -35,11 +35,11 @@
             <DirectoryName name='Library' />
         </Tab>
 
-        {#if isPlaylistOpen}
-            <Tab linkTo='openedPlaylist'>
+        {#each openedPlaylists as openedPlaylist}
+            <CloseableTab linkTo='openedPlaylist' on:closeTab={() => {}}>
                 <DirectoryName name='Playlist' />
-            </Tab>
-        {/if}
+            </CloseableTab>
+        {/each}
 
         {#if isSongQueued}
             <CloseableTab linkTo='currentlyPlaying' on:closeTab={unqueueSong}>
