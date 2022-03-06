@@ -44,7 +44,8 @@ const getSearchableValues = (values: PossibleValues[], [ key, value ]: ArrayEntr
 const queryMatch = (item: PossibleValues, query: string) => {
     switch (typeof item) {
         case 'string':
-            return item.includes(query)
+            const lowerCaseString = item.toLocaleLowerCase()
+            return lowerCaseString.includes(query)
 
         case 'number':
             return item <= Number(query)
