@@ -29,7 +29,7 @@
     src={muted ? mutedIcon : volumeIcon}
     alt='Volume button'
     on:click={showVolumeBar}
-    on:keydown={useEnterKeyAsClick}
+    on:keydown={handleKeydown}
 >
 
 <style>

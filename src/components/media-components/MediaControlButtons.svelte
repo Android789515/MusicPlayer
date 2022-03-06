@@ -33,8 +33,11 @@
 
     <MediaControlButton buttonName='rewind' buttonAction={rewind} />
 
-    <MediaControlButton hidden={!paused} buttonName='play' buttonAction={play} />
-    <MediaControlButton hidden={paused} buttonName='pause' buttonAction={pause} />
+    {#if paused}
+        <MediaControlButton autoFocus={true} buttonName='play' buttonAction={play} />
+    {:else}
+        <MediaControlButton autoFocus={true} buttonName='pause' buttonAction={pause} />
+    {/if}
 
     <MediaControlButton buttonName='fast-forward' buttonAction={fastForward} />
 

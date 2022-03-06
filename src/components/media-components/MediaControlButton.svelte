@@ -4,7 +4,7 @@
 
     export let buttonName
     export let buttonAction
-    export let hidden = false
+    export let autoFocus = false
     export let smallerSize = false
 
     let mediaControlButton
@@ -13,7 +13,6 @@
     const simulateClick = () => {
         buttonAction()
         refocusOnButton()
-        // TODO - make work on play/pause
     }
 
     const handleKeydown = useEnterKeyAsClick(simulateClick)
@@ -22,8 +21,8 @@
 <img
     class='media-control-button clickable'
     class:smallerSize={smallerSize === true}
-    class:hidden={hidden}
-    aria-label={capitalize(buttonName) + 'button'}
+    autofocus={autoFocus}
+    aria-label={capitalize(buttonName) + ' button'}
     role='button'
     tabindex='5'
     src='assets/icons/media-buttons/{buttonName}.svg'
