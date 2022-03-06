@@ -48,6 +48,7 @@
             hideVolumeBar()
         }
     }
+    // TODO - add keyboard interaction
 </script>
 
 <DragEventRemover {draggingOff} />
@@ -55,9 +56,9 @@
 <svelte:window on:pointerup={handleInteraction} />
 
 <div
-    aria-label={`Volume bar, volume is ${volumePercent}%`}
     class='volume-bar clickable barTransition'
     class:shown={isVolumeBarShown}
+    aria-label={`Volume bar, volume is ${volumePercent}%`}
     draggable='true'
     bind:this={volumeBar}
     on:mousedown|preventDefault={handleClick}

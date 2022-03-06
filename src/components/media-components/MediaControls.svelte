@@ -13,8 +13,7 @@
 
     let shuffle = false
 
-    $: src = $queuedSong.src
-    $: duration = $queuedSong.duration
+    $: ({ src, duration } = $queuedSong)
     $: isSongQueued = src !== undefined
 
     let isVolumeBarShown = false
@@ -26,7 +25,7 @@
     class:show={isSongQueued}
 >
     <AudioPlayer
-        src={isSongQueued && src}
+        {src}
         {shuffle}
         bind:paused
         bind:time

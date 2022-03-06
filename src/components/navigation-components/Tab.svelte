@@ -8,6 +8,7 @@
     $: isCurrentDirectory = linkTo === $currentDirectory
 
     const navigator = useDirectoryNavigator()
+    const navigateToLink = () => navigator.navigate(linkTo)
 
     let navLink
     const focusPage = () => {
@@ -24,7 +25,7 @@
     class='link clickable'
     tabindex='1'
     class:currentDirectory={isCurrentDirectory}
-    on:click={() => navigator.navigate(linkTo)}
+    on:click={navigateToLink}
     bind:this={navLink}
 >
     <slot></slot>

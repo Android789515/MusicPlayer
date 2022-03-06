@@ -16,11 +16,18 @@
 
     const playRandomSong = () => {
         const songIDs = $songs.map(song => song.id)
-        const randomIndex = Math.random() * songIDs.length
-        const nextSong = songIDs[toInteger(randomIndex)]
+        const randomIndex = toInteger(Math.random() * songIDs.length)
+
+        const nextSong = songIDs[randomIndex]
 
         if (nextSong) {
             library.queueSong(nextSong)
+        }
+    }
+
+    const handleAudioEnd = () => {
+        if (shuffle) {
+            playRandomSong()
         }
     }
 </script>
@@ -34,11 +41,7 @@
 
     bind:volume
     bind:muted
-    on:ended={() => {
-        if (shuffle) {
-            playRandomSong()
-        }
-    }}
+    on:ended={handleAudioEnd}
 ></audio>
 
 <!-- I wrap this in a div and tell the inner Component that -->

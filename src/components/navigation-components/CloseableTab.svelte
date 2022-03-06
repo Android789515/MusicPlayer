@@ -1,5 +1,6 @@
 <script lang='ts'>
     import { createEventDispatcher } from 'svelte'
+
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     import Tab from './Tab.svelte'
@@ -15,7 +16,7 @@
     const handleKeydown = useEnterKeyAsClick(closeTab)
 </script>
 
-<Tab {linkTo} on:closeTab>
+<Tab {linkTo}>
     <div class='layout'>
         <slot></slot>
 

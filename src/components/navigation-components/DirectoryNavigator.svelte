@@ -1,6 +1,4 @@
 <script lang='ts'>
-    import { onMount } from 'svelte'
-
     import { queuedSong, library } from '../../stores/library'
     import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
     import { capitalize } from '../../utils/stringUtils'
@@ -11,9 +9,6 @@
 
     $: ({ src } = $queuedSong)
     $: isSongQueued = src !== undefined
-
-    const initializeDirectory = () => $currentDirectory = 'library'
-
     $: openedPlaylists = []
 
     const navigator = useDirectoryNavigator()
@@ -22,8 +17,6 @@
         library.unqueueSong()
         navigator.navigate('library')
     }
-
-    onMount(initializeDirectory)
 </script>
 
 <nav class='navigation' role='navigation'>
@@ -49,7 +42,7 @@
     </ul>
 </nav>
 
-<div class='component' aria-label={$currentDirectory && capitalize($currentDirectory)}>
+<div class='component' aria-label={capitalize($currentDirectory)}>
     <svelte:component this={navigator.getComponentToRender()} />
 </div>
 
@@ -58,6 +51,7 @@
         position: sticky;
         top: 0;
 
+        /* Allows side scrolling through tabs */
         overflow-x: auto;
 
         width: 100%;

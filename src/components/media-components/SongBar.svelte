@@ -9,7 +9,6 @@
     export let duration
 
     let songBar
-    $: timePercent = ((time / duration) * 100).toFixed(0)
 
     const getInteractPosition = (event: clickOrTouch) => {
         const songBarLeftSide = songBar.getBoundingClientRect().left
@@ -32,14 +31,17 @@
     }
 
     const { draggingOff, handleClick, handleMove } = useDraggableBar(setSongTime)
+
+    $: timePercent = ((time / duration) * 100).toFixed(0)
+    // TODO - add keyboard interaction
 </script>
 
 <DragEventRemover {draggingOff} />
 
 <div
+    class='song-bar clickable barTransition'
     aria-label={`Song time bar, current song time is ${timePercent}%`}
     role='progressbar'
-    class='song-bar clickable barTransition'
     draggable='true'
     bind:this={songBar}
     on:mousedown|preventDefault={handleClick}

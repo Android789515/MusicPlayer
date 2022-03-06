@@ -1,9 +1,12 @@
 <script lang='ts'>
+    import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
+
     export let volume
     export let muted
 
     export let isVolumeBarShown
     const showVolumeBar = () => isVolumeBarShown = true
+    const handleKeydown = useEnterKeyAsClick(showVolumeBar)
 
     const mutedIcon = 'assets/icons/volume-buttons/muted.svg'
     let volumeIcon
@@ -15,16 +18,18 @@
         volumeIcon = 'assets/icons/volume-buttons/medium-volume.svg'
     }
 
-    $: volumePercent = volume * 100 + '%'
+    $: volumePercent = volume * 100
 </script>
 
 <img
-    aria-label={`Volume button, volume is ${volumePercent}`}
-    role='button'
     class='volume-control-button clickable'
+    aria-label={`Volume button, volume is ${volumePercent}%`}
+    role='button'
+    tabindex='5'
     src={muted ? mutedIcon : volumeIcon}
-    alt='Volume and mute button'
+    alt='Volume button'
     on:click={showVolumeBar}
+    on:keydown={useEnterKeyAsClick}
 >
 
 <style>
