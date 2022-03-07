@@ -12,10 +12,6 @@
 
     $: ({ src } = $queuedSong)
     $: isSongQueued = src !== undefined
-
-    const unqueueSong = () => {
-        library.unqueueSong()
-    }
 </script>
 
 <Router>
@@ -37,7 +33,7 @@
                 hidden={!isSongQueued}
                 path='/currentlyPlaying'
                 name='Currently Playing'
-                on:closeTab={unqueueSong}
+                on:closeTab={() => library.unqueueSong()}
             />
         </ul>
     </nav>
