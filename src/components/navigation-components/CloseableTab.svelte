@@ -6,6 +6,7 @@
     import Tab from './Tab.svelte'
 
     export let path
+    export let hidden
 
     const dispatch = createEventDispatcher()
 
@@ -16,7 +17,7 @@
     const handleKeydown = useEnterKeyAsClick(closeTab)
 </script>
 
-<Tab {path}>
+<Tab {hidden} {path}>
     <div class='layout'>
         <slot></slot>
 

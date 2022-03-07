@@ -3,6 +3,7 @@
     import { Link, useLocation } from 'svelte-navigator'
 
     export let path = ''
+    export let hidden = false
 
     const location = useLocation()
     $: currentPath = $location.pathname
@@ -24,6 +25,7 @@
     class='tab'
     tabindex='1'
     class:currentDirectory={isCurrentDirectory}
+    class:hidden={hidden}
     bind:this={navLink}
 >
     <Link to={path} class='link nav-link clickable'>
@@ -64,5 +66,9 @@
 
     .link:not(.currentDirectory):active {
         transform: translateY(.0625em);
+    }
+
+    .hidden {
+        display: none;
     }
 </style>

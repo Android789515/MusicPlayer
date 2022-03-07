@@ -10,7 +10,6 @@
     export let songInfo
 
     const handleClick = () => {
-        console.log('ran')
         library.queueSong(songInfo.id)
     }
 

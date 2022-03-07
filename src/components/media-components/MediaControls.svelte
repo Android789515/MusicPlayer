@@ -25,7 +25,7 @@
     class:show={isSongQueued}
 >
     <AudioPlayer
-        {src}
+        src={isSongQueued && src}
         {shuffle}
         bind:paused
         bind:time

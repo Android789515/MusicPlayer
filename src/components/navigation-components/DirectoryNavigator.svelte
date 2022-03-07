@@ -7,7 +7,6 @@
     import Library from '../../pages/Library.svelte'
     import CurrentlyPlaying from '../../pages/CurrentlyPlaying.svelte'
     import Tab from './Tab.svelte'
-    import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
     import CloseableTab from '../../components/navigation-components/CloseableTab.svelte'
 
     $: ({ src } = $queuedSong)
@@ -39,13 +38,13 @@
                 </CloseableTab>
             {/each}
 
-            {#if isSongQueued}
-                <CloseableTab path='currentlyPlaying' on:closeTab={unqueueSong}>
-                    <h3 class='directory-name'>
-                        Currently Playing
-                    </h3>
-                </CloseableTab>
-            {/if}
+            <!-- Uses a hidden class instead of conditional rendering -->
+            <!-- To prevent bugs when song unqueues -->
+            <CloseableTab hidden={!isSongQueued} path='currentlyPlaying' on:closeTab={unqueueSong}>
+                <h3 class='directory-name'>
+                    Currently Playing
+                </h3>
+            </CloseableTab>
         </ul>
     </nav>
 
@@ -54,7 +53,7 @@
             <CurrentlyPlaying />
         </Route>
 
-        <Route>
+        <Route path={Routes.library}>
             <Library />
         </Route>
     </div>

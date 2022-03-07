@@ -1,9 +1,8 @@
 <script lang='ts'>
-    import { onMount } from 'svelte'
+    import { afterUpdate } from 'svelte'
     import { useNavigate } from 'svelte-navigator'
 
     import { queuedSong } from '../stores/library'
-    import { Routes } from '../types/routes'
 
     import QueuedSong from '../components/wrappers/QueuedSong.svelte'
 
@@ -13,11 +12,11 @@
         const isSongQueued = $queuedSong.src !== undefined
 
         if (!isSongQueued) {
-            navigate(Routes.library)
+            navigate(-1)
         }
     }
 
-    onMount(redirectIfNoSongQueued)
+    afterUpdate(redirectIfNoSongQueued)
 </script>
 
 <QueuedSong styles={{
