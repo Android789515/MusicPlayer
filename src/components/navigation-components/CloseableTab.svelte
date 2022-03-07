@@ -4,8 +4,10 @@
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     import Tab from './Tab.svelte'
+    import DirectoryName from './DirectoryName.svelte'
 
     export let path
+    export let name
     export let hidden
 
     const dispatch = createEventDispatcher()
@@ -17,9 +19,9 @@
     const handleKeydown = useEnterKeyAsClick(closeTab)
 </script>
 
-<Tab {hidden} {path}>
+<Tab {hidden} {path} {name}>
     <div class='layout'>
-        <slot></slot>
+        <DirectoryName {name} />
 
         <span
             class='close-button clickable'

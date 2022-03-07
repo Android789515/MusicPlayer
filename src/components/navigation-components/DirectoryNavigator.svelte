@@ -20,31 +20,25 @@
 
 <Router>
     <nav class='navigation' role='navigation'>
-        <ul
-            aria-label='Navigation Links'
-            class='links unstyled-ul'
-        >
-            <Tab>
-                <h3 class='directory-name'>
-                    Library
-                </h3>
-            </Tab>
+        <ul class='links unstyled-ul' aria-label='Navigation Links'>
+            <Tab name='Library' />
 
             {#each openedPlaylists as openedPlaylist}
-                <CloseableTab path='openedPlaylist' on:closeTab={() => {}}>
-                    <h3 class='directory-name'>
-                        Playlist
-                    </h3>
-                </CloseableTab>
+                <CloseableTab
+                    path='openedPlaylist'
+                    name='Playlist'
+                    on:closeTab={() => {}}
+                />
             {/each}
 
             <!-- Uses a hidden class instead of conditional rendering -->
             <!-- To prevent bugs when song unqueues -->
-            <CloseableTab hidden={!isSongQueued} path='currentlyPlaying' on:closeTab={unqueueSong}>
-                <h3 class='directory-name'>
-                    Currently Playing
-                </h3>
-            </CloseableTab>
+            <CloseableTab
+                hidden={!isSongQueued}
+                path='currentlyPlaying'
+                name='Currently Playing'
+                on:closeTab={unqueueSong}
+            />
         </ul>
     </nav>
 
@@ -79,13 +73,6 @@
         align-items: baseline;
 
         width: 100%;
-    }
-
-    .directory-name {
-        font-size: 1.1rem;
-        text-align: center;
-
-        margin: 0;
     }
 
     .component {

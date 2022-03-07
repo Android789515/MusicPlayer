@@ -2,7 +2,10 @@
     import { onMount } from 'svelte'
     import { Link, useLocation } from 'svelte-navigator'
 
+    import DirectoryName from './DirectoryName.svelte'
+
     export let path = ''
+    export let name
     export let hidden = false
 
     const location = useLocation()
@@ -29,7 +32,9 @@
     bind:this={navLink}
 >
     <Link to={path} class='link nav-link clickable'>
-        <slot></slot>
+        <slot>
+            <DirectoryName {name} />
+        </slot>
     </Link>
 </li>
 
