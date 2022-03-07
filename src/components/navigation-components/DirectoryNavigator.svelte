@@ -1,8 +1,11 @@
 <script lang='ts'>
-    import { queuedSong, library } from '../../stores/library'
-    import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
-    import { capitalize } from '../../utils/stringUtils'
+    import { Route, Router } from 'svelte-navigator'
 
+    import { queuedSong, library } from '../../stores/library'
+    import { Routes } from '../../types/routes'
+
+    import Library from '../../pages/Library.svelte'
+    import CurrentlyPlaying from '../../pages/CurrentlyPlaying.svelte'
     import Tab from './Tab.svelte'
     import DirectoryName from '../../components/navigation-components/DirectoryName.svelte'
     import CloseableTab from '../../components/navigation-components/CloseableTab.svelte'
@@ -11,40 +14,45 @@
     $: isSongQueued = src !== undefined
     $: openedPlaylists = []
 
-    const navigator = useDirectoryNavigator()
-
     const unqueueSong = () => {
         library.unqueueSong()
-        navigator.navigate('library')
     }
 </script>
 
-<nav class='navigation' role='navigation'>
-    <ul
-        aria-label='Navigation Links'
-        class='links unstyled-ul'
-    >
-        <Tab linkTo='library'>
-            <DirectoryName name='Library' />
-        </Tab>
+<Router>
+    <nav class='navigation' role='navigation'>
+        <ul
+            aria-label='Navigation Links'
+            class='links unstyled-ul'
+        >
+            <Tab>
+                <DirectoryName name='Library' />
+            </Tab>
 
-        {#each openedPlaylists as openedPlaylist}
-            <CloseableTab linkTo='openedPlaylist' on:closeTab={() => {}}>
-                <DirectoryName name='Playlist' />
-            </CloseableTab>
-        {/each}
+            {#each openedPlaylists as openedPlaylist}
+                <CloseableTab path='openedPlaylist' on:closeTab={() => {}}>
+                    <DirectoryName name='Playlist' />
+                </CloseableTab>
+            {/each}
 
-        {#if isSongQueued}
-            <CloseableTab linkTo='currentlyPlaying' on:closeTab={unqueueSong}>
-                <DirectoryName name='Currently Playing' />
-            </CloseableTab>
-        {/if}
-    </ul>
-</nav>
+            {#if isSongQueued}
+                <CloseableTab path='currentlyPlaying' on:closeTab={unqueueSong}>
+                    <DirectoryName name='Currently Playing' />
+                </CloseableTab>
+            {/if}
+        </ul>
+    </nav>
 
-<div class='component' aria-label={capitalize($currentDirectory)}>
-    <svelte:component this={navigator.getComponentToRender()} />
-</div>
+    <div class='component'>
+        <Route path={Routes.currentlyPlaying}>
+            <CurrentlyPlaying />
+        </Route>
+
+        <Route>
+            <Library />
+        </Route>
+    </div>
+</Router>
 
 <style>
     .navigation {

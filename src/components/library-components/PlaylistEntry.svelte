@@ -1,5 +1,4 @@
 <script lang='ts'>
-    import { useDirectoryNavigator } from '../../stores/directoryNavigator'
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     export let playlistInfo
@@ -7,8 +6,6 @@
     const { name, songs } = playlistInfo
 
     const numberOfSongs = songs.length + ' songs'
-
-    const navigator = useDirectoryNavigator()
 
     const handleClick = () => {
 

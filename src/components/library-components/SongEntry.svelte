@@ -1,17 +1,17 @@
 <script lang='ts'>
+    import { Link } from 'svelte-navigator'
+
     import { library, queuedSong } from '../../stores/library'
-    import { useDirectoryNavigator } from '../../stores/directoryNavigator'
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
+    import { Routes } from '../../types/routes'
 
     import SongInfo from '../wrappers/SongInfo.svelte'
 
     export let songInfo
 
-    const navigator = useDirectoryNavigator()
-
     const handleClick = () => {
+        console.log('ran')
         library.queueSong(songInfo.id)
-        navigator.navigate('currentlyPlaying')
     }
 
     const handleKeydown = useEnterKeyAsClick(handleClick)
@@ -34,17 +34,20 @@
     $: isSongQueued = $queuedSong.src !== undefined
 </script>
 
-<li
-    class='song clickable'
-    tabindex='4'
-    on:click={() => handleClick()}
-    on:keydown={handleKeydown}
->
-    <SongInfo
-        styles={songStyles}
-        {songInfo}
-        timeToDisplay={songInfo.duration}
-    />
+<li class='song clickable'>
+    <Link
+        to={Routes.currentlyPlaying}
+        class='link'
+        tabindex='4'
+        on:click={() => handleClick()}
+        on:keydown={handleKeydown}
+    >
+        <SongInfo
+            styles={songStyles}
+            {songInfo}
+            timeToDisplay={songInfo.duration}
+        />
+    </Link>
 </li>
 
 <style>

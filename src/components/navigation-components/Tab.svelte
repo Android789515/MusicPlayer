@@ -1,14 +1,13 @@
 <script lang='ts'>
     import { onMount } from 'svelte'
+    import { Link, useLocation } from 'svelte-navigator'
 
-    import { currentDirectory, useDirectoryNavigator } from '../../stores/directoryNavigator'
+    export let path = ''
 
-    export let linkTo
+    const location = useLocation()
+    $: currentPath = $location.pathname
 
-    $: isCurrentDirectory = linkTo === $currentDirectory
-
-    const navigator = useDirectoryNavigator()
-    const navigateToLink = () => navigator.navigate(linkTo)
+    $: isCurrentDirectory = currentPath === `/${path}`
 
     let navLink
     const focusPage = () => {
@@ -22,26 +21,35 @@
 
 <li
     aria-label='Navigation Link'
-    class='link clickable'
+    class='tab'
     tabindex='1'
     class:currentDirectory={isCurrentDirectory}
-    on:click={navigateToLink}
     bind:this={navLink}
 >
-    <slot></slot>
+    <Link to={path} class='link nav-link clickable'>
+        <slot></slot>
+    </Link>
 </li>
 
 <style>
-    .link {
+    .tab {
         grid-row: 1;
         justify-self: start;
+    }
+    .currentDirectory {
+        background: hsl(0, 0%, var(--app-bg-lightness));
+    }
+
+    :global(.link) {
+        text-decoration: none;
+        color: #333;
+    }
+    :global(.nav-link) {
+        display: block;
 
         white-space: nowrap;
 
         padding: .5em 1em;
-    }
-    .currentDirectory {
-        background: hsl(0, 0%, var(--app-bg-lightness));
     }
 
     .link:not(.currentDirectory) {
