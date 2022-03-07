@@ -17,6 +17,7 @@ export interface Playlist {
     readonly id: PlaylistID
     name: string
     songs: string[]
+    isOpen: boolean
 }
 
 export enum SearchableKeys {

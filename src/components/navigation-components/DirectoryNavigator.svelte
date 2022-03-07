@@ -1,17 +1,17 @@
 <script lang='ts'>
     import { Route, Router } from 'svelte-navigator'
 
-    import { queuedSong, library } from '../../stores/library'
+    import { queuedSong, library, openedPlaylists } from '../../stores/library'
     import { Routes } from '../../types/routes'
 
     import Library from '../../pages/Library.svelte'
     import CurrentlyPlaying from '../../pages/CurrentlyPlaying.svelte'
+    import OpenedPlaylist from '../../pages/OpenedPlaylist.svelte'
     import Tab from './Tab.svelte'
     import CloseableTab from '../../components/navigation-components/CloseableTab.svelte'
 
     $: ({ src } = $queuedSong)
     $: isSongQueued = src !== undefined
-    $: openedPlaylists = []
 
     const unqueueSong = () => {
         library.unqueueSong()
@@ -23,11 +23,11 @@
         <ul class='links unstyled-ul' aria-label='Navigation Links'>
             <Tab name='Library' />
 
-            {#each openedPlaylists as openedPlaylist}
+            {#each $openedPlaylists as {name, id} (id)}
                 <CloseableTab
-                    path='openedPlaylist'
-                    name='Playlist'
-                    on:closeTab={() => {}}
+                    path={`/${name}`}
+                    name={name}
+                    on:closeTab={() => library.closePlaylist(id)}
                 />
             {/each}
 
@@ -43,6 +43,10 @@
     </nav>
 
     <div class='component'>
+        <Route path=':playlistName'>
+            <OpenedPlaylist />
+        </Route>
+
         <Route path={Routes.currentlyPlaying}>
             <CurrentlyPlaying />
         </Route>

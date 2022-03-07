@@ -1,14 +1,17 @@
 <script lang='ts'>
+    import { Link } from 'svelte-navigator'
+
+    import { library } from '../../stores/library'
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
     export let playlistInfo
 
-    const { name, songs } = playlistInfo
+    const { id, name, songs } = playlistInfo
 
     const numberOfSongs = songs.length + ' songs'
 
     const handleClick = () => {
-
+        library.openPlaylist(id)
     }
 
     const handleKeydown = useEnterKeyAsClick(handleClick)
@@ -16,14 +19,19 @@
 
 <li
     class='playlist clickable'
-    tabindex='4'
-    on:click
-    on:keydown={handleKeydown}
 >
-    <div class='layout'>
-        <h2 class='title'>{name}</h2>
-        <p class='number-of-songs'>{numberOfSongs}</p>
-    </div>
+    <Link
+        to={`/${name}`}
+        class='link'
+        tabindex='4'
+        on:click={handleClick}
+        on:keydown={handleKeydown}
+    >
+        <div class='layout'>
+            <h2 class='title'>{name}</h2>
+            <p class='number-of-songs'>{numberOfSongs}</p>
+        </div>
+    </Link>
 </li>
 
 <style>

@@ -8,7 +8,7 @@
 
     export let path
     export let name
-    export let hidden
+    export let hidden = false
 
     const dispatch = createEventDispatcher()
 

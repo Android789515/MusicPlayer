@@ -38,7 +38,7 @@
         to={Routes.currentlyPlaying}
         class='link'
         tabindex='4'
-        on:click={() => handleClick()}
+        on:click={handleClick}
         on:keydown={handleKeydown}
     >
         <SongInfo

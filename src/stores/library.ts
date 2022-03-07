@@ -61,9 +61,44 @@ const createLibrary = () => {
             const newPlaylist = {
                 id: uuid(),
                 name,
+                isOpen: false,
                 songs: []
             }
             return { ...library, playlists: [...library.playlists, newPlaylist] }
+        })
+    }
+
+    const openPlaylist = (playlistID: PlaylistID) => {
+        update(library => {
+            return {
+                ...library,
+                playlists: library.playlists.map(playlist => {
+                    const isPlaylistToOpen = playlist.id === playlistID
+
+                    if (isPlaylistToOpen) {
+                        return { ...playlist, isOpen: true }
+                    }
+
+                    return playlist
+                })
+            }
+        })
+    }
+
+    const closePlaylist = (playlistID: PlaylistID) => {
+        update(library => {
+            return {
+                ...library,
+                playlists: library.playlists.map(playlist => {
+                    const isPlaylistToOpen = playlist.id === playlistID
+
+                    if (isPlaylistToOpen) {
+                        return { ...playlist, isOpen: false }
+                    }
+
+                    return playlist
+                })
+            }
         })
     }
 
@@ -118,6 +153,8 @@ const createLibrary = () => {
         queueSong,
         unqueueSong,
         createPlaylist,
+        openPlaylist,
+        closePlaylist,
         addSongToPlaylist,
         deletePlaylist,
         removeSongFromPlaylist
@@ -128,3 +165,6 @@ export const library = createLibrary()
 export const songs = derived(library, state => state.songs)
 export const queuedSong = derived(library, state => state.queuedSong)
 export const playlists = derived(library, state => state.playlists)
+export const openedPlaylists = derived(library, state => {
+    return state.playlists.filter(playlist => playlist.isOpen)
+})
