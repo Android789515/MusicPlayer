@@ -23,8 +23,8 @@
         <span
             class='close-button clickable'
             tabindex='2'
-            on:keydown={handleKeydown}
             on:click={closeTab}
+            on:keydown={handleKeydown}
         >
             x
         </span>
