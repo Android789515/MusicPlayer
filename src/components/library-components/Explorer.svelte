@@ -9,7 +9,7 @@
 </script>
 
 <div class='explorer'>
-    <SearchBar bind:query/>
+    <SearchBar bind:query />
     <SearchResults {query} {searchResults} />
 </div>
 

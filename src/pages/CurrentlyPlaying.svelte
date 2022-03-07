@@ -1,7 +1,5 @@
 <script lang='ts'>
     import QueuedSong from '../components/wrappers/QueuedSong.svelte'
-
-
 </script>
 
 <QueuedSong styles={{
