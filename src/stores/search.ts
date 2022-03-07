@@ -4,12 +4,12 @@ import { library } from './library'
 import type { Playlist, Song } from '../types/libraryTypes'
 import { SearchableKeys } from '../types/libraryTypes'
 
-const search = (query: string) => derived(library, state => {
+const search = (query: string) => derived(library, ({ songs, playlists }) => {
     if (!query) return []
 
     const searchResults = [
-        ...lookThrough(state.songs).for(query),
-        ...lookThrough(state.playlists).for(query)
+        ...lookThrough(songs).for(query),
+        ...lookThrough(playlists).for(query)
     ]
     const anyResults = searchResults.length
 

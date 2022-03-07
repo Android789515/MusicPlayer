@@ -1,4 +1,4 @@
-import { derived, get, writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
 import type { clickOrTouch } from '../types/barInteraction'
 

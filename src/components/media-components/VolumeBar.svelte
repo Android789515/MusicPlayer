@@ -1,6 +1,6 @@
 <script lang='ts'>
     import useDraggableBar from '../../utils/useDraggableBar'
-    import capPercentage from '../../utils/capPercentage'
+    import capDecimal from '../../utils/capDecimal'
     import type { clickOrTouch } from '../../types/barInteraction'
 
     import DragEventRemover from '../generic-components/DragEventRemover.svelte'
@@ -15,8 +15,8 @@
         volume = newVolume
     }
 
-    const raiseVolume = (amount: number) => volume = capPercentage(volume + amount)
-    const lowerVolume = (amount: number) => volume = capPercentage(volume - amount)
+    const raiseVolume = (amount: number) => volume = capDecimal(volume + amount)
+    const lowerVolume = (amount: number) => volume = capDecimal(volume - amount)
 
     let volumeBar
 
@@ -36,7 +36,7 @@
         const volumeBarHeight = volumeBar.clientHeight
         const positionInteracted = getInteractPosition(event)
 
-        const volumeToSet = capPercentage(positionInteracted / volumeBarHeight)
+        const volumeToSet = capDecimal(positionInteracted / volumeBarHeight)
 
         // Mouse dragging is inaccurate so rounding must happen
         if (event instanceof MouseEvent) {

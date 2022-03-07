@@ -19,7 +19,8 @@ export const useSongUploader = () => {
         }
     })
 
-    const tagsToFind = [ 'title', 'artist', 'picture' ]
+    type Tag = 'title' | 'artist' | 'picture'
+    const tagsToFind: Tag[] = [ 'title', 'artist', 'picture' ]
 
     const readTags = async (file: File) => {
         const tagDefaults: TagDefaults = {

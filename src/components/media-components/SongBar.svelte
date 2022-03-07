@@ -1,6 +1,6 @@
 <script lang='ts'>
     import useDraggableBar from '../../utils/useDraggableBar'
-    import capPercentage from '../../utils/capPercentage'
+    import capDecimal from '../../utils/capDecimal'
     import type { clickOrTouch } from '../../types/barInteraction'
 
     import DragEventRemover from '../generic-components/DragEventRemover.svelte'
@@ -26,7 +26,7 @@
         const songBarWidth = songBar.clientWidth
         const positionInteracted = getInteractPosition(event)
 
-        const percentageOfSong = capPercentage(positionInteracted / songBarWidth)
+        const percentageOfSong = capDecimal(positionInteracted / songBarWidth)
         const timeToSet = percentageOfSong * duration
 
         setSongTime(timeToSet)
