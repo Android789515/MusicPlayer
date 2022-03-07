@@ -15,7 +15,6 @@
 
     let navLink
     const focusPage = () => {
-        console.log(currentPath, path)
         if (isCurrentDirectory) {
             navLink.focus()
         }
