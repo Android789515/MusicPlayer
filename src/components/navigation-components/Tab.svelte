@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { onMount } from 'svelte'
+    import { afterUpdate } from 'svelte'
     import { Link, useLocation } from 'svelte-navigator'
 
     import DirectoryName from './DirectoryName.svelte'
@@ -15,12 +15,13 @@
 
     let navLink
     const focusPage = () => {
+        console.log(currentPath, path)
         if (isCurrentDirectory) {
             navLink.focus()
         }
     }
 
-    onMount(focusPage)
+    afterUpdate(focusPage)
 </script>
 
 <li
