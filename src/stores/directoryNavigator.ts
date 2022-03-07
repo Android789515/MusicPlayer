@@ -1,10 +1,12 @@
 import { get, writable } from 'svelte/store'
 
+import type { Directory } from '../types/directoryTypes'
+import { Directories } from '../types/directoryTypes'
+
 import CurrentlyPlaying from '../pages/CurrentlyPlaying.svelte'
 import Library from '../pages/Library.svelte'
 
-type Directory = string
-const currentDirectory = writable<Directory>('library')
+const currentDirectory = writable<Directory>(Directories.library)
 
 const directories = {
     currentlyPlaying: CurrentlyPlaying,
