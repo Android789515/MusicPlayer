@@ -1,7 +1,9 @@
 <script lang='ts'>
     import { createEventDispatcher } from 'svelte'
+    import { Link } from 'svelte-navigator'
 
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
+    import { replaceSpacesForPath } from '../../utils/stringUtils'
 
     import Tab from './Tab.svelte'
     import DirectoryName from './DirectoryName.svelte'
@@ -21,7 +23,9 @@
 
 <Tab {hidden} {path} {name}>
     <div class='layout'>
-        <DirectoryName {name} />
+        <Link to={`/${replaceSpacesForPath(path)}`} class='link nav-link'>
+            <DirectoryName {name} />
+        </Link>
 
         <span
             class='close-button clickable'
@@ -43,8 +47,8 @@
         font-weight: 700;
 
         position: absolute;
-        top: -9px;
-        right: -13px;
+        top: -3px;
+        right: 2px;
 
         margin-left: .5em;
     }

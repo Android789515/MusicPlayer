@@ -3,6 +3,7 @@
 
     import { library } from '../../stores/library'
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
+    import { replaceSpacesForPath } from '../../utils/stringUtils'
 
     export let playlistInfo
 
@@ -21,7 +22,7 @@
     class='playlist clickable'
 >
     <Link
-        to={`/${name}`}
+        to={`/${replaceSpacesForPath(name)}`}
         class='link'
         tabindex='4'
         on:click={handleClick}

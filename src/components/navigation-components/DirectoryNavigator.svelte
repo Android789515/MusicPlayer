@@ -3,6 +3,7 @@
 
     import { queuedSong, playlists, library } from '../../stores/library'
     import { Routes } from '../../types/routes'
+    import { replaceSpacesForPath } from '../../utils/stringUtils'
 
     import Library from '../../pages/Library.svelte'
     import CurrentlyPlaying from '../../pages/CurrentlyPlaying.svelte'
@@ -24,7 +25,7 @@
             {#each $playlists as {id ,name, isOpen} (id)}
                 <CloseableTab
                     hidden={!isOpen}
-                    path={`/${name}`}
+                    path={`/${replaceSpacesForPath(name)}`}
                     name={name}
                     on:closeTab={() => library.closePlaylist(id)}
                 />

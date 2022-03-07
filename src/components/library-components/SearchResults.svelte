@@ -1,6 +1,6 @@
 <script lang='ts'>
     import type { Song, Playlist } from '../../types/libraryTypes'
-    import { songs, queuedSong } from '../../stores/library'
+    import { songs, queuedSong, playlists } from '../../stores/library'
 
     import CreatePlaylistButton from './CreatePlaylistButton.svelte'
     import PlaylistEntry from './PlaylistEntry.svelte'
@@ -10,6 +10,7 @@
     export let query
     export let searchResults
 
+    $: defaultResults = [...$songs, ...$playlists]
     $: areThereSearchResults = $searchResults.length
     $: isSongQueued = $queuedSong.src !== undefined
 
@@ -27,7 +28,7 @@
         <CreatePlaylistButton {query} />
     {/if}
 
-    {#each areThereSearchResults ? $searchResults : $songs as result (result.id)}
+    {#each areThereSearchResults ? $searchResults : defaultResults as result (result.id)}
         {#if isPlaylist(result)}
             <PlaylistEntry playlistInfo={{...result}} />
 

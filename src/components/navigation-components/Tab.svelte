@@ -31,11 +31,11 @@
     class:hidden={hidden}
     bind:this={navLink}
 >
-    <Link to={path} class='link nav-link clickable'>
-        <slot>
+    <slot>
+        <Link to={path} class='link nav-link clickable'>
             <DirectoryName {name} />
-        </slot>
-    </Link>
+        </Link>
+    </slot>
 </li>
 
 <style>

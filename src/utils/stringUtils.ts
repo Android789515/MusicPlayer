@@ -4,3 +4,15 @@ export const capitalize = (string: string) => {
 
     return firstLetter + restOfString
 }
+
+export const replaceSpacesForPath = (string: string) => {
+    const doesStringContainSpaces = string.includes(' ')
+
+    if (doesStringContainSpaces) {
+        const stringsBetweenSpaces = string.split(' ')
+
+        return stringsBetweenSpaces.join('-')
+    }
+
+    return string
+}
