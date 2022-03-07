@@ -8,6 +8,8 @@
     export let time
     export let duration
 
+    const setSongTime = (timeToSet: number) => time = timeToSet
+
     let songBar
 
     const getInteractPosition = (event: clickOrTouch) => {
@@ -20,20 +22,19 @@
             return eventPosition - songBarLeftSide
         }
     }
-    const setSongTime = (event: clickOrTouch) => {
+    const adjustSongBar = (event: clickOrTouch) => {
         const songBarWidth = songBar.clientWidth
         const positionInteracted = getInteractPosition(event)
 
         const percentageOfSong = capPercentage(positionInteracted / songBarWidth)
         const timeToSet = percentageOfSong * duration
 
-        time = timeToSet
+        setSongTime(timeToSet)
     }
 
-    const { draggingOff, handleClick, handleMove } = useDraggableBar(setSongTime)
+    const { draggingOff, handleClick, handleMove } = useDraggableBar(adjustSongBar)
 
     $: timePercent = ((time / duration) * 100).toFixed(0)
-    // TODO - add keyboard interaction
 </script>
 
 <DragEventRemover {draggingOff} />

@@ -11,6 +11,13 @@
 
     $: volumePercent = volume * 100
 
+    const setVolume = (newVolume: number) => {
+        volume = newVolume
+    }
+
+    const raiseVolume = (amount: number) => volume = capPercentage(volume + amount)
+    const lowerVolume = (amount: number) => volume = capPercentage(volume - amount)
+
     let volumeBar
 
     const getInteractPosition = (event: clickOrTouch) => {
@@ -25,7 +32,7 @@
         }
     }
 
-    const setVolume = (event: clickOrTouch) => {
+    const adjustVolumeBar = (event: clickOrTouch) => {
         const volumeBarHeight = volumeBar.clientHeight
         const positionInteracted = getInteractPosition(event)
 
@@ -34,13 +41,13 @@
         // Mouse dragging is inaccurate so rounding must happen
         if (event instanceof MouseEvent) {
             const roundedValue = Math.round(volumeToSet * 10) / 10
-            volume = roundedValue
+            setVolume(roundedValue)
         } else {
-            volume = volumeToSet
+            setVolume(volumeToSet)
         }
     }
 
-    const { draggingOff, handleClick, handleMove } = useDraggableBar(setVolume)
+    const { draggingOff, handleClick, handleMove } = useDraggableBar(adjustVolumeBar)
 
     const handleInteraction = (event: clickOrTouch) => {
         const didClickOnVolumeBar = volumeBar.contains(event.target)
@@ -48,7 +55,25 @@
             hideVolumeBar()
         }
     }
-    // TODO - add keyboard interaction
+
+    type Keypressed = string
+
+    enum Keys {
+        upArrow = 'ArrowUp',
+        downArrow = 'ArrowDown'
+    }
+
+    const handleKeydown = ({ key }: { key: Keypressed }) => {
+        const wasUpArrowPressed = key === Keys.upArrow
+        const wasDownArrowPressed = key === Keys.downArrow
+
+        if (wasUpArrowPressed) {
+            raiseVolume(.1)
+        } else if (wasDownArrowPressed) {
+            console.log(volume)
+            lowerVolume(.1)
+        }
+    }
 </script>
 
 <DragEventRemover {draggingOff} />
@@ -59,12 +84,14 @@
     class='volume-bar clickable barTransition'
     class:shown={isVolumeBarShown}
     aria-label={`Volume bar, volume is ${volumePercent}%`}
+    tabindex='5'
     draggable='true'
     bind:this={volumeBar}
     on:mousedown|preventDefault={handleClick}
     on:mousemove={handleMove}
     on:touchstart={handleClick}
     on:touchmove={handleMove}
+    on:keydown={handleKeydown}
 >
     <div
         class='slider'
