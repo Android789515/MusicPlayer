@@ -40,7 +40,7 @@
         font-weight: 700;
 
         position: absolute;
-        top: -10px;
+        top: -9px;
         right: -13px;
 
         margin-left: .5em;

@@ -26,18 +26,24 @@
             class='links unstyled-ul'
         >
             <Tab>
-                <DirectoryName name='Library' />
+                <h3 class='directory-name'>
+                    Library
+                </h3>
             </Tab>
 
             {#each openedPlaylists as openedPlaylist}
                 <CloseableTab path='openedPlaylist' on:closeTab={() => {}}>
-                    <DirectoryName name='Playlist' />
+                    <h3 class='directory-name'>
+                        Playlist
+                    </h3>
                 </CloseableTab>
             {/each}
 
             {#if isSongQueued}
                 <CloseableTab path='currentlyPlaying' on:closeTab={unqueueSong}>
-                    <DirectoryName name='Currently Playing' />
+                    <h3 class='directory-name'>
+                        Currently Playing
+                    </h3>
                 </CloseableTab>
             {/if}
         </ul>
@@ -74,6 +80,13 @@
         align-items: baseline;
 
         width: 100%;
+    }
+
+    .directory-name {
+        font-size: 1.1rem;
+        text-align: center;
+
+        margin: 0;
     }
 
     .component {
