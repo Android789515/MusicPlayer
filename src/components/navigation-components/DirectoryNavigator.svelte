@@ -1,7 +1,7 @@
 <script lang='ts'>
     import { Route, Router } from 'svelte-navigator'
 
-    import { queuedSong, library, openedPlaylists } from '../../stores/library'
+    import { queuedSong, playlists, library } from '../../stores/library'
     import { Routes } from '../../types/routes'
 
     import Library from '../../pages/Library.svelte'
@@ -19,16 +19,17 @@
         <ul class='links unstyled-ul' aria-label='Navigation Links'>
             <Tab name='Library' />
 
-            {#each $openedPlaylists as {name, id} (id)}
+            <!-- Each closeable tab uses a hidden class instead of conditional -->
+            <!-- rendering to prevent bugs when song unqueues -->
+            {#each $playlists as {id ,name, isOpen} (id)}
                 <CloseableTab
+                    hidden={!isOpen}
                     path={`/${name}`}
                     name={name}
                     on:closeTab={() => library.closePlaylist(id)}
                 />
             {/each}
 
-            <!-- Uses a hidden class instead of conditional rendering -->
-            <!-- To prevent bugs when song unqueues -->
             <CloseableTab
                 hidden={!isSongQueued}
                 path='/currentlyPlaying'

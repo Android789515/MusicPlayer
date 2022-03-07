@@ -2,13 +2,13 @@
     import { afterUpdate } from 'svelte'
     import { useNavigate } from 'svelte-navigator'
 
-    import { openedPlaylists } from '../stores/library'
+    import { playlists } from '../stores/library'
     import { Routes } from '../types/routes'
 
     const navigate = useNavigate()
 
     const redirectIfNoPlaylistOpen = () => {
-        const noPlaylistsOpen = $openedPlaylists.length < 1
+        const noPlaylistsOpen = $playlists.every(playlist => !playlist.isOpen)
 
         if (noPlaylistsOpen) {
             navigate(Routes.library)
