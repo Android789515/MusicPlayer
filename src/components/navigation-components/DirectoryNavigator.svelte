@@ -35,7 +35,7 @@
             <!-- To prevent bugs when song unqueues -->
             <CloseableTab
                 hidden={!isSongQueued}
-                path='currentlyPlaying'
+                path='/currentlyPlaying'
                 name='Currently Playing'
                 on:closeTab={unqueueSong}
             />

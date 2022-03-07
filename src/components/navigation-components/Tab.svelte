@@ -4,14 +4,14 @@
 
     import DirectoryName from './DirectoryName.svelte'
 
-    export let path = ''
+    export let path = '/'
     export let name
     export let hidden = false
 
     const location = useLocation()
     $: currentPath = $location.pathname
 
-    $: isCurrentDirectory = currentPath === `/${path}`
+    $: isCurrentDirectory = currentPath === path
 
     let navLink
     const focusPage = () => {
