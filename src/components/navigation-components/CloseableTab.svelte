@@ -3,7 +3,6 @@
     import { Link } from 'svelte-navigator'
 
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
-    import { replaceSpacesForPath } from '../../utils/stringUtils'
 
     import Tab from './Tab.svelte'
     import DirectoryName from './DirectoryName.svelte'
@@ -23,7 +22,7 @@
 
 <Tab {hidden} {path} {name}>
     <div class='layout'>
-        <Link to={`/${replaceSpacesForPath(path)}`} class='link nav-link'>
+        <Link to={`/${path}`} class='link nav-link'>
             <DirectoryName {name} />
         </Link>
 

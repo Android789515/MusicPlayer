@@ -14,9 +14,10 @@
     const handleKeydown = ({ key }: { key: KeyPressed }) => {
         const isEnterKey = key === Keys.enter
         const isNameTaken = checkNameAvailability(playlistName)
+        const isNameValid = validateName(playlistName)
 
         if (isEnterKey) {
-            if (!isNameTaken) {
+            if (!isNameTaken && isNameValid) {
                 library.createPlaylist(playlistName)
             } else {
                 shakeInputBox()
@@ -36,6 +37,12 @@
     type PlaylistName = string
     const checkNameAvailability = (name: PlaylistName) => {
         return $playlists.some(playlist => playlist.name === name)
+    }
+
+    const validateName = (name: PlaylistName) => {
+        const invalidCharacters = ['\\', '/']
+
+        return invalidCharacters.every(character => !name.includes(character))
     }
 </script>
 

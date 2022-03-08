@@ -1,4 +1,5 @@
 export enum Routes {
     library = '/',
-    currentlyPlaying = '/currentlyPlaying'
+    currentlyPlaying = '/currentlyPlaying',
+    openedPlaylist = ':playlistID'
 }
