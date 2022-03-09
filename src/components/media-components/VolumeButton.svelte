@@ -1,11 +1,11 @@
 <script lang='ts'>
+    import { mediaControls } from '../../stores/mediaControls'
     import { useEnterKeyAsClick } from '../../utils/useEnterKeyAsClick'
 
-    export let volume
-    export let muted
+    $: volume = mediaControls.getVolume()
+    $: muted = volume === 0
 
-    export let isVolumeBarShown
-    const showVolumeBar = () => isVolumeBarShown = true
+    const showVolumeBar = () => mediaControls.showVolumeBar()
     const handleKeydown = useEnterKeyAsClick(showVolumeBar)
 
     const mutedIcon = 'assets/icons/volume-buttons/muted.svg'

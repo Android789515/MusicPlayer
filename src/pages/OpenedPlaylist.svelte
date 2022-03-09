@@ -35,11 +35,12 @@
 </script>
 
 <section class='opened-playlist' aria-label='Opened Playlist'>
-    <header>
-        {#if thisPlaylist}
-            <h1 class='playlist-name'>{thisPlaylist.name}</h1>
-        {/if}
-    </header>
+    {#if thisPlaylist}
+        <h1 class='playlist-name'>{thisPlaylist.name}</h1>
+
+        <ul class='songs-in-playlist unstyled-ul'>
+        </ul>
+    {/if}
 </section>
 
 <style>
@@ -48,10 +49,13 @@
         flex-direction: column;
         justify-content: center;
 
-        padding: 4em;
+        padding: 2.5em 1em 0 1em;
     }
 
     .playlist-name {
         font-size: 2rem;
+        text-align: center;
+
+        border: solid;
     }
 </style>

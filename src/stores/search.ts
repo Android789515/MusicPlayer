@@ -4,7 +4,7 @@ import { library } from './library'
 import type { Playlist, Song } from '../types/libraryTypes'
 import { SearchableKeys } from '../types/libraryTypes'
 
-const search = (query: string) => derived(library, ({ songs, playlists }) => {
+const searchLibrary = (query: string) => derived(library, ({ songs, playlists }) => {
     if (!query) return []
 
     const searchResults = [
@@ -63,4 +63,4 @@ const queryMatch = (item: PossibleValues, query: string) => {
     }
 }
 
-export { search }
+export { searchLibrary }

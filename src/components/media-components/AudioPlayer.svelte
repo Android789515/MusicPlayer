@@ -1,18 +1,16 @@
 <script lang='ts'>
+    import { mediaControls } from '../../stores/mediaControls'
     import { library, songs } from '../../stores/library'
     import { toInteger } from '../../utils/math'
 
     import QueuedSong from '../wrappers/QueuedSong.svelte'
 
-    export let paused
-    export let time
-
-    export let volume
-    export let muted
-
-    export let shuffle
-
     export let src
+
+    $: paused = mediaControls.isPaused()
+    $: time = mediaControls.getCurrentTime()
+    $: volume = mediaControls.getVolume()
+    $: muted = volume === 0
 
     const playRandomSong = () => {
         const songIDs = $songs.map(song => song.id)
@@ -26,6 +24,7 @@
     }
 
     const handleAudioEnd = () => {
+        const shuffle = mediaControls.isShuffleToggled()
         if (shuffle) {
             playRandomSong()
         }
@@ -36,11 +35,11 @@
     {src}
     autoplay
 
-    bind:paused
-    bind:currentTime={time}
+    {paused}
+    currentTime={time}
 
-    bind:volume
-    bind:muted
+    {volume}
+    {muted}
     on:ended={handleAudioEnd}
 ></audio>
 

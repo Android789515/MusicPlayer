@@ -1,14 +1,14 @@
 <script lang='ts'>
+    import { mediaControls } from '../../stores/mediaControls'
     import useDraggableBar from '../../utils/useDraggableBar'
     import capDecimal from '../../utils/capDecimal'
     import type { clickOrTouch } from '../../types/barInteraction'
 
     import DragEventRemover from '../generic-components/DragEventRemover.svelte'
 
-    export let time
     export let duration
 
-    const setSongTime = (timeToSet: number) => time = timeToSet
+    $: time = mediaControls.getCurrentTime()
 
     let songBar
 
@@ -29,7 +29,7 @@
         const percentageOfSong = capDecimal(positionInteracted / songBarWidth)
         const timeToSet = percentageOfSong * duration
 
-        setSongTime(timeToSet)
+        mediaControls.setSongTime(timeToSet)
     }
 
     const { draggingOff, handleClick, handleMove } = useDraggableBar(adjustSongBar)

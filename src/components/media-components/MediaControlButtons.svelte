@@ -1,25 +1,23 @@
 <script>
+    import { mediaControls } from '../../stores/mediaControls'
+
     import MediaControlButton from './MediaControlButton.svelte'
     import VolumeButton from './VolumeButton.svelte'
     import VolumeBar from './VolumeBar.svelte'
 
-    export let paused
-    export let time
+    $: paused = mediaControls.isPaused()
+    const pause = () => {
+        console.log(paused)
+        mediaControls.pause()
+        console.log(paused)
+    }
+    const play = () => mediaControls.play()
 
-    export let volume
-    export let muted
+    const rewind = () => mediaControls.rewind()
+    const fastForward = () => mediaControls.fastForward()
 
-    export let shuffle
-
-    export let isVolumeBarShown
-
-    const pause = () => paused = true
-    const play = () => paused = false
-
-    const rewind = () => time -= 5
-    const fastForward = () => time += 5
-
-    const toggleShuffle = () => shuffle = !shuffle
+    $: shuffle = mediaControls.isShuffleToggled()
+    const toggleShuffle = () => mediaControls.toggleShuffle()
 </script>
 
 <div class='media-control-buttons' aria-label='Media control buttons'>
@@ -41,13 +39,9 @@
 
     <MediaControlButton buttonName='fast-forward' buttonAction={fastForward} />
 
-    <VolumeButton
-        bind:isVolumeBarShown
-        bind:volume
-        bind:muted
-    />
+    <VolumeButton />
 
-    <VolumeBar bind:isVolumeBarShown bind:volume />
+    <VolumeBar />
 </div>
 
 <style>

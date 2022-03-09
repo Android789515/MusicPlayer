@@ -1,11 +1,11 @@
 <script lang='ts'>
-    import { search } from '../../stores/search'
+    import { searchLibrary } from '../../stores/search'
 
     import SearchBar from './SearchBar.svelte'
     import SearchResults from './SearchResults.svelte'
 
     let query = ''
-    $: searchResults = search(query)
+    $: searchResults = searchLibrary(query)
 </script>
 
 <div class='explorer'>

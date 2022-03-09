@@ -5,18 +5,8 @@
     import MediaControlButtons from './MediaControlButtons.svelte'
     import SongBar from './SongBar.svelte'
 
-    let paused = true
-    let time = 0
-
-    let volume = .5
-    $: muted = volume === 0
-
-    let shuffle = false
-
     $: ({ src, duration } = $queuedSong)
     $: isSongQueued = src !== undefined
-
-    let isVolumeBarShown = false
 </script>
 
 <div
@@ -24,29 +14,11 @@
     class='media-controls'
     class:show={isSongQueued}
 >
-    <AudioPlayer
-        src={isSongQueued && src}
-        {shuffle}
-        bind:paused
-        bind:time
+    <AudioPlayer src={isSongQueued && src} />
 
-        bind:volume
-        bind:muted
-    />
+    <MediaControlButtons />
 
-    <MediaControlButtons
-        bind:paused
-        bind:time
-
-        bind:volume
-        bind:muted
-
-        bind:shuffle
-
-        bind:isVolumeBarShown
-    />
-
-    <SongBar {duration} bind:time />
+    <SongBar {duration} />
 </div>
 
 <style>

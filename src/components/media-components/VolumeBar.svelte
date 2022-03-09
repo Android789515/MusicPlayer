@@ -1,22 +1,17 @@
 <script lang='ts'>
+    import { mediaControls } from '../../stores/mediaControls'
     import useDraggableBar from '../../utils/useDraggableBar'
     import capDecimal from '../../utils/capDecimal'
     import type { clickOrTouch } from '../../types/barInteraction'
+    import { VolumeBarStates } from '../../types/mediaControlTypes'
 
     import DragEventRemover from '../generic-components/DragEventRemover.svelte'
 
-    export let volume
-    export let isVolumeBarShown
-    const hideVolumeBar = () => isVolumeBarShown = false
-
+    $: volume = mediaControls.getVolume()
     $: volumePercent = volume * 100
 
-    const setVolume = (newVolume: number) => {
-        volume = newVolume
-    }
-
-    const raiseVolume = (amount: number) => volume = capDecimal(volume + amount)
-    const lowerVolume = (amount: number) => volume = capDecimal(volume - amount)
+    $: isVolumeBarShown = mediaControls.getVolumeBarState() === VolumeBarStates.shown
+    const hideVolumeBar = () => mediaControls.hideVolumeBar()
 
     let volumeBar
 
@@ -41,9 +36,9 @@
         // Mouse dragging is inaccurate so rounding must happen
         if (event instanceof MouseEvent) {
             const roundedValue = Math.round(volumeToSet * 10) / 10
-            setVolume(roundedValue)
+            mediaControls.setVolume(roundedValue)
         } else {
-            setVolume(volumeToSet)
+            mediaControls.setVolume(volumeToSet)
         }
     }
 
@@ -68,10 +63,10 @@
         const wasDownArrowPressed = key === Keys.downArrow
 
         if (wasUpArrowPressed) {
-            raiseVolume(.1)
+            mediaControls.raiseVolume(.1)
         } else if (wasDownArrowPressed) {
             console.log(volume)
-            lowerVolume(.1)
+            mediaControls.lowerVolume(.1)
         }
     }
 </script>
